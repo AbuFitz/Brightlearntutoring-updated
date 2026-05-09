@@ -38,7 +38,7 @@ export const Pricing = () => {
             Honest pricing. <span className="font-display italic font-normal text-accent">Real value.</span>
           </h2>
           <p className="text-ink-soft mt-5 text-lg leading-relaxed">
-            No subscriptions, no contracts — just expert UK tutoring at a fair, transparent price.
+            No subscriptions, no contracts - just expert UK tutoring at a fair, transparent price.
           </p>
         </div>
 
