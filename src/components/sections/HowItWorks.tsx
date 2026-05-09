@@ -9,7 +9,7 @@ const steps = [
     n: "01",
     icon: PhoneCall,
     title: "Get in touch",
-    desc: "Tell us about your child — their year group, their goals, and where they'd like to improve. No pressure.",
+    desc: "Tell us about your child - their year group, their goals, and where they'd like to improve. No pressure.",
     image: stepCall,
     surface: "bg-surface-cream",
   },
@@ -42,7 +42,7 @@ export const HowItWorks = () => {
             From first call to first A*, in three <span className="font-display italic font-normal text-accent">calm steps.</span>
           </h2>
           <p className="text-ink-soft mt-5 leading-relaxed text-[17px]">
-            Our process is designed to feel structured and supportive — for both you and your child. No surprises, just steady progress.
+            Our process is designed to feel structured and supportive - for both you and your child. No surprises, just steady progress.
           </p>
         </div>
 
