@@ -36,7 +36,7 @@ export const FinalCTA = () => {
               Give your child the maths confidence they <span className="font-display italic font-normal text-accent">deserve.</span>
             </h2>
             <p className="text-background/75 mt-6 text-lg max-w-xl mx-auto leading-relaxed">
-              Ready to build real confidence in maths? Get in touch today — no card details required.
+              Ready to build real confidence in maths? Get in touch today - no card details required.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
