@@ -79,14 +79,14 @@ export const Hero = () => {
             </div>
           </div>
 
-          {/* RIGHT — single, calm editorial composition */}
+          {/* RIGHT - single, calm editorial composition */}
           <div className="lg:col-span-6 animate-fade-up" style={{ animationDelay: "0.15s" }}>
             <div className="relative">
               {/* Main image card */}
               <div className="relative rounded-[2rem] overflow-hidden bg-surface-cream border border-border-soft shadow-card aspect-[5/6] max-w-[520px] mx-auto">
                 <img
                   src={tutorFemale}
-                  alt="BrightLearn online maths tutor — personalised 1-to-1 lessons for KS2, KS3 and GCSE students"
+                  alt="BrightLearn online maths tutor - personalised 1-to-1 lessons for KS2, KS3 and GCSE students"
                   width={1280}
                   height={1280}
                   className="absolute inset-0 w-full h-full object-cover"
@@ -102,7 +102,7 @@ export const Hero = () => {
                 </div>
               </div>
 
-              {/* Bottom-left tutor card — overlaps */}
+              {/* Bottom-left tutor card - overlaps */}
               <div className="absolute -bottom-6 -left-2 sm:left-4 bg-background rounded-2xl shadow-soft border border-border-soft p-4 w-[260px] hidden sm:block">
                 <div className="flex items-center gap-3">
                   <div className="relative">
@@ -124,7 +124,7 @@ export const Hero = () => {
                 </div>
               </div>
 
-              {/* Top-right stat card — overlaps */}
+              {/* Top-right stat card - overlaps */}
               <div className="absolute -top-4 -right-2 sm:right-0 bg-background rounded-2xl shadow-soft border border-border-soft px-4 py-3 hidden sm:block">
                 <div className="text-[10px] uppercase tracking-widest text-ink-soft font-semibold">Students helped</div>
                 <div className="mt-1 flex items-baseline gap-1.5">
