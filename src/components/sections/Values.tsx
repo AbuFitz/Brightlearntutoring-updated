@@ -3,7 +3,7 @@ import { useReveal } from "@/hooks/useReveal";
 const pillars = [
   {
     word: "Clarity",
-    desc: "We break complex ideas into clear, logical steps. No jargon — just understanding that lasts.",
+    desc: "We break complex ideas into clear, logical steps. No jargon - just understanding that lasts.",
     num: "01",
   },
   {
