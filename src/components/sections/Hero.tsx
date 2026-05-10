@@ -29,15 +29,15 @@ export const Hero = () => {
 
       <div className="container relative">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          {/* LEFT — copy */}
+          {/* LEFT - copy */}
           <div className="lg:col-span-6 max-w-2xl animate-fade-up">
             {/* Top trust banner pill */}
             <div className="inline-flex items-center gap-2.5 bg-background-soft border border-border-soft rounded-full px-4 py-1.5 mb-6 shadow-soft">
-              <span className="text-sm text-ink-soft font-medium">Cancel any time — no contracts</span>
+              <span className="text-sm text-ink-soft font-medium">Cancel any time - no contracts</span>
             </div>
 
             <h1 className="text-[2.5rem] sm:text-5xl lg:text-[4.25rem] xl:text-[4.75rem] leading-[1.02] tracking-[-0.025em] text-ink font-semibold">
-              Helping students <span className="font-display italic font-normal text-accent">understand</span> maths — not just pass exams.
+              Helping students <span className="font-display italic font-normal text-accent">understand</span> maths - not just pass exams.
             </h1>
 
             <p className="mt-6 text-lg text-ink-soft leading-relaxed max-w-xl">
