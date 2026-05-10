@@ -66,7 +66,7 @@ export const Hero = () => {
                     {[...Array(4)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-ink text-ink" />
                     ))}
-                    <span className="ml-1.5 text-sm font-semibold text-ink">4.35</span>
+                    <span className="ml-1.5 text-sm font-semibold text-ink">4.72</span>
                   </div>
                   <div className="text-xs text-ink-soft mt-0.5">Loved by students & parents</div>
                 </div>
