@@ -63,7 +63,7 @@ export const Hero = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
+                    {[...Array(4)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-ink text-ink" />
                     ))}
                     <span className="ml-1.5 text-sm font-semibold text-ink">5.0</span>
