@@ -82,7 +82,7 @@ export const Services = () => {
             One tutor. One student. One curriculum, <span className="font-display italic font-normal text-accent">tailored.</span>
           </h2>
           <p className="text-ink-soft mt-5 text-lg leading-relaxed">
-            Every programme is shaped around your child — their pace, their gaps, their goals.
+            Every programme is shaped around your child - their pace, their gaps, their goals.
           </p>
         </div>
 
