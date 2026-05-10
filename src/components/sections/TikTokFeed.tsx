@@ -136,7 +136,7 @@ export const TikTokFeed = () => {
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-ink text-background text-sm font-semibold hover:bg-ink-soft transition-colors"
           >
             <TikTokIcon className="w-4 h-4" />
-            Watch on TikTok — @brightlearntutoring
+            Watch on TikTok - @brightlearntutoring
             <ExternalLink className="w-3.5 h-3.5 opacity-60" />
           </a>
         </div>
