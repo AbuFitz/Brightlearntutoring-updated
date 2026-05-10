@@ -63,7 +63,7 @@ export const Hero = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
-                    {[...Array(4.35)].map((_, i) => (
+                    {[...Array(4)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-ink text-ink" />
                     ))}
                     <span className="ml-1.5 text-sm font-semibold text-ink">4.35</span>
@@ -117,8 +117,8 @@ export const Hero = () => {
                 <div className="mt-3 pt-3 border-t border-border-soft flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <Star className="w-3 h-3 fill-ink text-ink" />
-                    <span className="text-xs font-semibold text-ink">4.35</span>
-                    <span className="text-xs text-ink-soft">(412)</span>
+                    <span className="text-xs font-semibold text-ink">4.72</span>
+                    <span className="text-xs text-ink-soft">(78)</span>
                   </div>
                   <span className="text-xs font-semibold text-accent">Available today</span>
                 </div>
