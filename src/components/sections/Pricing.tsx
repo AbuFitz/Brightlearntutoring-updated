@@ -5,21 +5,21 @@ import { useGetStarted, Package } from "@/contexts/GetStartedContext";
 
 const tiers: { name: Package; price: string; desc: string; features: string[]; featured: boolean }[] = [
   {
-    name: "KS2",
+    name: "KS2 - Years 5 & 6",
     price: "40",
     desc: "Fun, structured maths support building strong foundations for SATs.",
     features: ["Weekly 1-to-1 lesson (1 hour)", "4 sessions per month", "Custom learning plan", "Parent report", "End of term assessment"],
     featured: false,
   },
   {
-    name: "KS3",
+    name: "KS3 - Years 7 to 9",
     price: "50",
     desc: "Targeted support covering core topics, building towards GCSE.",
     features: ["Weekly 1-to-1 lesson (1 hour)", "4 sessions per month", "Custom learning plan", "Parent report", "End of term assessment", "End of topic assessment"],
     featured: true,
   },
   {
-    name: "GCSE",
+    name: "GCSE - Years 10 & 11",
     price: "60",
     desc: "Personalised revision strategies designed to improve grades and confidence.",
     features: ["Weekly 1-to-1 lesson (1 hour)", "4 sessions per month", "Custom learning plan", "Parent report", "Past paper sessions", "Mock exam support"],
