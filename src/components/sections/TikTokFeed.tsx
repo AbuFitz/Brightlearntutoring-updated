@@ -22,7 +22,7 @@ type Topic = {
 const desktopTopics: Topic[] = [
   {
     title: "Simultaneous equations made EASY",
-    desc: "Grade 8/9 GCSE maths — save this for revision.",
+    desc: "Grade 8/9 GCSE maths - save this for revision.",
     url: "https://www.tiktok.com/@brightlearntutoring/video/7627986502479318274",
     thumb: thumb1,
     gradient: "",
@@ -36,7 +36,7 @@ const desktopTopics: Topic[] = [
   },
   {
     title: "Decimals to Percentages",
-    desc: "Converting decimals to percentages — quick and simple.",
+    desc: "Converting decimals to percentages - quick and simple.",
     url: "https://www.tiktok.com/@brightlearntutoring/video/7629757799156780310",
     thumb: thumb3,
     gradient: "",
@@ -88,7 +88,7 @@ export const TikTokFeed = () => {
         <div ref={ref} className="reveal text-center max-w-2xl mx-auto mb-10 md:mb-14">
           <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">On TikTok</span>
           <h2 className="mt-3 text-4xl md:text-5xl text-ink font-semibold tracking-tight leading-[1.05]">
-            Maths made clear — <span className="font-display italic font-normal text-accent">on your feed.</span>
+            Maths made clear - <span className="font-display italic font-normal text-accent">on your feed.</span>
           </h2>
           <p className="text-ink-soft mt-5 text-lg leading-relaxed">
             Free bite-sized maths lessons on TikTok, loved by students and parents across the UK.
