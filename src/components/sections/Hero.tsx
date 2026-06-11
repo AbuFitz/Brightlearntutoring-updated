@@ -99,7 +99,9 @@ export const Hero = () => {
                     <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round[...]
                     </svg>
                   </span>
-                  <span className="text-xs font-semibold text-ink">Group of 5 maths session</span>
+                  <span className="text-xs font-semibold text-ink">
+                      Group of 5 maths session
+                    </span>
                 </div>
               </div>
 
