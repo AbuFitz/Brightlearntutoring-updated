@@ -891,15 +891,15 @@ export const GetStartedModal = () => {
                   Thanks{firstName ? `, ${firstName}` : ""}!
                 </h2>
                 <p className="text-ink-soft leading-relaxed max-w-sm text-sm mt-2">
-                  Your enquiry has been received. We'll be in touch within 1 working day to discuss your tutoring options.
+                  Your enquiry has been received. We'll be in touch within 24 hours to discuss your enquiry further.
                 </p>
               </div>
               <div className="w-full rounded-2xl border border-border-soft bg-background-soft/70 px-5 py-4 text-left space-y-3">
                 <p className="text-[10px] font-black uppercase tracking-[0.14em] text-ink-soft">What happens next</p>
                 {[
-                  "We'll review your enquiry and confirm availability.",
-                  "You'll receive a welcome message with next steps.",
-                  "Your first lesson can usually begin within a week.",
+                  "We'll review your enquiry and place your child into the most suitable group based on their year group and current level.",
+                  "You'll receive a confirmation email with your allocated session time and group details.",
+                  "Your child can usually begin their first lesson within the next available weekly slot.",
                 ].map((step, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <span className="mt-0.5 w-5 h-5 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 text-[10px] font-bold text-accent">{i + 1}</span>
