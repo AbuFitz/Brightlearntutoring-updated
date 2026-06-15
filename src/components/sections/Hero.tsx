@@ -103,10 +103,11 @@ export const Hero = () => {
                         strokeWidth="2" 
                         strokeLinecap="round" 
                         strokeLinejoin="round"
+                        />
                     </svg>
                   </span>
                   <span className="text-xs font-semibold text-ink">
-                      Group of 5 maths session
+                      Group of 5 & 1-to-1 maths sessions
                     </span>
                 </div>
               </div>
