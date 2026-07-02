@@ -36,7 +36,7 @@ const tiers: {
     desc: "Core topic mastery building a clear path towards GCSE.",
     features: [
       "Group of 5 lesson (1.5 hours)",
-      "4 sessions per month",
+      "2 sessions per week",
       "Custom learning plan",
       "Parent report",
       "End of term assessment",
@@ -49,7 +49,7 @@ const tiers: {
     desc: "Targeted revision and exam technique to boost grades.",
     features: [
       "Group of 5 lesson (1.5 hours)",
-      "4 sessions per month",
+      "2 sessions per week",
       "Custom learning plan",
       "Parent report",
       "Past paper sessions",
