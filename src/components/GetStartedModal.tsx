@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 // ── Types ─────────────────────────────────────────────────────────────────
 
 type UserType = "parent" | "student";
-type StepId
+type StepId =
   | "userType"
   | "parentDetails"
   | "studentDetails"
