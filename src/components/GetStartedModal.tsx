@@ -4,7 +4,7 @@ import { useGetStarted, Package } from "@/contexts/GetStartedContext";
 import {
   ArrowLeft,
   ArrowRight,
-  CalendarClock,
+  Clock,
   CheckCircle2,
   ClipboardCheck,
   GraduationCap,
@@ -18,12 +18,12 @@ import { cn } from "@/lib/utils";
 // ── Types ─────────────────────────────────────────────────────────────────
 
 type UserType = "parent" | "student";
-type StepId =
+type StepId
   | "userType"
   | "parentDetails"
   | "studentDetails"
   | "learning"
-  | "availability"
+  | "timings"
   | "review";
 
 const PARENT_FLOW: StepId[] = [
@@ -31,7 +31,7 @@ const PARENT_FLOW: StepId[] = [
   "parentDetails",
   "studentDetails",
   "learning",
-  "availability",
+  "timings",
   "review",
 ];
 const STUDENT_FLOW: StepId[] = [
@@ -39,34 +39,34 @@ const STUDENT_FLOW: StepId[] = [
   "studentDetails",
   "parentDetails",
   "learning",
-  "availability",
+  "timings",
   "review",
 ];
 
-const DAYS = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
-const DAYS_SHORT: Record<string, string> = {
-  Monday: "Mon", Tuesday: "Tue", Wednesday: "Wed",
-  Thursday: "Thu", Friday: "Fri", Saturday: "Sat", Sunday: "Sun",
-};
-const TIMES = [
-  "Morning (8am–12pm)",
-  "Afternoon (12pm–4pm)",
-  "Evening (4pm–8pm)",
-];
 const CONTACT_METHODS = ["Email", "Phone call", "WhatsApp"];
 const YEAR_GROUPS: Record<string, string[]> = {
   "": [],
   KS2: ["Year 3", "Year 4", "Year 5", "Year 6"],
   KS3: ["Year 7", "Year 8", "Year 9"],
   GCSE: ["Year 10", "Year 11"],
+};
+
+const TIMINGS_DATA = {
+  KS2: [
+    { day: "SAT", time: "10am - 11am" },
+  ],
+  KS3: [
+    { day: "SAT", time: "11:30am - 1pm" },
+    { day: "MON", time: "7pm - 8:30pm" },
+  ],
+  "GCSE-H": [
+    { day: "TUES", time: "7pm - 8:30pm" },
+    { day: "SAT", time: "5pm - 6:30pm" },
+  ],
+  "GCSE-F": [
+    { day: "THURS", time: "7pm - 8:30pm" },
+    { day: "SAT", time: "3pm - 4:30pm" },
+  ],
 };
 
 interface FormData {
@@ -84,9 +84,6 @@ interface FormData {
   currentGrade: string;
   targetGrade: string;
   notes: string;
-  days: string[];
-  times: string[];
-  availNotes: string;
 }
 
 const blank = (): FormData => ({
@@ -104,12 +101,9 @@ const blank = (): FormData => ({
   currentGrade: "",
   targetGrade: "",
   notes: "",
-  days: [],
-  times: [],
-  availNotes: "",
 });
 
-// ── Validation ────────────────────────────────────────────────────────────
+// ── Validation ─────────────────────────────────────────────────────────────
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -137,15 +131,11 @@ const validateStep = (step: StepId, form: FormData): string[] => {
     case "learning":
       if (!form.helpNeeded.trim()) e.push("helpNeeded");
       break;
-    case "availability":
-      if (!form.days.length) e.push("days");
-      if (!form.times.length) e.push("times");
-      break;
   }
   return e;
 };
 
-// ── Payload builder ───────────────────────────────────────────────────────
+// ── Payload builder ────────────────────────────────────────────────────────
 
 const buildPayload = (form: FormData) => ({
   "Enquiry type": form.userType === "parent" ? "Parent / Guardian" : "Student",
@@ -163,12 +153,9 @@ const buildPayload = (form: FormData) => ({
   ...(form.currentGrade ? { "Current grade": form.currentGrade } : {}),
   ...(form.targetGrade ? { "Target grade": form.targetGrade } : {}),
   ...(form.notes ? { "Additional notes": form.notes } : {}),
-  "Preferred days": form.days.join(", ") || "—",
-  "Preferred times": form.times.join(", ") || "—",
-  ...(form.availNotes ? { "Availability notes": form.availNotes } : {}),
 });
 
-// ── Shared UI components ──────────────────────────────────────────────────
+// ── Shared UI components ───────────────────────────────────────────────────
 
 const Field = ({
   label,
@@ -228,7 +215,7 @@ const Pill = ({
   </button>
 );
 
-// ── Main component ────────────────────────────────────────────────────────
+// ── Main component ─────────────────────────────────────────────────────────
 
 export const GetStartedModal = () => {
   const { open, preselectedPackage, closeModal } = useGetStarted();
@@ -316,26 +303,11 @@ export const GetStartedModal = () => {
       setErrors((e) => e.filter((x) => x !== field));
     };
 
-  const toggleArr =
-    (field: "days" | "times") =>
-    (val: string) => {
-      setForm((p) => {
-        const arr = p[field] as string[];
-        return {
-          ...p,
-          [field]: arr.includes(val)
-            ? arr.filter((x) => x !== val)
-            : [...arr, val],
-        };
-      });
-      setErrors((e) => e.filter((x) => x !== field));
-    };
-
   const hasErr = (f: string) => errors.includes(f);
   const progressPct = ((stepIndex + 1) / totalSteps) * 100;
   const isLastStep = stepIndex === totalSteps - 1;
 
-  // ── Step titles ─────────────────────────────────────────────────────────
+  // ── Step titles ────────────────────────────────────────────────────────────
   const stepTitles: Record<StepId, string> = {
     userType: "Who is this enquiry for?",
     parentDetails:
@@ -345,7 +317,7 @@ export const GetStartedModal = () => {
     studentDetails:
       form.userType === "student" ? "Your details" : "Student details",
     learning: "Learning needs",
-    availability: "Availability",
+    timings: "Timings per year group",
     review: "Review & submit",
   };
 
@@ -360,7 +332,7 @@ export const GetStartedModal = () => {
         ? "Tell us about yourself."
         : "Tell us about the student we'll be working with.",
     learning: "Help us understand what support is needed.",
-    availability: "When works best for lessons?",
+    timings: "Here are our available session times per year group.",
     review: "Check everything looks right before sending.",
   };
 
@@ -369,15 +341,15 @@ export const GetStartedModal = () => {
     parentDetails: { icon: UserRound, chip: "Contact details" },
     studentDetails: { icon: GraduationCap, chip: "Student profile" },
     learning: { icon: Sparkles, chip: "Learning goals" },
-    availability: { icon: CalendarClock, chip: "Schedule" },
+    timings: { icon: Clock, chip: "Session timings" },
     review: { icon: ClipboardCheck, chip: "Final check" },
   };
   const StepIcon = stepVisuals[currentStep].icon;
 
-  // ── Step content ─────────────────────────────────────────────────────────
+  // ── Step content ───────────────────────────────────────────────────────────
   const renderStep = () => {
     switch (currentStep) {
-      // ─ Step 1: User type ───────────────────────────────────────────────
+      // ─ Step 1: User type ──────────────────────────────────────────────────
       case "userType":
         return (
           <div className="space-y-3">
@@ -437,7 +409,7 @@ export const GetStartedModal = () => {
           </div>
         );
 
-      // ─ Step: Parent details ─────────────────────────────────────────────
+      // ─ Step: Parent details ────────────────────────────────────────────────
       case "parentDetails":
         return (
           <div className="space-y-5">
@@ -513,7 +485,7 @@ export const GetStartedModal = () => {
           </div>
         );
 
-      // ─ Step: Student details ────────────────────────────────────────────
+      // ─ Step: Student details ───────────────────────────────────────────────
       case "studentDetails": {
         const isStudent = form.userType === "student";
         const years = YEAR_GROUPS[form.studentLevel] ?? [];
@@ -617,7 +589,7 @@ export const GetStartedModal = () => {
         );
       }
 
-      // ─ Step: Learning needs ─────────────────────────────────────────────
+      // ─ Step: Learning needs ────────────────────────────────────────────────
       case "learning":
         return (
           <div className="space-y-5">
@@ -667,63 +639,61 @@ export const GetStartedModal = () => {
           </div>
         );
 
-      // ─ Step: Availability ───────────────────────────────────────────────
-      case "availability":
+      // ─ Step: Timings ──────────────────────────────────────────────────────
+      case "timings": {
+        const getTimingsForLevel = (level: string) => {
+          if (level === "GCSE") {
+            return {
+              "GCSE - Higher": TIMINGS_DATA["GCSE-H"],
+              "GCSE - Foundation": TIMINGS_DATA["GCSE-F"],
+            };
+          }
+          return { [level]: TIMINGS_DATA[level as keyof typeof TIMINGS_DATA] || [] };
+        };
+
+        const timingsToShow = getTimingsForLevel(form.studentLevel);
+
         return (
           <div className="space-y-5">
-            <Field
-              label="Preferred days"
-              required
-              error={hasErr("days")}
-              errorMsg="Please select at least one day"
-            >
-              <div className="flex flex-wrap gap-2 pt-1 p-3 rounded-2xl bg-background-soft border border-border-soft">
-                {DAYS.map((d) => (
-                  <Pill
-                    key={d}
-                    active={form.days.includes(d)}
-                    onClick={() => toggleArr("days")(d)}
-                  >
-                    {DAYS_SHORT[d]}
-                  </Pill>
-                ))}
+            <div className="rounded-2xl bg-accent/5 border border-accent/20 px-4 py-3">
+              <p className="text-sm text-ink leading-relaxed">
+                Below are our available session times organised by year group. We'll confirm your child's allocated session time once your enquiry is reviewed.
+              </p>
+            </div>
+
+            {Object.entries(timingsToShow).map(([title, sessions]) => (
+              <div key={title} className="space-y-3">
+                <h3 className="text-[11px] font-black uppercase tracking-[0.14em] text-ink-soft">
+                  {title}
+                </h3>
+                <div className="space-y-2">
+                  {sessions && sessions.length > 0 ? (
+                    sessions.map((session, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2 p-3 rounded-xl border border-border-soft bg-background-soft"
+                      >
+                        <div className="w-2 h-2 rounded-full bg-accent" />
+                        <span className="text-sm font-medium text-ink">
+                          {session.day}: {session.time}
+                        </span>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-xs text-ink-soft">No sessions available</p>
+                  )}
+                </div>
               </div>
-            </Field>
-            <Field
-              label="Preferred times"
-              required
-              error={hasErr("times")}
-              errorMsg="Please select at least one time slot"
-            >
-              <div className="flex flex-wrap gap-2 pt-1 p-3 rounded-2xl bg-background-soft border border-border-soft">
-                {TIMES.map((t) => (
-                  <Pill
-                    key={t}
-                    active={form.times.includes(t)}
-                    onClick={() => toggleArr("times")(t)}
-                  >
-                    {t}
-                  </Pill>
-                ))}
-              </div>
-            </Field>
-            <Field label="Any availability notes">
-              <input
-                className={inp()}
-                placeholder="e.g. Not available during school holidays"
-                value={form.availNotes}
-                onChange={(e) => set("availNotes")(e.target.value)}
-              />
-            </Field>
+            ))}
           </div>
         );
+      }
 
-      // ─ Step: Review ─────────────────────────────────────────────────────
+      // ─ Step: Review ────────────────────────────────────────────────────────
       case "review": {
         const pIdx = flow.indexOf("parentDetails");
         const sIdx = flow.indexOf("studentDetails");
         const lIdx = flow.indexOf("learning");
-        const aIdx = flow.indexOf("availability");
 
         type ReviewSection = {
           title: string;
@@ -781,30 +751,19 @@ export const GetStartedModal = () => {
             rows: [
               ["Help needed", form.helpNeeded],
               ...(form.currentGrade
-                ? ([["Current grade", form.currentGrade]] as [
+                ? (([["Current grade", form.currentGrade]] as [
                     string,
                     string,
-                  ][])
+                  ][]))
                 : []),
               ...(form.targetGrade
-                ? ([["Target grade", form.targetGrade]] as [
+                ? (([["Target grade", form.targetGrade]] as [
                     string,
                     string,
-                  ][])
+                  ][]))
                 : []),
               ...(form.notes
-                ? ([["Notes", form.notes]] as [string, string][])
-                : []),
-            ],
-          },
-          {
-            title: "Availability",
-            stepIdx: aIdx,
-            rows: [
-              ["Days", form.days.join(", ")],
-              ["Times", form.times.join(", ")],
-              ...(form.availNotes
-                ? ([["Notes", form.availNotes]] as [string, string][])
+                ? (([["Notes", form.notes]] as [string, string][]))
                 : []),
             ],
           },
@@ -853,7 +812,7 @@ export const GetStartedModal = () => {
     }
   };
 
-  // ── Success screen ────────────────────────────────────────────────────────
+  // ── Success screen ─────────────────────────────────────────────────────────
   if (submitted) {
     const firstName = (
       form.userType === "parent" ? form.parentName : form.studentName
@@ -863,7 +822,7 @@ export const GetStartedModal = () => {
     return (
       <DialogPrimitive.Root open={open} onOpenChange={(v) => !v && handleClose()}>
         <DialogPrimitive.Portal>
-          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200" />
           <DialogPrimitive.Content
             className={cn(
               "fixed bottom-0 left-0 right-0 z-50",
@@ -891,7 +850,7 @@ export const GetStartedModal = () => {
                   Thanks{firstName ? `, ${firstName}` : ""}!
                 </h2>
                 <p className="text-ink-soft leading-relaxed max-w-sm text-sm mt-2">
-                  Your enquiry has been received. We'll be in touch within 24 hours to discuss your enquiry further.
+                  Your enquiry has been received. We'll respond within 24 hours to discuss your enquiry further.
                 </p>
               </div>
               <div className="w-full rounded-2xl border border-border-soft bg-background-soft/70 px-5 py-4 text-left space-y-3">
@@ -921,11 +880,11 @@ export const GetStartedModal = () => {
     );
   }
 
-  // ── Main form ─────────────────────────────────────────────────────────────
+  // ── Main form ──────────────────────────────────────────────────────────────
   return (
     <DialogPrimitive.Root open={open} onOpenChange={(v) => !v && handleClose()}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200" />
         <DialogPrimitive.Content
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 flex flex-col",
@@ -1006,7 +965,7 @@ export const GetStartedModal = () => {
               <button
                 type="button"
                 onClick={handleBack}
-                className="flex items-center gap-1.5 h-11 px-5 rounded-full border border-border-soft text-sm font-medium text-ink-soft hover:text-ink hover:border-ink/30 hover:bg-background-soft transition-all"
+                className="flex items-center gap-1.5 h-11 px-5 rounded-full border border-border-soft text-sm font-medium text-ink-soft hover:text-ink hover:border-ink/30 hover:bg-background-soft transition-all active:scale-[0.98]"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back
