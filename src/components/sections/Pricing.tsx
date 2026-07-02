@@ -13,16 +13,16 @@ const tiers: { name: Package; price: string; desc: string; features: string[]; f
   },
   {
     name: "KS3",
-    price: "50",
+    price: "90",
     desc: "Targeted support covering core topics, building towards GCSE.",
-    features: ["Group of 5 lesson (1.5 hours)", "4 sessions per month", "Custom learning plan", "Parent report", "End of term assessment", "End of topic assessment"],
+    features: ["Group of 5 lesson (1.5 hours)", "8 sessions per month", "Custom learning plan", "Parent report", "End of term assessment", "End of topic assessment"],
     featured: false,
   },
   {
     name: "GCSE",
-    price: "60",
+    price: "100",
     desc: "Personalised revision strategies designed to improve grades and confidence.",
-    features: ["Group of 5 lesson (1.5 hours)", "4 sessions per month", "Custom learning plan", "Parent report", "Past paper sessions", "Mock exam support"],
+    features: ["Group of 5 lesson (1.5 hours)", "8 sessions per month", "Custom learning plan", "Parent report", "Past paper sessions", "Mock exam support"],
     featured: true,
   },
 ];
