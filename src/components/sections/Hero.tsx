@@ -41,7 +41,7 @@ export const Hero = () => {
             </h1>
 
             <p className="mt-6 text-lg text-ink-soft leading-relaxed max-w-xl">
-              Personalised Group of 5 & 1-to-1 tutoring for KS2, KS3 and GCSE students across the UK. Calm, structured lessons that build genuine confidence with numbers.
+              Personalised Group of 5 tutoring for KS2, KS3 and GCSE students across the UK. Calm, structured lessons that build genuine confidence with numbers.
             </p>
 
             <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
@@ -86,7 +86,7 @@ export const Hero = () => {
               <div className="relative rounded-[2rem] overflow-hidden bg-surface-cream border border-border-soft shadow-card aspect-[5/6] max-w-[520px] mx-auto">
                 <img
                   src={tutorFemale}
-                  alt="BrightLearn online maths tutor - personalised group of 5 & 1-to-1 lessons for KS2, KS3 and GCSE students"
+                  alt="BrightLearn online maths tutor - personalised group of 5 lessons for KS2, KS3 and GCSE students"
                   width={1280}
                   height={1280}
                   className="absolute inset-0 w-full h-full object-cover"
@@ -107,7 +107,7 @@ export const Hero = () => {
                     </svg>
                   </span>
                   <span className="text-xs font-semibold text-ink">
-                      Small group & 1-to-1 maths sessions
+                      Small group maths sessions
                     </span>
                 </div>
               </div>
