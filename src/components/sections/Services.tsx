@@ -55,74 +55,99 @@ const services: (Omit<Programme, "name"> & {
     price: "60",
     tagline: "Targeted revision and exam technique to boost grades.",
     description: "Targeted exam preparation across all UK boards. We turn understanding into grades - confidently.",
-    whoFor: "Year 10–11 students preparing for mocks, foundation/higher tier students aiming for grade jumps, and exam-anxious students who need structure and confidence under time pressure.",
-    sessionStructure: "Sessions follow a structured lesson plan based on each student's individual gaps. We track progress topic-by-topic using a personalised learning log, revisiting weak areas and extending strong ones.",
-    topics: ["Algebra foundations", "Geometry & angles", "Ratios & proportion", "Negative numbers", "Graphs & functions", "Statistics"],
+    whoFor: "Year 10–11 students preparing for AQA, Edexcel, or OCR exams who want to hit their target grade - whether that's a Grade 4 pass or pushing for Grade 7–9.",
+    sessionStructure: "Sessions combine topic mastery with real exam practice. We work through past paper questions under timed conditions, dissect mark schemes, and build the exam technique that turns understanding into marks.",
+    topics: ["All GCSE topics", "Past paper practice", "Mark scheme technique", "Grade 7–9 extension", "Mock exam prep", "AQA · Edexcel · OCR"],
     outcomes: [
-      "Strong algebraic thinking that prepares students for the demands of GCSE",
-      "A topic-by-topic learning log so nothing gets left behind",
-      "Clear progress assessments at the end of each term",
-      "Renewed confidence heading into Year 10 - far ahead of their peers",
+      "Clear understanding of the exact style of questions that appear on your exam board",
+      "Exam technique that maximises marks - not just correct answers",
+      "Regular mock sessions to build confidence under exam conditions",
+      "Measurable grade improvements, typically within the first two terms",
     ],
-    surface: "bg-surface-lilac",
+    surface: "bg-accent-soft",
     img: charGcse,
-    anim: "animate-float",
+    anim: "animate-float-slow",
   },
 ];
 
 export const Services = () => {
   const ref = useReveal<HTMLDivElement>();
-  const [active, setActive] = useState<Programme | null>(null);
-
+  const [selected, setSelected] = useState<Programme | null>(null);
   return (
-    <section id="services" className="py-20 lg:py-24 bg-background">
+    <section id="services" className="relative py-14 lg:py-32 bg-background">
       <div className="container">
-        <div ref={ref} className="reveal">
-          <div className="max-w-2xl">
-            <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Programmes</span>
-            <h2 className="mt-3 text-3xl md:text-4xl text-ink font-semibold tracking-tight">
-              Expert support at every stage
-            </h2>
-          </div>
+        <div ref={ref} className="reveal max-w-2xl mb-10 md:mb-14">
+          <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Programmes</span>
+          <h2 className="mt-3 text-4xl md:text-5xl text-ink font-semibold tracking-tight leading-[1.05]">
+            One tutor. One student. One curriculum, <span className="font-display italic font-normal text-accent">tailored.</span>
+          </h2>
+          <p className="text-ink-soft mt-5 text-lg leading-relaxed">
+            Every programme is shaped around your child - their pace, their gaps, their goals.
+          </p>
+        </div>
 
-          <div className="mt-10 grid md:grid-cols-3 gap-4 lg:gap-5">
-            {services.map((s, idx) => (
-              <article
-                key={s.name}
-                className="group relative rounded-3xl border border-border-soft bg-background shadow-card overflow-hidden hover:shadow-soft transition-all duration-300"
-                style={{ animationDelay: `${idx * 80}ms` }}
-              >
-                <div className="p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <span className="inline-flex text-[10px] font-semibold tracking-[0.16em] uppercase px-2.5 py-1 rounded-full bg-accent/10 text-accent">
-                        {s.tag}
-                      </span>
-                      <h3 className="mt-3 text-2xl font-semibold text-ink tracking-tight">{s.name}</h3>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-bold text-ink leading-none">£{s.price}</div>
-                      <div className="text-xs text-ink-soft mt-1">/month</div>
-                    </div>
-                  </div>
-
-                  <p className="mt-3 text-sm text-ink-soft leading-relaxed">{s.tagline}</p>
-
-                  <button
-                    onClick={() => setActive(s)}
-                    className="mt-5 w-full h-11 rounded-full border border-border-soft text-sm font-medium text-ink group-hover:border-ink/30 group-hover:bg-background-soft transition-all inline-flex items-center justify-center gap-1.5"
-                  >
-                    View programme
-                    <ArrowUpRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
+        <div className="grid md:grid-cols-3 gap-5">
+          {services.map((s, i) => (
+            <ServiceCard key={s.name} s={s} delay={i * 80} onExplore={() => setSelected(s)} />
+          ))}
         </div>
       </div>
 
-      <ProgrammeModal programme={active} onClose={() => setActive(null)} />
+      <ProgrammeModal programme={selected} onClose={() => setSelected(null)} />
     </section>
+  );
+};
+
+const ServiceCard = ({ s, delay, onExplore }: { s: typeof services[number]; delay: number; onExplore: () => void }) => {
+  const ref = useReveal<HTMLDivElement>();
+  return (
+    <div ref={ref} className="reveal" style={{ transitionDelay: `${delay}ms` }}>
+      <div
+        className="group cursor-pointer block h-full rounded-3xl bg-background border border-border-soft shadow-card hover:shadow-soft hover:-translate-y-1 transition-all duration-400 overflow-hidden"
+        onClick={onExplore}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => e.key === "Enter" && onExplore()}
+      >
+        {/* Character zone */}
+        <div className={`relative h-44 md:h-56 ${s.surface} overflow-hidden`}>
+          <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(hsl(var(--ink) / 0.18) 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
+          <img
+            src={s.img}
+            alt={`${s.name} illustrated character`}
+            width={896}
+            height={1024}
+            loading="lazy"
+            className={`absolute left-1/2 -translate-x-1/2 bottom-0 h-[110%] w-auto object-contain ${s.anim} group-hover:scale-105 transition-transform duration-500`}
+          />
+          <span className="absolute top-4 left-4 text-[10px] tracking-[0.18em] uppercase text-ink/70 font-semibold bg-background/80 backdrop-blur rounded-full px-2.5 py-1">
+            {s.tag}
+          </span>
+        </div>
+
+        <div className="p-5 md:p-7">
+          <h3 className="text-2xl text-ink font-semibold tracking-tight">{s.name} Maths</h3>
+          <p className="text-ink-soft mt-3 text-[15px] leading-relaxed min-h-[80px]">{s.description}</p>
+
+          <ul className="mt-5 space-y-2.5 border-t border-border-soft pt-5">
+            {s.topics.slice(0, 4).map((t) => (
+              <li key={t} className="text-sm text-ink/85 flex items-center gap-2.5">
+                <svg className="w-3.5 h-3.5 text-accent shrink-0" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 7l3 3 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {t}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 flex items-center justify-between">
+            <span className="text-sm font-semibold text-ink group-hover:text-accent transition-colors">Explore programme</span>
+            <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center group-hover:bg-ink group-hover:text-background transition-all duration-400">
+              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
