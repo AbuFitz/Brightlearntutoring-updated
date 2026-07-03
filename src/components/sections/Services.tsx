@@ -6,9 +6,7 @@ import charKs3 from "@/assets/char-ks3.png";
 import charGcse from "@/assets/char-gcse.png";
 import { ProgrammeModal, Programme } from "@/components/ProgrammeModal";
 
-const services: (Omit<Programme, "name"> & {
-  name: Programme["name"];
-  img: string;
+const services: (Programme & {
   anim: string;
 })[] = [
   {
