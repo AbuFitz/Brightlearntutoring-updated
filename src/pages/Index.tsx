@@ -16,7 +16,7 @@ const JSON_LD_LOCAL_BUSINESS = {
   "@type": "LocalBusiness",
   "@id": "https://brightlearntutoring.co.uk/#business",
   "name": "BrightLearn Tutoring",
-  "description": "Expert 1-to-1 online maths tutoring for KS2, KS3 and GCSE students across the UK. DBS-checked tutor with personalised lesson plans.",
+  "description": "Expert online group maths tutoring for KS2, KS3 and GCSE students across the UK. DBS-checked tutor with personalised lesson plans.",
   "url": "https://brightlearntutoring.co.uk",
   "logo": "https://brightlearntutoring.co.uk/favicon.png",
   "image": "https://brightlearntutoring.co.uk/og-image.png",
@@ -34,7 +34,7 @@ const JSON_LD_LOCAL_BUSINESS = {
       {
         "@type": "Offer",
         "name": "KS2 Maths Tutoring",
-        "description": "1-to-1 online maths tutoring for Year 3–6 students. Covers times tables, fractions, problem solving and SATs preparation.",
+        "description": "Online group maths tutoring for Year 5–6 students. Covers times tables, fractions, problem solving and SATs preparation.",
         "price": "40",
         "priceCurrency": "GBP",
         "priceSpecification": { "@type": "UnitPriceSpecification", "price": "40", "priceCurrency": "GBP", "unitText": "month" }
@@ -42,7 +42,7 @@ const JSON_LD_LOCAL_BUSINESS = {
       {
         "@type": "Offer",
         "name": "KS3 Maths Tutoring",
-        "description": "1-to-1 online maths tutoring for Year 7–9 students. Algebra, geometry, ratios and building towards GCSE.",
+        "description": "Online group maths tutoring for Year 7–9 students. Algebra, geometry, ratios and building towards GCSE.",
         "price": "50",
         "priceCurrency": "GBP",
         "priceSpecification": { "@type": "UnitPriceSpecification", "price": "50", "priceCurrency": "GBP", "unitText": "month" }
@@ -50,7 +50,7 @@ const JSON_LD_LOCAL_BUSINESS = {
       {
         "@type": "Offer",
         "name": "GCSE Maths Tutoring",
-        "description": "1-to-1 online GCSE maths tutoring for Year 10–11. AQA, Edexcel and OCR aligned. Past paper practice and exam technique.",
+        "description": "Online group GCSE maths tutoring for Year 10–11. AQA, Edexcel and OCR aligned. Past paper practice and exam technique.",
         "price": "60",
         "priceCurrency": "GBP",
         "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "GBP", "unitText": "month" }
@@ -72,7 +72,7 @@ const JSON_LD_FAQ = {
     {
       "@type": "Question",
       "name": "How much does online maths tutoring cost?",
-      "acceptedAnswer": { "@type": "Answer", "text": "BrightLearn tutoring starts from £40/month for KS2, £50/month for KS3, and £60/month for GCSE. All plans include 4 sessions per month with no contracts." }
+      "acceptedAnswer": { "@type": "Answer", "text": "BrightLearn tutoring starts from £40/month for KS2, £50/month for KS3, and £60/month for GCSE. KS2 includes 4 sessions per month, and KS3/GCSE include 8 sessions per month, with no contracts." }
     },
     {
       "@type": "Question",
@@ -92,7 +92,7 @@ const JSON_LD_FAQ = {
     {
       "@type": "Question",
       "name": "How are the sessions delivered?",
-      "acceptedAnswer": { "@type": "Answer", "text": "All sessions are delivered live online via video call, 1-to-1 between the tutor and student. Each session is one hour long." }
+      "acceptedAnswer": { "@type": "Answer", "text": "All sessions are delivered live online in small groups via video call. KS2 sessions are 1 hour, and KS3/GCSE sessions are 1.5 hours." }
     }
   ]
 };

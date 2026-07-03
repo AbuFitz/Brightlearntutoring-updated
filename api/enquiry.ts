@@ -279,7 +279,7 @@ function buildConfirmationHtml(d: EnquiryPayload): string {
         </td>
         <td style="vertical-align:middle;padding-bottom:4px;">
           <div style="font-size:14px;font-weight:700;color:#111111;margin-bottom:3px;">Your sessions begin</div>
-          <div style="font-size:13px;color:#9b9488;">Live 1-to-1 online &nbsp;&middot;&nbsp; No contracts &nbsp;&middot;&nbsp; Cancel any time</div>
+          <div style="font-size:13px;color:#9b9488;">Live online group sessions &nbsp;&middot;&nbsp; No contracts &nbsp;&middot;&nbsp; Cancel any time</div>
         </td>
       </tr>
     </table>

@@ -46,7 +46,7 @@ const Terms = () => {
           <section>
             <h2 className="text-lg font-semibold text-ink mb-3">2. Services</h2>
             <p>
-              BrightLearn Tutoring provides online 1-to-1 maths tutoring for KS2, KS3 and GCSE students. All
+              BrightLearn Tutoring provides online small-group maths tutoring for KS2, KS3 and GCSE students. All
               sessions are delivered online via a video platform. Session schedules and topics are agreed between
               the tutor and the parent/guardian.
             </p>
@@ -56,8 +56,8 @@ const Terms = () => {
             <h2 className="text-lg font-semibold text-ink mb-3">3. Fees and payment</h2>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>KS2 Maths — £40 per month (4 sessions)</li>
-              <li>KS3 Maths — £50 per month (4 sessions)</li>
-              <li>GCSE Maths — £60 per month (4 sessions)</li>
+              <li>KS3 Maths — £50 per month (8 sessions)</li>
+              <li>GCSE Maths — £60 per month (8 sessions)</li>
             </ul>
             <p className="mt-3">
               Payment is due at the start of each monthly billing period. No card details are required at the
