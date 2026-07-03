@@ -30,13 +30,13 @@ const tiers: {
   },
   {
     name: "KS3",
-    price: "50",
+    price: "90",
     badge: "Most chosen",
     featured: true,
     desc: "Core topic mastery building a clear path towards GCSE.",
     features: [
       "Group of 5 lesson (1.5 hours)",
-      "2 sessions per week",
+      "8 sessions per month",
       "Custom learning plan",
       "Parent report",
       "End of term assessment",
@@ -45,11 +45,11 @@ const tiers: {
   },
   {
     name: "GCSE",
-    price: "60",
+    price: "100",
     desc: "Targeted revision and exam technique to boost grades.",
     features: [
       "Group of 5 lesson (1.5 hours)",
-      "2 sessions per week",
+      "8 sessions per month",
       "Custom learning plan",
       "Parent report",
       "Past paper sessions",
