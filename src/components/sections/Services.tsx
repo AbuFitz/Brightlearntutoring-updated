@@ -77,7 +77,7 @@ export const Services = () => {
         <div ref={ref} className="reveal max-w-2xl mb-10 md:mb-14">
           <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Programmes</span>
           <h2 className="mt-3 text-4xl md:text-5xl text-ink font-semibold tracking-tight leading-[1.05]">
-            One tutor. One student. One curriculum, <span className="font-display italic font-normal text-accent">tailored.</span>
+            One tutor. Small group. One curriculum, <span className="font-display italic font-normal text-accent">tailored.</span>
           </h2>
           <p className="text-ink-soft mt-5 text-lg leading-relaxed">
             Every programme is shaped around your child - their pace, their gaps, their goals.

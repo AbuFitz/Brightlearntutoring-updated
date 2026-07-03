@@ -63,7 +63,7 @@ const Safeguarding = () => {
               </li>
               <li>Sessions may be recorded for safeguarding purposes with prior written consent</li>
               <li>
-                No one-to-one communication with students takes place outside of the agreed session platform
+                No direct communication with students takes place outside of the agreed session platform
                 without parental knowledge
               </li>
             </ul>

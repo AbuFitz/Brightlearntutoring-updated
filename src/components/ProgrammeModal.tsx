@@ -24,6 +24,9 @@ interface ProgrammeModalProps {
 
 export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
   const { openModal } = useGetStarted();
+  const isKs2 = programme?.name === "KS2";
+  const sessionLength = isKs2 ? "1 hour per session" : "1.5 hour per session";
+  const sessionCount = isKs2 ? "4 sessions / month" : "8 sessions / month";
 
   const handleGetStarted = () => {
     onClose();
@@ -76,8 +79,8 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                 {/* Info pills row */}
                 <div className="flex flex-wrap gap-2">
                   {[
-                    { icon: Clock, text: "1 hour per session" },
-                    { icon: CalendarDays, text: "4 sessions / month" },
+                    { icon: Clock, text: sessionLength },
+                    { icon: CalendarDays, text: sessionCount },
                     { icon: BookOpen, text: "Custom learning plan" },
                     { icon: GraduationCap, text: "UK curriculum aligned" },
                   ].map(({ icon: Icon, text }) => (

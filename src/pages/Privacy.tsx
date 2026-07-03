@@ -35,7 +35,7 @@ const PrivacyPolicy = () => {
             <h2 className="text-lg font-semibold text-ink mb-3">1. Who we are</h2>
             <p>
               BrightLearn Tutoring is an online maths tutoring service based in the United Kingdom. We provide
-              personalised 1-to-1 tutoring for KS2, KS3 and GCSE students. You can contact us at{" "}
+              personalised small-group tutoring for KS2, KS3 and GCSE students. You can contact us at{" "}
               <a href="mailto:info@brightlearntutoring.co.uk" className="text-accent hover:underline">
                 info@brightlearntutoring.co.uk
               </a>
