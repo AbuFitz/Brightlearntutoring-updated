@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const ADMIN_EMAIL = "info@brightlearntutoring.co.uk";
 const FROM_ADDRESS = "BrightLearn <noreply@brightlearntutoring.co.uk>";
 
-const LOGO_SVG = `<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#ffffff"/><path d="M6 22l7-7-7-7v14zm10-14v14l11-7-11-7z" fill="#111111"/></svg>`;
+const LOGO_SVG = `<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#ffffff"/><path d="M6 22l7-7-7-7v14zm10-14v14l11-7-11-7z" fill="#1a1a1a"/></svg>`;
 
 interface EnquiryPayload {
   "Enquiry type": string;
@@ -141,7 +141,7 @@ function buildAdminHtml(d: EnquiryPayload): string {
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f2;border-radius:12px;margin-top:8px;">
       <tr><td style="padding:20px 24px;text-align:center;">
         <p style="margin:0 0 14px;font-size:13px;color:#6b6560;">Hit reply or click below to respond to this enquiry directly.</p>
-        <a href="mailto:${replyEmail}" style="display:inline-block;background:#1a1a1a;color:#fff;font-size:13px;font-weight:600;padding:11px 28px;border-radius:100px;text-decoration:none;">Reply to ${replyName}</a>
+        <a href="mailto:${replyEmail}" style="display:inline-block;background:#1a1a1a;color:#fff;font-size:13px;font-weight:600;padding:11px 28px;border-radius:100px;text-decoration:none;">Reply to ${replyName} &rarr;</a>
       </td></tr>
     </table>
   `;
@@ -187,7 +187,7 @@ function buildConfirmationHtml(d: EnquiryPayload): string {
 </head>
 <body style="margin:0;padding:0;background:#f4f2ee;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
 
-<div style="display:none;max-height:0;overflow:hidden;font-size:1px;color:#f4f2ee;">Thanks ${firstName} — your BrightLearn enquiry is confirmed. We'll be in touch within 1 working day. &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;</div>
+<div style="display:none;max-height:0;overflow:hidden;font-size:1px;color:#f4f2ee;">Thanks ${firstName} — your BrightLearn enquiry is confirmed. We'll be in touch within 1 working day. &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
 
 <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="background:#f4f2ee;">
 <tr><td align="center" style="padding:36px 16px 56px;">
@@ -302,10 +302,10 @@ function buildConfirmationHtml(d: EnquiryPayload): string {
         <p style="margin:0 0 20px;font-size:13px;color:#6b6560;line-height:1.65;">We're happy to help — just drop us an email or visit the website.</p>
         <table cellpadding="0" cellspacing="0" role="presentation"><tr>
           <td style="padding-right:10px;">
-            <a href="mailto:${ADMIN_EMAIL}" style="display:inline-block;background:#111111;color:#ffffff;font-size:13px;font-weight:700;padding:12px 24px;border-radius:100px;text-decoration:none;letter-spacing:0.01em;">Email us</a>
+            <a href="mailto:${ADMIN_EMAIL}" style="display:inline-block;background:#111111;color:#ffffff;font-size:13px;font-weight:700;padding:12px 24px;border-radius:100px;text-decoration:none;letter-spacing:-0.01em;">Email us</a>
           </td>
           <td>
-            <a href="https://brightlearntutoring.co.uk" style="display:inline-block;background:#ffffff;color:#111111;font-size:13px;font-weight:700;padding:11px 22px;border-radius:100px;text-decoration:none;border:1px solid #ddd6ca;">Visit website</a>
+            <a href="https://brightlearntutoring.co.uk" style="display:inline-block;background:#ffffff;color:#111111;font-size:13px;font-weight:700;padding:11px 22px;border-radius:100px;text-decoration:none;border:1px solid #d6d2c9;letter-spacing:-0.01em;">Visit website</a>
           </td>
         </tr></table>
       </td></tr>

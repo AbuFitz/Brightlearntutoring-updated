@@ -14,6 +14,7 @@ export interface Programme {
   topics: string[];
   outcomes: string[];
   surface: string;
+  img: string;
 }
 
 interface ProgrammeModalProps {
@@ -32,7 +33,7 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
   return (
     <DialogPrimitive.Root open={!!programme} onOpenChange={(v) => !v && onClose()}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200" />
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <DialogPrimitive.Content
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 flex flex-col",
@@ -47,31 +48,32 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
             {programme?.name} Programme details
           </DialogPrimitive.Title>
 
+          {/* Drag handle */}
           <div className="flex justify-center pt-3.5 md:hidden shrink-0">
             <div className="w-10 h-1 rounded-full bg-ink/10" />
           </div>
 
+          {/* Coloured header banner */}
           {programme && (
             <>
-              <div className={cn("mx-4 md:mx-6 mt-4 md:mt-6 rounded-2xl px-5 py-5 shrink-0 relative overflow-hidden", programme.surface)}>
+              <div className={cn("mx-4 md:mx-6 mt-4 md:mt-6 rounded-2xl shrink-0 relative overflow-hidden h-36 md:h-44", programme.surface)}>
                 <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(hsl(var(--ink) / 0.18) 1px, transparent 1px)", backgroundSize: "14px 14px" }} />
-                <div className="relative flex items-start justify-between gap-3">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink/60">{programme.tag}</span>
-                    <h2 className="text-2xl font-semibold text-ink tracking-tight mt-1">{programme.name} Maths</h2>
-                    <p className="text-sm text-ink/70 mt-1 leading-relaxed">{programme.tagline}</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="flex items-baseline gap-0.5 justify-end">
-                      <span className="text-sm text-ink/60">£</span>
-                      <span className="text-3xl font-bold text-ink leading-none">{programme.price}</span>
-                    </div>
-                    <span className="text-[11px] text-ink/50">/month</span>
-                  </div>
+                <img
+                  src={programme.img}
+                  alt={`${programme.name} illustrated character`}
+                  className="absolute right-0 bottom-0 h-full w-auto object-contain"
+                />
+                <div className="relative px-5 py-5">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink/60">{programme.tag}</span>
+                  <h2 className="text-2xl font-semibold text-ink tracking-tight mt-1">{programme.name} Maths</h2>
+                  <p className="text-sm text-ink/70 mt-1 leading-relaxed">{programme.tagline}</p>
                 </div>
               </div>
 
+              {/* Scrollable body */}
               <div className="flex-1 overflow-y-auto px-4 md:px-6 py-5 space-y-5">
+
+                {/* Info pills row */}
                 <div className="flex flex-wrap gap-2">
                   {[
                     { icon: Clock, text: "1 hour per session" },
@@ -86,16 +88,19 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                   ))}
                 </div>
 
+                {/* Who it's for */}
                 <div>
                   <h3 className="text-sm font-semibold text-ink mb-2">Who is this for?</h3>
                   <p className="text-sm text-ink-soft leading-relaxed">{programme.whoFor}</p>
                 </div>
 
+                {/* Session structure */}
                 <div>
                   <h3 className="text-sm font-semibold text-ink mb-2">How do sessions work?</h3>
                   <p className="text-sm text-ink-soft leading-relaxed">{programme.sessionStructure}</p>
                 </div>
 
+                {/* Topics */}
                 <div>
                   <h3 className="text-sm font-semibold text-ink mb-3">Topics covered</h3>
                   <div className="grid grid-cols-2 gap-2">
@@ -110,6 +115,7 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                   </div>
                 </div>
 
+                {/* Outcomes */}
                 <div>
                   <h3 className="text-sm font-semibold text-ink mb-3">What you can expect</h3>
                   <ul className="space-y-2.5">
@@ -122,11 +128,13 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                   </ul>
                 </div>
 
+                {/* Fine print */}
                 <p className="text-xs text-ink-soft text-center py-1">
                   Cancel any time · No contracts · No card details required to enquire
                 </p>
               </div>
 
+              {/* Footer CTA */}
               <div className="px-4 md:px-6 py-4 border-t border-border-soft shrink-0 flex gap-3 bg-background">
                 <button
                   onClick={onClose}
