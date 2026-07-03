@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://brightlearntutoring.co.uk/sitemap.xml
+
+# Specific crawl guidance
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: *
+Allow: /
