@@ -14,6 +14,7 @@ export interface Programme {
   topics: string[];
   outcomes: string[];
   surface: string;
+  img: string;
 }
 
 interface ProgrammeModalProps {
@@ -55,21 +56,17 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
           {/* Coloured header banner */}
           {programme && (
             <>
-              <div className={cn("mx-4 md:mx-6 mt-4 md:mt-6 rounded-2xl px-5 py-5 shrink-0 relative overflow-hidden", programme.surface)}>
+              <div className={cn("mx-4 md:mx-6 mt-4 md:mt-6 rounded-2xl shrink-0 relative overflow-hidden h-36 md:h-44", programme.surface)}>
                 <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(hsl(var(--ink) / 0.18) 1px, transparent 1px)", backgroundSize: "14px 14px" }} />
-                <div className="relative flex items-start justify-between gap-3">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink/60">{programme.tag}</span>
-                    <h2 className="text-2xl font-semibold text-ink tracking-tight mt-1">{programme.name} Maths</h2>
-                    <p className="text-sm text-ink/70 mt-1 leading-relaxed">{programme.tagline}</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="flex items-baseline gap-0.5 justify-end">
-                      <span className="text-sm text-ink/60">£</span>
-                      <span className="text-3xl font-bold text-ink leading-none">{programme.price}</span>
-                    </div>
-                    <span className="text-[11px] text-ink/50">/month</span>
-                  </div>
+                <img
+                  src={programme.img}
+                  alt={`${programme.name} illustrated character`}
+                  className="absolute right-0 bottom-0 h-full w-auto object-contain"
+                />
+                <div className="relative px-5 py-5">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink/60">{programme.tag}</span>
+                  <h2 className="text-2xl font-semibold text-ink tracking-tight mt-1">{programme.name} Maths</h2>
+                  <p className="text-sm text-ink/70 mt-1 leading-relaxed">{programme.tagline}</p>
                 </div>
               </div>
 
