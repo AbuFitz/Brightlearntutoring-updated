@@ -46,7 +46,7 @@ const STUDENT_FLOW: StepId[] = [
 const CONTACT_METHODS = ["Email", "Phone call", "WhatsApp"];
 const YEAR_GROUPS: Record<string, string[]> = {
   "": [],
-  KS2: ["Year 3", "Year 4", "Year 5", "Year 6"],
+  KS2: ["Year 5", "Year 6"],
   KS3: ["Year 7", "Year 8", "Year 9"],
   GCSE: ["Year 10", "Year 11"],
 };
@@ -557,7 +557,7 @@ export const GetStartedModal = () => {
                     }}
                   >
                     {lvl}
-                    {lvl === "KS2" && " · Yrs 3–6"}
+                    {lvl === "KS2" && " · Yrs 5–6"}
                     {lvl === "KS3" && " · Yrs 7–9"}
                     {lvl === "GCSE" && " · Yrs 10–11"}
                   </Pill>
