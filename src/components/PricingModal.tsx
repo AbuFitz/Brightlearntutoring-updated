@@ -31,8 +31,6 @@ const tiers: {
   {
     name: "KS3",
     price: "90",
-    badge: "Most chosen",
-    featured: true,
     desc: "Core topic mastery building a clear path towards GCSE.",
     features: [
       "Group of 5 lesson (1.5 hours)",
@@ -46,6 +44,8 @@ const tiers: {
   {
     name: "GCSE",
     price: "100",
+    badge: "Most chosen",
+    featured: true,
     desc: "Targeted revision and exam technique to boost grades.",
     features: [
       "Group of 5 lesson (1.5 hours)",
