@@ -317,7 +317,7 @@ export const GetStartedModal = () => {
     studentDetails:
       form.userType === "student" ? "Your details" : "Student details",
     learning: "Learning needs",
-    timings: "Timings per year group",
+    timings: "Timings",
     review: "Review & submit",
   };
 
@@ -332,7 +332,7 @@ export const GetStartedModal = () => {
         ? "Tell us about yourself."
         : "Tell us about the student we'll be working with.",
     learning: "Help us understand what support is needed.",
-    timings: "Here are our available session times per year group.",
+    timings: "Here are our available session times.",
     review: "Check everything looks right before sending.",
   };
 
@@ -655,12 +655,12 @@ export const GetStartedModal = () => {
 
         return (
           <div className="space-y-5">
-            <div className="rounded-2xl bg-accent/5 border border-accent/20 px-4 py-3">
+            <div className="flex items-start gap-2.5 rounded-2xl bg-amber-50 border border-amber-200 px-4 py-3"> 
+              <span className="text-base mt-0.5">⚠️</span>
               <p className="text-sm text-ink leading-relaxed">
                 Please only continue if you can commit to the full weekly schedule shown below.
               </p>
             </div>
-
             {Object.entries(timingsToShow).map(([title, sessions]) => (
               <div key={title} className="space-y-3">
                 <h3 className="text-[11px] font-black uppercase tracking-[0.14em] text-ink-soft">
