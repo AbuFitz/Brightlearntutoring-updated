@@ -188,9 +188,8 @@ function buildConfirmationHtml(d: EnquiryPayload): string {
       <tr><td style="background:#f7f6f2;padding:8px 16px;border-bottom:1px solid #e6e3db;">
         <span style="font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#9b9488;">What happens next</span>
       </td></tr>
-      ${step("1", "#dbeafe|#1d4ed8", "We review your enquiry", "Usually within a few hours of receiving it.")}
-      ${step("2", "#dcfce7|#166534", "We contact you", "To discuss your child's needs and confirm a suitable session slot.")}
-      ${step("3", "#ede9fe|#5b21b6", "Your sessions begin", "Live online group sessions &nbsp;&middot;&nbsp; No contracts &nbsp;&middot;&nbsp; Cancel any time")}
+      ${step("1", "#dbeafe|#1d4ed8", "You'll receive a confirmation email with your allocated session time and group details.", "")}
+      ${step("2", "#dcfce7|#166534", "Your child can usually begin their first lesson the following week.", "")}
     </table>
 
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f2;border-radius:12px;margin-top:14px;">
@@ -198,10 +197,10 @@ function buildConfirmationHtml(d: EnquiryPayload): string {
         <p style="margin:0 0 14px;font-size:13px;color:#6b6560;">If you need to add anything else, just reply to this email and we'll help.</p>
         <table cellpadding="0" cellspacing="0" role="presentation" style="margin:0 auto;"><tr>
           <td style="padding-right:10px;">
-            <a href="mailto:${ADMIN_EMAIL}" style="display:inline-block;background:#111111;color:#ffffff;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;text-decoration:none;text-align:center;">Email us</a>
+            <a href="mailto:${ADMIN_EMAIL}" style="display:inline-block;background:#111111;color:#ffffff;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;text-decoration:none;">Reply by email</a>
           </td>
           <td>
-            <a href="https://brightlearntutoring.co.uk" style="display:inline-block;background:#ffffff;color:#111111;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;border:1px solid #e6e3db;text-decoration:none;text-align:center;">Visit website</a>
+            <a href="https://brightlearntutoring.co.uk" style="display:inline-block;background:#ffffff;color:#111111;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;border:1px solid #e6e3db;text-decoration:none;">Visit website</a>
           </td>
         </tr></table>
       </td></tr>
