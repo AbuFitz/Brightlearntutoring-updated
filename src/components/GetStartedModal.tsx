@@ -53,19 +53,19 @@ const YEAR_GROUPS: Record<string, string[]> = {
 
 const TIMINGS_DATA = {
   KS2: [
-    { day: "SAT", time: "10am - 11am" },
+    { day: "WED", time: "6pm - 7pm" },
   ],
   KS3: [
-    { day: "SAT", time: "11:30am - 1pm" },
     { day: "MON", time: "7pm - 8:30pm" },
+    { day: "THURS", time: "7pm - 8:30pm" },
   ],
   "GCSE-H": [
-    { day: "TUES", time: "7pm - 8:30pm" },
-    { day: "SAT", time: "5pm - 6:30pm" },
+    { day: "WED", time: "7pm - 8:30pm" },
+    { day: "FRI", time: "7:30pm - 9pm" },
   ],
   "GCSE-F": [
-    { day: "THURS", time: "7pm - 8:30pm" },
-    { day: "SAT", time: "3pm - 4:30pm" },
+    { day: "TUESDAY", time: "7pm - 8:30pm" },
+    { day: "FRI", time: "6pm - 7:30pm" },
   ],
 };
 
