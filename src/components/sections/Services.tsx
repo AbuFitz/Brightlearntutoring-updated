@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowUpRight } from "lucide-react";
-import charKs2 from "@/assets/char-ks2.png";
-import charKs3 from "@/assets/char-ks3.png";
-import charGcse from "@/assets/char-gcse.png";
+import charKs2 from "@/assets/char-ks2.webp";
+import charKs3 from "@/assets/char-ks3.webp";
+import charGcse from "@/assets/char-gcse.webp";
 import { ProgrammeModal, Programme } from "@/components/ProgrammeModal";
 
 const services: (Programme & {

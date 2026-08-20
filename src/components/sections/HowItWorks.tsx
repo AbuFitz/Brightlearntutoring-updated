@@ -1,8 +1,8 @@
 import { useReveal } from "@/hooks/useReveal";
 import { PhoneCall, ClipboardList, LineChart } from "lucide-react";
-import stepCall from "@/assets/step-call.png";
-import stepPlan from "@/assets/step-plan.png";
-import stepProgress from "@/assets/step-progress.png";
+import stepCall from "@/assets/step-call.webp";
+import stepPlan from "@/assets/step-plan.webp";
+import stepProgress from "@/assets/step-progress.webp";
 
 const steps = [
   {

@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
 import { ExternalLink, Play } from "lucide-react";
-import thumb1 from "@/assets/tiktok-thumb-1.jpg";
-import thumb2 from "@/assets/tiktok-thumb-2.jpg";
-import thumb3 from "@/assets/tiktok-thumb-3.jpg";
+import thumb1 from "@/assets/tiktok-thumb-1.webp";
+import thumb2 from "@/assets/tiktok-thumb-2.webp";
+import thumb3 from "@/assets/tiktok-thumb-3.webp";
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
