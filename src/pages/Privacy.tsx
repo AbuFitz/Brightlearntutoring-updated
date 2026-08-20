@@ -1,9 +1,21 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSEO } from "@/hooks/useSEO";
+import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const PrivacyPolicy = () => {
+  useSEO({
+    title: "Privacy Policy — BrightLearn Tutoring",
+    description:
+      "How BrightLearn Tutoring collects, uses and protects your personal data under UK GDPR, including your rights as a parent, guardian or student.",
+    path: "/privacy",
+  });
+  useBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Privacy Policy", path: "/privacy" },
+  ]);
+
   useEffect(() => {
-    document.title = "Privacy Policy — BrightLearn Tutoring";
     window.scrollTo(0, 0);
   }, []);
 

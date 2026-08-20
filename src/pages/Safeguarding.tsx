@@ -1,9 +1,21 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSEO } from "@/hooks/useSEO";
+import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const Safeguarding = () => {
+  useSEO({
+    title: "Safeguarding Policy — BrightLearn Tutoring",
+    description:
+      "BrightLearn Tutoring's commitment to safeguarding: DBS-checked tutors, secure online sessions, and how to report a welfare concern.",
+    path: "/safeguarding",
+  });
+  useBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Safeguarding Policy", path: "/safeguarding" },
+  ]);
+
   useEffect(() => {
-    document.title = "Safeguarding Policy — BrightLearn Tutoring";
     window.scrollTo(0, 0);
   }, []);
 

@@ -1,9 +1,21 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSEO } from "@/hooks/useSEO";
+import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const Terms = () => {
+  useSEO({
+    title: "Terms & Conditions — BrightLearn Tutoring",
+    description:
+      "The terms and conditions covering BrightLearn Tutoring's online KS2, KS3 and GCSE maths tutoring services, fees, cancellations and safeguarding commitments.",
+    path: "/terms",
+  });
+  useBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Terms & Conditions", path: "/terms" },
+  ]);
+
   useEffect(() => {
-    document.title = "Terms & Conditions — BrightLearn Tutoring";
     window.scrollTo(0, 0);
   }, []);
 
