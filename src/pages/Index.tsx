@@ -34,6 +34,7 @@ const JSON_LD_LOCAL_BUSINESS = {
   "logo": "https://brightlearntutoring.co.uk/favicon.png",
   "image": "https://brightlearntutoring.co.uk/og-image.png",
   "email": "info@brightlearntutoring.co.uk",
+  "telephone": "+447577702613",
   "areaServed": [
     { "@type": "AdministrativeArea", "name": "England" },
     { "@type": "AdministrativeArea", "name": "Wales" },
