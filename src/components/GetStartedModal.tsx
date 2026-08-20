@@ -360,11 +360,13 @@ export const GetStartedModal = () => {
                     value: "parent",
                     label: "Parent / Guardian",
                     sub: "Enquiring on behalf of your child",
+                    icon: UserRound,
                   },
                   {
                     value: "student",
                     label: "I'm a student",
                     sub: "Applying for yourself",
+                    icon: GraduationCap,
                   },
                 ] as const
               ).map((opt) => (
@@ -376,20 +378,25 @@ export const GetStartedModal = () => {
                     setErrors((e) => e.filter((x) => x !== "userType"));
                   }}
                   className={cn(
-                    "group relative flex flex-col items-start gap-2.5 rounded-2xl border p-5 text-left transition-all",
+                    "group relative flex flex-col items-start gap-3 rounded-2xl border p-5 text-left transition-all",
                     form.userType === opt.value
                       ? "border-accent bg-accent/5 ring-2 ring-accent/20 shadow-[0_20px_40px_-30px_hsl(var(--accent)/0.65)]"
                       : "border-border bg-background-soft hover:border-ink/25"
                   )}
                 >
+                  {form.userType === opt.value && (
+                    <CheckCircle2 className="absolute top-4 right-4 w-4 h-4 text-accent" />
+                  )}
                   <div
                     className={cn(
-                      "w-8 h-8 rounded-full border-2 transition-colors",
+                      "w-11 h-11 rounded-xl flex items-center justify-center transition-colors",
                       form.userType === opt.value
-                        ? "border-accent bg-accent"
-                        : "border-border bg-background"
+                        ? "bg-accent text-white"
+                        : "bg-accent-soft text-accent"
                     )}
-                  />
+                  >
+                    <opt.icon className="w-5 h-5" strokeWidth={2} />
+                  </div>
                   <div>
                     <div className="font-semibold text-ink text-sm leading-snug">
                       {opt.label}
@@ -895,8 +902,8 @@ export const GetStartedModal = () => {
           )}
         >
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-24 left-1/2 h-60 w-60 -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
-            <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-surface-cream/90 blur-3xl" />
+            <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-accent/20 blur-3xl" />
+            <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-surface-cream blur-3xl" />
           </div>
           {/* Drag handle — mobile only */}
           <div className="relative flex justify-center pt-3.5 md:hidden shrink-0">

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Instagram, Youtube, Mail, MapPin, Link } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
+import { WhatsAppIcon, whatsappLink } from "@/components/WhatsAppButton";
+import { locations } from "@/data/locations";
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -18,7 +20,16 @@ const linkGroups: {
       { label: "KS2 Maths", href: "/#services" },
       { label: "KS3 Maths", href: "/#services" },
       { label: "GCSE Maths", href: "/#services" },
-      { label: "Areas we cover", href: "/online-maths-tutor" },
+    ],
+  },
+  {
+    title: "Popular areas",
+    links: [
+      ...["london", "manchester", "birmingham", "cardiff", "belfast"].map((slug) => {
+        const loc = locations.find((l) => l.slug === slug)!;
+        return { label: loc.city, href: `/online-maths-tutor/${loc.slug}` };
+      }),
+      { label: "View all areas", href: "/online-maths-tutor" },
     ],
   },
   {
@@ -83,7 +94,7 @@ export const Footer = () => {
             <p className="text-xs text-ink-soft mt-3">Monthly parenting + maths tips. No spam.</p>
           </div>
 
-          <div className="lg:col-span-7 grid grid-cols-2 gap-8">
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
             {linkGroups.map((g) => (
               <div key={g.title}>
                 <h4 className="text-sm font-semibold text-ink mb-4">{g.title}</h4>
@@ -120,6 +131,15 @@ export const Footer = () => {
             <a href="mailto:info@brightlearntutoring.co.uk" className="flex items-center gap-2.5 text-sm text-ink-soft hover:text-ink transition-colors">
               <Mail className="w-4 h-4" />
               info@brightlearntutoring.co.uk
+            </a>
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 text-sm text-ink-soft hover:text-ink transition-colors"
+            >
+              <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
+              WhatsApp · 07577 702613
             </a>
             <RouterLink to="/online-maths-tutor" className="flex items-center gap-2.5 text-sm text-ink-soft hover:text-ink transition-colors">
               <MapPin className="w-4 h-4" />

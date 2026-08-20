@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { GetStartedProvider } from "@/contexts/GetStartedContext";
 import { CookieBanner } from "@/components/CookieBanner";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import Index from "./pages/Index.tsx";
 import Privacy from "./pages/Privacy.tsx";
 import Terms from "./pages/Terms.tsx";
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           <CookieBanner />
+          <WhatsAppButton />
         </BrowserRouter>
       </GetStartedProvider>
     </TooltipProvider>
