@@ -4,12 +4,9 @@ import { useGetStarted, Package } from "@/contexts/GetStartedContext";
 import {
   ArrowLeft,
   ArrowRight,
-  Clock,
   CheckCircle2,
-  ClipboardCheck,
   GraduationCap,
   Pencil,
-  Sparkles,
   UserRound,
   X,
 } from "lucide-react";
@@ -335,16 +332,6 @@ export const GetStartedModal = () => {
     timings: "Here are our available session times.",
     review: "Check everything looks right before sending.",
   };
-
-  const stepVisuals: Record<StepId, { icon: React.ComponentType<{ className?: string }>; chip: string }> = {
-    userType: { icon: UserRound, chip: "Who's applying" },
-    parentDetails: { icon: UserRound, chip: "Contact details" },
-    studentDetails: { icon: GraduationCap, chip: "Student profile" },
-    learning: { icon: Sparkles, chip: "Learning goals" },
-    timings: { icon: Clock, chip: "Session timings" },
-    review: { icon: ClipboardCheck, chip: "Final check" },
-  };
-  const StepIcon = stepVisuals[currentStep].icon;
 
   // ── Step content ───────────────────────────────────────────────────────────
   const renderStep = () => {
@@ -894,49 +881,42 @@ export const GetStartedModal = () => {
         <DialogPrimitive.Content
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 flex flex-col",
-            "bg-background rounded-t-[2rem] shadow-elevated max-h-[96dvh] overflow-hidden",
+            "bg-background rounded-t-[2rem] shadow-elevated h-[85dvh] overflow-hidden",
             "md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
-            "md:rounded-3xl md:w-full md:max-w-[560px] md:max-h-[92dvh]",
+            "md:rounded-3xl md:w-full md:max-w-[560px] md:h-[640px] md:max-h-[85dvh]",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200"
           )}
         >
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-accent/20 blur-3xl" />
-            <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-surface-cream blur-3xl" />
-          </div>
           {/* Drag handle — mobile only */}
-          <div className="relative flex justify-center pt-3.5 md:hidden shrink-0">
+          <div className="flex justify-center pt-3.5 md:hidden shrink-0">
             <div className="w-10 h-1 rounded-full bg-ink/10" />
           </div>
 
           {/* Header */}
-          <div className="relative px-5 md:px-8 pt-4 md:pt-6 pb-4 md:pb-5 border-b border-border-soft shrink-0">
-            <div className="flex items-start justify-between gap-3 mb-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border-soft bg-background px-3 py-1.5 shadow-sm">
-                <StepIcon className="w-3.5 h-3.5 text-accent" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-ink-soft">
-                  {stepVisuals[currentStep].chip}
-                </span>
-              </div>
-              <button
-                onClick={handleClose}
-                className="w-7 h-7 rounded-full border border-border-soft flex items-center justify-center text-ink-soft hover:text-ink hover:border-ink/30 transition-colors shrink-0"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
+          <div className="flex items-start justify-between gap-4 px-6 pt-5 pb-4 md:px-8 md:pt-7 shrink-0">
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-soft mb-1.5">
+                Step {stepIndex + 1} of {totalSteps}
+              </p>
+              <DialogPrimitive.Title className="text-[1.6rem] md:text-[1.75rem] font-semibold text-ink tracking-tight leading-tight">
+                {stepTitles[currentStep]}
+              </DialogPrimitive.Title>
+              <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">
+                {stepSubtitles[currentStep]}
+              </p>
             </div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-ink-soft/80 mb-2">
-              Step {stepIndex + 1} of {totalSteps}
-            </div>
-            <DialogPrimitive.Title className="text-xl md:text-2xl font-semibold text-ink leading-snug">
-              {stepTitles[currentStep]}
-            </DialogPrimitive.Title>
-            <p className="text-sm text-ink-soft mt-1 leading-relaxed">
-              {stepSubtitles[currentStep]}
-            </p>
-            {/* Smooth progress bar */}
-            <div className="mt-4 h-1.5 rounded-full bg-border-soft overflow-hidden">
+            <button
+              onClick={handleClose}
+              className="w-8 h-8 rounded-full border border-border-soft flex items-center justify-center text-ink-soft hover:text-ink hover:border-ink/30 transition-colors shrink-0"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Progress bar */}
+          <div className="px-6 md:px-8 pb-4 shrink-0">
+            <div className="h-1.5 rounded-full bg-border-soft overflow-hidden">
               <div
                 className="h-full rounded-full bg-accent transition-all duration-500"
                 style={{ width: `${progressPct}%` }}
@@ -945,18 +925,15 @@ export const GetStartedModal = () => {
           </div>
 
           {/* Body — scrollable */}
-          <div className="relative flex-1 overflow-y-auto px-5 md:px-8 py-5 md:py-6">
-            <div
-              key={currentStep}
-              className="rounded-3xl border border-border-soft bg-background/85 shadow-[0_22px_35px_-30px_hsl(var(--ink)/0.4)] p-4 md:p-5 animate-fade-up"
-            >
+          <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+            <div key={currentStep} className="animate-fade-up">
               {renderStep()}
             </div>
           </div>
 
           {/* Footer */}
           {submitError && (
-            <div className="px-5 md:px-8 pt-3 shrink-0">
+            <div className="px-6 md:px-8 pt-3 shrink-0">
               <div className="flex items-center gap-2.5 rounded-xl bg-red-50 border border-red-200 px-4 py-3">
                 <span className="text-base shrink-0">⚠️</span>
                 <p className="text-xs text-red-700 leading-relaxed">
@@ -966,7 +943,7 @@ export const GetStartedModal = () => {
               </div>
             </div>
           )}
-          <div className="relative px-5 md:px-8 py-4 md:py-5 border-t border-border-soft shrink-0 flex items-center justify-between gap-3 bg-background/95 backdrop-blur">
+          <div className="relative px-6 md:px-8 py-4 md:py-5 border-t border-border-soft shrink-0 flex items-center justify-between gap-3 bg-background/95 backdrop-blur">
             {stepIndex > 0 ? (
               <button
                 type="button"

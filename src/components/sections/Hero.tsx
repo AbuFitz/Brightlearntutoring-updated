@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, ShieldCheck } from "lucide-react";
-import tutorFemale from "@/assets/tutor-portrait.jpg";
+import tutorFemale from "@/assets/tutor-portrait.png";
 import riyanas from "@/assets/riyanas.png";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -83,18 +83,18 @@ export const Hero = () => {
           <div className="lg:col-span-6 animate-fade-up" style={{ animationDelay: "0.15s" }}>
             <div className="relative">
               {/* Main image card */}
-              <div className="relative rounded-[2rem] overflow-hidden bg-surface-cream border border-border-soft shadow-card aspect-[5/6] max-w-[520px] mx-auto">
+              <div className="relative rounded-[2rem] overflow-hidden bg-surface-cream border border-border-soft shadow-card aspect-[12/7] max-w-[560px] mx-auto">
                 <img
                   src={tutorFemale}
-                  alt="BrightLearn online maths tutor - personalised group of 5 lessons for KS2, KS3 and GCSE students"
-                  width={1280}
-                  height={1280}
+                  alt="A tablet showing worked maths examples - solving equations, straight-line graphs and Pythagoras' theorem - next to a notebook of key formulae, for BrightLearn's KS2, KS3 and GCSE group tutoring"
+                  width={1642}
+                  height={958}
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="eager"
                 />
 
-                {/* Top-left subject chip */}
-                <div className="absolute top-5 left-5 bg-background rounded-full pl-2 pr-3.5 py-1.5 flex items-center gap-2 shadow-card border border-border-soft">
+                {/* Top-right subject chip */}
+                <div className="absolute top-5 right-5 bg-background rounded-full pl-2 pr-3.5 py-1.5 flex items-center gap-2 shadow-card border border-border-soft">
                   <span className="w-6 h-6 rounded-full bg-accent flex items-center justify-center">
                     <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 14 14" fill="none">
                       <path 
@@ -112,8 +112,8 @@ export const Hero = () => {
                 </div>
               </div>
 
-              {/* Bottom-left tutor card - overlaps */}
-              <div className="absolute -bottom-6 -left-2 sm:left-4 bg-background rounded-2xl shadow-soft border border-border-soft p-4 w-[260px] hidden sm:block">
+              {/* Bottom-right tutor card - overlaps */}
+              <div className="absolute -bottom-6 -right-2 sm:right-4 bg-background rounded-2xl shadow-soft border border-border-soft p-4 w-[260px] hidden sm:block">
                 <div className="flex items-center gap-3">
                   <div className="relative">
                     <img src={riyanas} alt="Riyana, BrightLearn maths tutor" className="w-11 h-11 rounded-full object-cover" />
@@ -134,8 +134,8 @@ export const Hero = () => {
                 </div>
               </div>
 
-              {/* Top-right stat card - overlaps */}
-              <div className="absolute -top-4 -right-2 sm:right-0 bg-background rounded-2xl shadow-soft border border-border-soft px-4 py-3 hidden sm:block">
+              {/* Top-left stat card - overlaps */}
+              <div className="absolute -top-4 -left-2 sm:left-6 bg-background rounded-2xl shadow-soft border border-border-soft px-4 py-3 hidden sm:block">
                 <div className="text-[10px] uppercase tracking-widest text-ink-soft font-semibold">Students helped</div>
                 <div className="mt-1 flex items-baseline gap-1.5">
                   <span className="font-display text-3xl text-ink leading-none">50+</span>

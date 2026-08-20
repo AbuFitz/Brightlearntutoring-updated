@@ -50,8 +50,7 @@ export const WhatsAppButton = () => {
       )}
       style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
-      <span className="absolute inset-0 rounded-full bg-[#25D366] animate-pulse-ring" />
-      <WhatsAppIcon className="relative w-7 h-7" />
+      <WhatsAppIcon className="w-7 h-7" />
     </a>
   );
 };

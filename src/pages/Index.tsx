@@ -15,6 +15,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { useSEO } from "@/hooks/useSEO";
 import { homeFaqs } from "@/data/faq";
+import thumb1 from "@/assets/tiktok-thumb-1.jpg";
+import thumb2 from "@/assets/tiktok-thumb-2.jpg";
+import thumb3 from "@/assets/tiktok-thumb-3.jpg";
+import riyanas from "@/assets/riyanas.png";
+
+const SITE_URL = "https://brightlearntutoring.co.uk";
 
 const JSON_LD_LOCAL_BUSINESS = {
   "@context": "https://schema.org",
@@ -83,6 +89,95 @@ const buildFaqSchema = () => ({
   })),
 });
 
+const COURSES = [
+  {
+    name: "KS2 Maths Tutoring",
+    description:
+      "Live online group maths tutoring for Year 5–6 students. Covers times tables, fractions, mental maths, problem solving and SATs preparation.",
+    price: "40",
+  },
+  {
+    name: "KS3 Maths Tutoring",
+    description:
+      "Live online group maths tutoring for Year 7–9 students. Covers algebra, geometry, ratio and proportion, building towards GCSE.",
+    price: "50",
+  },
+  {
+    name: "GCSE Maths Tutoring",
+    description:
+      "Live online group GCSE maths tutoring for Year 10–11. Aligned to AQA, Edexcel, OCR and WJEC/Eduqas, with past paper practice and exam technique.",
+    price: "60",
+  },
+];
+
+const buildCourseSchemas = () =>
+  COURSES.map((c) => ({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": c.name,
+    "description": c.description,
+    "provider": { "@type": "Organization", "name": "BrightLearn Tutoring", "sameAs": SITE_URL },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "inLanguage": "en-GB",
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": c.price,
+      "priceCurrency": "GBP",
+      "category": "Subscription",
+      "url": `${SITE_URL}/enquire`,
+    },
+  }));
+
+const TIKTOK_VIDEOS = [
+  {
+    title: "Simultaneous equations made EASY",
+    desc: "Grade 8/9 GCSE maths - save this for revision.",
+    url: "https://www.tiktok.com/@brightlearntutoring/video/7627986502479318274",
+    thumb: thumb1,
+  },
+  {
+    title: "Basic Trig example",
+    desc: "A clear walkthrough of trigonometry for GCSE students.",
+    url: "https://www.tiktok.com/@brightlearntutoring/video/7631676960132828438",
+    thumb: thumb2,
+  },
+  {
+    title: "Decimals to Percentages",
+    desc: "Converting decimals to percentages - quick and simple.",
+    url: "https://www.tiktok.com/@brightlearntutoring/video/7629757799156780310",
+    thumb: thumb3,
+  },
+];
+
+const buildVideoSchemas = () =>
+  TIKTOK_VIDEOS.map((v) => ({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": v.title,
+    "description": v.desc,
+    "thumbnailUrl": `${SITE_URL}${v.thumb}`,
+    "embedUrl": v.url,
+    "contentUrl": v.url,
+    "publisher": {
+      "@type": "Organization",
+      "name": "BrightLearn Tutoring",
+      "logo": { "@type": "ImageObject", "url": `${SITE_URL}/favicon.png` },
+    },
+  }));
+
+const JSON_LD_TUTOR = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Riyana",
+  "jobTitle": "Maths Tutor",
+  "worksFor": { "@type": "Organization", "name": "BrightLearn Tutoring", "url": SITE_URL },
+  "image": `${SITE_URL}${riyanas}`,
+  "knowsAbout": ["KS2 Maths", "KS3 Maths", "GCSE Maths", "AQA", "Edexcel", "OCR", "WJEC"],
+};
+
 const Index = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -95,7 +190,13 @@ const Index = () => {
     const existingScripts = document.querySelectorAll('script[data-brightlearn-ld]');
     existingScripts.forEach(s => s.remove());
 
-    [JSON_LD_LOCAL_BUSINESS, buildFaqSchema()].forEach((schema, i) => {
+    [
+      JSON_LD_LOCAL_BUSINESS,
+      buildFaqSchema(),
+      JSON_LD_TUTOR,
+      ...buildCourseSchemas(),
+      ...buildVideoSchemas(),
+    ].forEach((schema, i) => {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.setAttribute("data-brightlearn-ld", String(i));
