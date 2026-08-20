@@ -10,6 +10,8 @@ import Privacy from "./pages/Privacy.tsx";
 import Terms from "./pages/Terms.tsx";
 import Safeguarding from "./pages/Safeguarding.tsx";
 import CookiesPolicy from "./pages/Cookies.tsx";
+import AreasWeCover from "./pages/AreasWeCover.tsx";
+import LocationPage from "./pages/LocationPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
             <Route path="/terms" element={<Terms />} />
             <Route path="/safeguarding" element={<Safeguarding />} />
             <Route path="/cookies" element={<CookiesPolicy />} />
+            <Route path="/online-maths-tutor" element={<AreasWeCover />} />
+            <Route path="/online-maths-tutor/:slug" element={<LocationPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

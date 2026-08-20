@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSEO } from "@/hooks/useSEO";
 import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
+import { SimpleHeader } from "@/components/SimpleHeader";
 
 const Safeguarding = () => {
   useSEO({
@@ -21,21 +22,7 @@ const Safeguarding = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border-soft py-5 px-6">
-        <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-ink flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-4 h-4 text-background" fill="currentColor">
-                <path d="M3 18l6-6-6-6v12zm9-12v12l9-6-9-6z" />
-              </svg>
-            </div>
-            <span className="font-semibold text-ink tracking-tight">BrightLearn Tutoring</span>
-          </Link>
-          <Link to="/" className="text-sm text-ink-soft hover:text-ink transition-colors">
-            ← Back to home
-          </Link>
-        </div>
-      </header>
+      <SimpleHeader />
 
       <main className="max-w-3xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-semibold text-ink tracking-tight mb-2">Safeguarding Policy</h1>
