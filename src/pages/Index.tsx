@@ -9,22 +9,30 @@ import { TikTokFeed } from "@/components/sections/TikTokFeed";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 import { GetStartedModal } from "@/components/GetStartedModal";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useGetStarted } from "@/contexts/GetStartedContext";
+import { useSEO } from "@/hooks/useSEO";
 
 const JSON_LD_LOCAL_BUSINESS = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": "https://brightlearntutoring.co.uk/#business",
   "name": "BrightLearn Tutoring",
-  "description": "Expert online group maths tutoring for KS2, KS3 and GCSE students across the UK. DBS-checked tutor with personalised lesson plans.",
+  "alternateName": ["BrightLearn Tutoring UK", "BrightLearn Maths Tutoring"],
+  "legalName": "BrightLearn Tutoring Ltd",
+  "description": "Expert online group maths tutoring for KS2, KS3 and GCSE students, delivered nationwide across the UK. DBS-checked tutor with personalised lesson plans.",
   "url": "https://brightlearntutoring.co.uk",
   "logo": "https://brightlearntutoring.co.uk/favicon.png",
   "image": "https://brightlearntutoring.co.uk/og-image.png",
   "email": "info@brightlearntutoring.co.uk",
-  "areaServed": {
-    "@type": "Country",
-    "name": "United Kingdom"
-  },
+  "areaServed": [
+    { "@type": "Country", "name": "United Kingdom" },
+    { "@type": "AdministrativeArea", "name": "England" },
+    { "@type": "AdministrativeArea", "name": "Scotland" },
+    { "@type": "AdministrativeArea", "name": "Wales" },
+    { "@type": "AdministrativeArea", "name": "Northern Ireland" }
+  ],
   "serviceType": "Online Maths Tutoring",
   "priceRange": "££",
   "hasOfferCatalog": {
@@ -98,6 +106,12 @@ const JSON_LD_FAQ = {
 };
 
 const Index = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { open, openModal } = useGetStarted();
+  const isEnquireRoute = location.pathname === "/enquire";
+  const wasOpen = useRef(open);
+
   useEffect(() => {
     // Inject JSON-LD structured data
     const existingScripts = document.querySelectorAll('script[data-brightlearn-ld]');
@@ -116,8 +130,40 @@ const Index = () => {
     };
   }, []);
 
+  // /enquire is a direct, shareable link to the enquiry form
+  useEffect(() => {
+    if (isEnquireRoute && !open) {
+      openModal();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEnquireRoute]);
+
+  // Closing the modal while on /enquire returns to the homepage
+  useEffect(() => {
+    if (wasOpen.current && !open && isEnquireRoute) {
+      navigate("/", { replace: true });
+    }
+    wasOpen.current = open;
+  }, [open, isEnquireRoute, navigate]);
+
+  useSEO(
+    isEnquireRoute
+      ? {
+          title: "Enquire Now — Book a Free Maths Tutoring Consultation | BrightLearn Tutoring",
+          description:
+            "Start your child's maths tutoring journey today. Tell us about your KS2, KS3 or GCSE student and we'll match them with a live, DBS-checked small-group session — no card details required.",
+          path: "/enquire",
+        }
+      : {
+          title: "BrightLearn Tutoring | Online Maths Tutor for KS2, KS3 & GCSE — Nationwide UK",
+          description:
+            "Expert online group maths tutoring for KS2, KS3 and GCSE students, available nationwide across England, Scotland, Wales and Northern Ireland. DBS-checked tutor. Personalised lessons. Cancel any time. Enquire today.",
+          path: "/",
+        }
+  );
+
   return (
-    <main className="min-h-screen bg-background text-foreground" aria-label="BrightLearn Tutoring — Online Maths Tutor UK">
+    <main className="min-h-screen bg-background text-foreground" aria-label="BrightLearn Tutoring — Nationwide Online Maths Tutor UK">
       <Navbar />
       <Hero />
       <Trust />

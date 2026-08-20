@@ -1,9 +1,21 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSEO } from "@/hooks/useSEO";
+import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const CookiesPolicy = () => {
+  useSEO({
+    title: "Cookie Policy — BrightLearn Tutoring",
+    description:
+      "How BrightLearn Tutoring uses essential and analytics cookies, and how to manage or revoke your cookie preferences.",
+    path: "/cookies",
+  });
+  useBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Cookie Policy", path: "/cookies" },
+  ]);
+
   useEffect(() => {
-    document.title = "Cookie Policy — BrightLearn Tutoring";
     window.scrollTo(0, 0);
   }, []);
 
