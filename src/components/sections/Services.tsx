@@ -53,9 +53,9 @@ const services: (Programme & {
     price: "60",
     tagline: "Targeted revision and exam technique to boost grades.",
     description: "Targeted exam preparation across all UK boards. We turn understanding into grades - confidently.",
-    whoFor: "Year 10–11 students preparing for AQA, Edexcel, or OCR exams who want to hit their target grade - whether that's a Grade 4 pass or pushing for Grade 7–9.",
+    whoFor: "Year 10–11 students preparing for AQA, Edexcel, OCR or WJEC/Eduqas exams who want to hit their target grade - whether that's a Grade 4 pass or pushing for Grade 7–9.",
     sessionStructure: "Sessions combine topic mastery with real exam practice. We work through past paper questions under timed conditions, dissect mark schemes, and build the exam technique that turns understanding into marks.",
-    topics: ["All GCSE topics", "Past paper practice", "Mark scheme technique", "Grade 7–9 extension", "Mock exam prep", "AQA · Edexcel · OCR"],
+    topics: ["All GCSE topics", "Past paper practice", "Mark scheme technique", "Grade 7–9 extension", "Mock exam prep", "AQA · Edexcel · OCR · WJEC"],
     outcomes: [
       "Clear understanding of the exact style of questions that appear on your exam board",
       "Exam technique that maximises marks - not just correct answers",

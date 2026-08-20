@@ -15,9 +15,10 @@ const linkGroups: {
   {
     title: "Programmes",
     links: [
-      { label: "KS2 Maths", href: "#services" },
-      { label: "KS3 Maths", href: "#services" },
-      { label: "GCSE Maths", href: "#services" },
+      { label: "KS2 Maths", href: "/#services" },
+      { label: "KS3 Maths", href: "/#services" },
+      { label: "GCSE Maths", href: "/#services" },
+      { label: "Areas we cover", href: "/online-maths-tutor" },
     ],
   },
   {
@@ -87,18 +88,26 @@ export const Footer = () => {
               <div key={g.title}>
                 <h4 className="text-sm font-semibold text-ink mb-4">{g.title}</h4>
                 <ul className="space-y-3">
-                  {g.links.map((l) => (
-                    <li key={l.label}>
-                      <a
-                        href={l.href}
-                        target={l.external ? "_blank" : undefined}
-                        rel={l.external ? "noopener noreferrer" : undefined}
-                        className="text-sm text-ink-soft hover:text-ink transition-colors"
-                      >
-                        {l.label}
-                      </a>
-                    </li>
-                  ))}
+                  {g.links.map((l) =>
+                    l.external ? (
+                      <li key={l.label}>
+                        <a
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-ink-soft hover:text-ink transition-colors"
+                        >
+                          {l.label}
+                        </a>
+                      </li>
+                    ) : (
+                      <li key={l.label}>
+                        <RouterLink to={l.href} className="text-sm text-ink-soft hover:text-ink transition-colors">
+                          {l.label}
+                        </RouterLink>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             ))}
@@ -112,10 +121,10 @@ export const Footer = () => {
               <Mail className="w-4 h-4" />
               info@brightlearntutoring.co.uk
             </a>
-            <div className="flex items-center gap-2.5 text-sm text-ink-soft">
+            <RouterLink to="/online-maths-tutor" className="flex items-center gap-2.5 text-sm text-ink-soft hover:text-ink transition-colors">
               <MapPin className="w-4 h-4" />
-              Online · United Kingdom
-            </div>
+              Online · England, Wales &amp; Northern Ireland
+            </RouterLink>
           </div>
           <div className="flex items-center gap-2">
             {[

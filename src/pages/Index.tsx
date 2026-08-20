@@ -6,6 +6,7 @@ import { Values } from "@/components/sections/Values";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Pricing } from "@/components/sections/Pricing";
 import { TikTokFeed } from "@/components/sections/TikTokFeed";
+import { FAQ } from "@/components/sections/FAQ";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 import { GetStartedModal } from "@/components/GetStartedModal";
@@ -13,6 +14,7 @@ import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { useSEO } from "@/hooks/useSEO";
+import { homeFaqs } from "@/data/faq";
 
 const JSON_LD_LOCAL_BUSINESS = {
   "@context": "https://schema.org",
@@ -21,15 +23,13 @@ const JSON_LD_LOCAL_BUSINESS = {
   "name": "BrightLearn Tutoring",
   "alternateName": ["BrightLearn Tutoring UK", "BrightLearn Maths Tutoring"],
   "legalName": "BrightLearn Tutoring Ltd",
-  "description": "Expert online group maths tutoring for KS2, KS3 and GCSE students, delivered nationwide across the UK. DBS-checked tutor with personalised lesson plans.",
+  "description": "Expert online group maths tutoring for KS2, KS3 and GCSE students, delivered across England, Wales and Northern Ireland. DBS-checked tutor with personalised lesson plans.",
   "url": "https://brightlearntutoring.co.uk",
   "logo": "https://brightlearntutoring.co.uk/favicon.png",
   "image": "https://brightlearntutoring.co.uk/og-image.png",
   "email": "info@brightlearntutoring.co.uk",
   "areaServed": [
-    { "@type": "Country", "name": "United Kingdom" },
     { "@type": "AdministrativeArea", "name": "England" },
-    { "@type": "AdministrativeArea", "name": "Scotland" },
     { "@type": "AdministrativeArea", "name": "Wales" },
     { "@type": "AdministrativeArea", "name": "Northern Ireland" }
   ],
@@ -58,7 +58,7 @@ const JSON_LD_LOCAL_BUSINESS = {
       {
         "@type": "Offer",
         "name": "GCSE Maths Tutoring",
-        "description": "Online group GCSE maths tutoring for Year 10–11. AQA, Edexcel and OCR aligned. Past paper practice and exam technique.",
+        "description": "Online group GCSE maths tutoring for Year 10–11. Aligned to AQA, Edexcel, OCR and WJEC/Eduqas. Past paper practice and exam technique.",
         "price": "60",
         "priceCurrency": "GBP",
         "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "GBP", "unitText": "month" }
@@ -73,37 +73,15 @@ const JSON_LD_LOCAL_BUSINESS = {
   ]
 };
 
-const JSON_LD_FAQ = {
+const buildFaqSchema = () => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much does online maths tutoring cost?",
-      "acceptedAnswer": { "@type": "Answer", "text": "BrightLearn tutoring starts from £40/month for KS2, £50/month for KS3, and £60/month for GCSE. KS2 includes 4 sessions per month, and KS3/GCSE include 8 sessions per month, with no contracts." }
-    },
-    {
-      "@type": "Question",
-      "name": "Is the tutor DBS checked?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Our tutor is fully DBS-checked and verified to work with children." }
-    },
-    {
-      "@type": "Question",
-      "name": "What exam boards do you cover for GCSE maths?",
-      "acceptedAnswer": { "@type": "Answer", "text": "We cover all major UK exam boards including AQA, Edexcel (Pearson) and OCR." }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I cancel at any time?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. There are no contracts or long-term commitments. You can cancel your tutoring plan at any time." }
-    },
-    {
-      "@type": "Question",
-      "name": "How are the sessions delivered?",
-      "acceptedAnswer": { "@type": "Answer", "text": "All sessions are delivered live online in small groups via video call. KS2 sessions are 1 hour, and KS3/GCSE sessions are 1.5 hours." }
-    }
-  ]
-};
+  "mainEntity": homeFaqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+});
 
 const Index = () => {
   const location = useLocation();
@@ -117,7 +95,7 @@ const Index = () => {
     const existingScripts = document.querySelectorAll('script[data-brightlearn-ld]');
     existingScripts.forEach(s => s.remove());
 
-    [JSON_LD_LOCAL_BUSINESS, JSON_LD_FAQ].forEach((schema, i) => {
+    [JSON_LD_LOCAL_BUSINESS, buildFaqSchema()].forEach((schema, i) => {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.setAttribute("data-brightlearn-ld", String(i));
@@ -129,6 +107,17 @@ const Index = () => {
       document.querySelectorAll('script[data-brightlearn-ld]').forEach(s => s.remove());
     };
   }, []);
+
+  // Cross-page links (e.g. footer "KS2 Maths" from a location page) land here
+  // as /#services — scroll to the section once the homepage has mounted.
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    const raf = requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [location.hash]);
 
   // /enquire is a direct, shareable link to the enquiry form
   useEffect(() => {
@@ -155,9 +144,9 @@ const Index = () => {
           path: "/enquire",
         }
       : {
-          title: "BrightLearn Tutoring | Online Maths Tutor for KS2, KS3 & GCSE — Nationwide UK",
+          title: "BrightLearn Tutoring | Online Maths Tutor for KS2, KS3 & GCSE — England, Wales & NI",
           description:
-            "Expert online group maths tutoring for KS2, KS3 and GCSE students, available nationwide across England, Scotland, Wales and Northern Ireland. DBS-checked tutor. Personalised lessons. Cancel any time. Enquire today.",
+            "Expert online group maths tutoring for KS2, KS3 and GCSE students, available across England, Wales and Northern Ireland. DBS-checked tutor. Personalised lessons. Cancel any time. Enquire today.",
           path: "/",
         }
   );
@@ -172,6 +161,7 @@ const Index = () => {
       <div className="hidden md:block"><HowItWorks /></div>
       <div className="hidden lg:block"><Pricing /></div>
       <TikTokFeed />
+      <FAQ />
       <FinalCTA />
       <Footer />
       <GetStartedModal />
