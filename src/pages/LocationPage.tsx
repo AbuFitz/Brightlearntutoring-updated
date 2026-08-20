@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
-import { MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { MapPin, ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { SimpleHeader } from "@/components/SimpleHeader";
 import { Footer } from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
 import { GetStartedModal } from "@/components/GetStartedModal";
 import { PricingModal } from "@/components/PricingModal";
 import { useGetStarted } from "@/contexts/GetStartedContext";
-import { findLocation } from "@/data/locations";
+import { findLocation, locations } from "@/data/locations";
 import { useSEO } from "@/hooks/useSEO";
 import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
@@ -85,6 +85,11 @@ const LocationPage = () => {
   }, [slug]);
 
   if (!location) return <Navigate to="/online-maths-tutor" replace />;
+
+  const nearby = [...locations]
+    .filter((l) => l.slug !== location.slug)
+    .sort((a, b) => Number(b.nation === location.nation) - Number(a.nation === location.nation))
+    .slice(0, 3);
 
   return (
     <div className="min-h-screen bg-background">
@@ -201,6 +206,40 @@ const LocationPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Nearby areas */}
+      {nearby.length > 0 && (
+        <section className="py-14 lg:py-20 bg-background">
+          <div className="container max-w-3xl">
+            <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Also nearby</span>
+            <h2 className="mt-3 text-2xl md:text-3xl text-ink font-semibold tracking-tight leading-[1.1]">
+              We tutor students across {location.nation} too
+            </h2>
+            <div className="mt-6 grid sm:grid-cols-3 gap-4">
+              {nearby.map((n) => (
+                <Link
+                  key={n.slug}
+                  to={`/online-maths-tutor/${n.slug}`}
+                  className="group block rounded-2xl border border-border-soft bg-background-soft p-5 hover:border-accent/40 hover:shadow-card hover:-translate-y-0.5 transition-all"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="font-semibold text-ink">{n.city}</div>
+                    <ArrowUpRight className="w-4 h-4 text-ink-soft shrink-0 transition-transform group-hover:rotate-45 group-hover:text-accent" />
+                  </div>
+                  <div className="text-xs text-ink-soft mt-1">{n.region}</div>
+                </Link>
+              ))}
+            </div>
+            <Link
+              to="/online-maths-tutor"
+              className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-accent hover:underline"
+            >
+              See every area we cover
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="py-14 lg:py-20 bg-background">
