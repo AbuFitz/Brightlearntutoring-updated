@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, ShieldCheck } from "lucide-react";
-import tutorFemale from "@/assets/tutor-portrait.png";
-import riyanas from "@/assets/riyanas.png";
+import tutorFemale from "@/assets/tutor-portrait.webp";
+import riyanas from "@/assets/riyanas.webp";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { PricingModal } from "@/components/PricingModal";

@@ -15,10 +15,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { useSEO } from "@/hooks/useSEO";
 import { homeFaqs } from "@/data/faq";
-import thumb1 from "@/assets/tiktok-thumb-1.jpg";
-import thumb2 from "@/assets/tiktok-thumb-2.jpg";
-import thumb3 from "@/assets/tiktok-thumb-3.jpg";
-import riyanas from "@/assets/riyanas.png";
+import thumb1 from "@/assets/tiktok-thumb-1.webp";
+import thumb2 from "@/assets/tiktok-thumb-2.webp";
+import thumb3 from "@/assets/tiktok-thumb-3.webp";
+import riyanas from "@/assets/riyanas.webp";
 
 const SITE_URL = "https://brightlearntutoring.co.uk";
 
