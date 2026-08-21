@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
+import { SessionType, sessionLabel, getTier } from "@/data/pricing";
 import {
   ArrowLeft,
   ArrowRight,
@@ -76,6 +77,7 @@ interface FormData {
   studentEmail: string;
   studentPhone: string;
   studentLevel: Package;
+  sessionType: SessionType | "";
   yearGroup: string;
   helpNeeded: string;
   currentGrade: string;
@@ -93,6 +95,7 @@ const blank = (): FormData => ({
   studentEmail: "",
   studentPhone: "",
   studentLevel: "",
+  sessionType: "",
   yearGroup: "",
   helpNeeded: "",
   currentGrade: "",
@@ -123,6 +126,7 @@ const validateStep = (step: StepId, form: FormData): string[] => {
         if (!form.studentPhone.trim()) e.push("studentPhone");
       }
       if (!form.studentLevel) e.push("studentLevel");
+      if (!form.sessionType) e.push("sessionType");
       if (!form.yearGroup) e.push("yearGroup");
       break;
     case "learning":
@@ -145,6 +149,7 @@ const buildPayload = (form: FormData) => ({
     ? { "Student email": form.studentEmail, "Student phone": form.studentPhone }
     : {}),
   Programme: form.studentLevel || "—",
+  "Session type": form.sessionType ? sessionLabel(form.sessionType) : "—",
   "Year group": form.yearGroup || "—",
   "Help needed": form.helpNeeded || "—",
   ...(form.currentGrade ? { "Current grade": form.currentGrade } : {}),
@@ -215,7 +220,7 @@ const Pill = ({
 // ── Main component ─────────────────────────────────────────────────────────
 
 export const GetStartedModal = () => {
-  const { open, preselectedPackage, closeModal } = useGetStarted();
+  const { open, preselectedPackage, preselectedSessionType, closeModal } = useGetStarted();
   const [form, setForm] = useState<FormData>(blank());
   const [stepIndex, setStepIndex] = useState(0);
   const [errors, setErrors] = useState<string[]>([]);
@@ -230,9 +235,13 @@ export const GetStartedModal = () => {
   // Sync pre-selected package when modal opens
   useEffect(() => {
     if (open && preselectedPackage) {
-      setForm((p) => ({ ...p, studentLevel: preselectedPackage }));
+      setForm((p) => ({
+        ...p,
+        studentLevel: preselectedPackage,
+        sessionType: preselectedSessionType,
+      }));
     }
-  }, [open, preselectedPackage]);
+  }, [open, preselectedPackage, preselectedSessionType]);
 
   const handleClose = () => {
     closeModal();
@@ -329,7 +338,10 @@ export const GetStartedModal = () => {
         ? "Tell us about yourself."
         : "Tell us about the student we'll be working with.",
     learning: "Help us understand what support is needed.",
-    timings: "Here are our available session times.",
+    timings:
+      form.sessionType === "1on1"
+        ? "1-on-1 sessions are arranged around your availability."
+        : "Here are our available session times.",
     review: "Check everything looks right before sending.",
   };
 
@@ -560,6 +572,47 @@ export const GetStartedModal = () => {
             </Field>
             {form.studentLevel && (
               <Field
+                label="Session type"
+                required
+                error={hasErr("sessionType")}
+                errorMsg="Please choose group or 1-on-1"
+              >
+                <div className="grid grid-cols-2 gap-2 pt-0.5">
+                  {(["group", "1on1"] as SessionType[]).map((type) => {
+                    const tier = getTier(form.studentLevel);
+                    const monthlyPrice = tier && (type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice);
+                    const sessionsPerMonth = tier && (type === "group" ? tier.group.sessionsPerMonth : tier.oneToOne.sessionsPerMonth);
+                    return (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => {
+                          setForm((p) => ({ ...p, sessionType: type }));
+                          setErrors((e) => e.filter((x) => x !== "sessionType"));
+                        }}
+                        className={cn(
+                          "flex flex-col items-start gap-0.5 rounded-2xl border p-3.5 text-left transition-all",
+                          form.sessionType === type
+                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                            : "border-border bg-background-soft hover:border-ink/25"
+                        )}
+                      >
+                        <span className="text-sm font-semibold text-ink">
+                          {sessionLabel(type)}
+                        </span>
+                        {tier && (
+                          <span className="text-xs text-ink-soft">
+                            £{monthlyPrice}/month · {sessionsPerMonth} sessions
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </Field>
+            )}
+            {form.studentLevel && (
+              <Field
                 label="Year group"
                 required
                 error={hasErr("yearGroup")}
@@ -635,6 +688,20 @@ export const GetStartedModal = () => {
 
       // ─ Step: Timings ──────────────────────────────────────────────────────
       case "timings": {
+        if (form.sessionType === "1on1") {
+          return (
+            <div className="space-y-5">
+              <div className="flex items-start gap-2.5 rounded-2xl bg-accent-soft border border-accent/20 px-4 py-3">
+                <span className="text-base mt-0.5">🗓️</span>
+                <p className="text-sm text-ink leading-relaxed">
+                  1-on-1 sessions are scheduled around your family's own availability rather than a fixed
+                  timetable. We'll agree a weekly time together once your enquiry is confirmed.
+                </p>
+              </div>
+            </div>
+          );
+        }
+
         const getTimingsForLevel = (level: string) => {
           if (level === "GCSE") {
             return {
@@ -649,7 +716,7 @@ export const GetStartedModal = () => {
 
         return (
           <div className="space-y-5">
-            <div className="flex items-start gap-2.5 rounded-2xl bg-amber-50 border border-amber-200 px-4 py-3"> 
+            <div className="flex items-start gap-2.5 rounded-2xl bg-amber-50 border border-amber-200 px-4 py-3">
               <span className="text-base mt-0.5">⚠️</span>
               <p className="text-sm text-ink leading-relaxed">
                 Please only continue if you can commit to the full weekly schedule shown below.
@@ -736,6 +803,7 @@ export const GetStartedModal = () => {
                   ] as [string, string][])
                 : []),
               ["Level", form.studentLevel],
+              ["Session type", form.sessionType ? sessionLabel(form.sessionType) : ""],
               ["Year group", form.yearGroup],
             ],
           },

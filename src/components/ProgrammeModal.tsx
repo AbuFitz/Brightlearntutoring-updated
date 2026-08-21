@@ -1,12 +1,13 @@
+import { useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ArrowRight, Check, BookOpen, Clock, CalendarDays, GraduationCap, Star } from "lucide-react";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
+import { getTier, sessionLabel, SessionType } from "@/data/pricing";
 import { cn } from "@/lib/utils";
 
 export interface Programme {
   name: Package;
   tag: string;
-  price: string;
   tagline: string;
   description: string;
   whoFor: string;
@@ -24,13 +25,14 @@ interface ProgrammeModalProps {
 
 export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
   const { openModal } = useGetStarted();
-  const isKs2 = programme?.name === "KS2";
-  const sessionLength = isKs2 ? "1 hour per session" : "1.5 hour per session";
-  const sessionCount = isKs2 ? "4 sessions / month" : "8 sessions / month";
+  const [sessionType, setSessionType] = useState<SessionType>("group");
+  const tier = programme && getTier(programme.name);
+  const plan = tier && (sessionType === "group" ? tier.group : tier.oneToOne);
+  const price = tier && (sessionType === "group" ? tier.group.price : tier.oneToOne.monthlyPrice);
 
   const handleGetStarted = () => {
     onClose();
-    setTimeout(() => openModal(programme?.name), 200);
+    setTimeout(() => openModal(programme?.name, sessionType), 200);
   };
 
   return (
@@ -76,20 +78,46 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
               {/* Scrollable body */}
               <div className="flex-1 overflow-y-auto px-4 md:px-6 py-5 space-y-5">
 
-                {/* Info pills row */}
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    { icon: Clock, text: sessionLength },
-                    { icon: CalendarDays, text: sessionCount },
-                    { icon: BookOpen, text: "Custom learning plan" },
-                    { icon: GraduationCap, text: "UK curriculum aligned" },
-                  ].map(({ icon: Icon, text }) => (
-                    <div key={text} className="flex items-center gap-1.5 bg-background-soft border border-border-soft rounded-full px-3 py-1.5">
-                      <Icon className="w-3.5 h-3.5 text-accent shrink-0" />
-                      <span className="text-xs font-medium text-ink">{text}</span>
-                    </div>
+                {/* Session type toggle */}
+                <div className="grid grid-cols-2 gap-2">
+                  {(["group", "1on1"] as SessionType[]).map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setSessionType(type)}
+                      className={cn(
+                        "rounded-2xl border p-3 text-left transition-all",
+                        sessionType === type
+                          ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                          : "border-border-soft bg-background-soft hover:border-ink/25"
+                      )}
+                    >
+                      <div className="text-sm font-semibold text-ink">{sessionLabel(type)}</div>
+                      {tier && (
+                        <div className="text-xs text-ink-soft mt-0.5">
+                          £{type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice}/month
+                        </div>
+                      )}
+                    </button>
                   ))}
                 </div>
+
+                {/* Info pills row */}
+                {plan && (
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { icon: Clock, text: `${plan.sessionLength} per session` },
+                      { icon: CalendarDays, text: `${plan.sessionsPerMonth} sessions / month` },
+                      { icon: BookOpen, text: "Custom learning plan" },
+                      { icon: GraduationCap, text: "UK curriculum aligned" },
+                    ].map(({ icon: Icon, text }) => (
+                      <div key={text} className="flex items-center gap-1.5 bg-background-soft border border-border-soft rounded-full px-3 py-1.5">
+                        <Icon className="w-3.5 h-3.5 text-accent shrink-0" />
+                        <span className="text-xs font-medium text-ink">{text}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {/* Who it's for */}
                 <div>

@@ -51,14 +51,22 @@ const Terms = () => {
 
           <section>
             <h2 className="text-lg font-semibold text-ink mb-3">3. Fees and payment</h2>
+            <p className="font-semibold text-ink text-sm">Small group tuition (maximum 5 students per group, monthly only)</p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>KS2 Maths — £40 per month (4 sessions)</li>
               <li>KS3 Maths — £90 per month (8 sessions)</li>
               <li>GCSE Maths — £100 per month (8 sessions)</li>
             </ul>
+            <p className="font-semibold text-ink text-sm mt-4">1-to-1 tuition (single lesson or monthly — 4 sessions)</p>
+            <ul className="list-disc pl-5 mt-2 space-y-1">
+              <li>KS2 Maths — £25 per lesson, or £80 per month</li>
+              <li>KS3 Maths — £30 per lesson, or £100 per month</li>
+              <li>GCSE Maths — £35 per lesson, or £120 per month</li>
+            </ul>
             <p className="mt-3">
-              Payment is due at the start of each monthly billing period. No card details are required at the
-              point of enquiry. Payment instructions will be provided upon confirmation.
+              Payment is due at the start of each monthly billing period, or per lesson for 1-to-1 sessions booked
+              individually. No card details are required at the point of enquiry. Payment instructions will be
+              provided upon confirmation.
             </p>
           </section>
 
