@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { SimpleHeader } from "@/components/SimpleHeader";
 import { Footer } from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
 import { GetStartedModal } from "@/components/GetStartedModal";
+import { WhatsAppModal } from "@/components/WhatsAppModal";
+import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { faqCategories } from "@/data/faq";
@@ -13,6 +15,7 @@ import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const FAQPage = () => {
   const { openModal } = useGetStarted();
+  const [whatsappOpen, setWhatsappOpen] = useState(false);
 
   useSEO({
     title: "Frequently Asked Questions — BrightLearn Tutoring",
@@ -68,8 +71,12 @@ const FAQPage = () => {
           <p className="mt-6 text-lg text-ink-soft leading-relaxed">
             Everything parents usually ask about pricing, sessions, 1-on-1 tuition and how it all works. Can't
             find what you need?{" "}
-            <button type="button" onClick={() => openModal()} className="text-accent font-medium hover:underline">
-              Get in touch
+            <button
+              type="button"
+              onClick={() => setWhatsappOpen(true)}
+              className="text-accent font-medium hover:underline"
+            >
+              Message us
             </button>{" "}
             and we'll answer directly.
           </p>
@@ -121,12 +128,38 @@ const FAQPage = () => {
                 <span className="font-display italic font-normal text-accent">Ask us.</span>
               </h2>
               <p className="mt-4 text-background/75 max-w-xl mx-auto">
-                No card details required. Cancel any time.
+                No bots, no forms — message us directly and we usually reply within a few hours.
               </p>
-              <Button variant="accent" size="xl" className="mt-8 group" onClick={() => openModal()}>
-                Get started
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <Button
+                  variant="accent"
+                  size="xl"
+                  className="group"
+                  onClick={() => setWhatsappOpen(true)}
+                >
+                  <WhatsAppIcon className="w-4 h-4" />
+                  Message us on WhatsApp
+                </Button>
+                <Button
+                  variant="outline"
+                  size="xl"
+                  className="bg-transparent border-background/20 text-background hover:bg-background/10 hover:border-background/40"
+                  asChild
+                >
+                  <a href="mailto:info@brightlearntutoring.co.uk">
+                    <Mail className="w-4 h-4" />
+                    Email us
+                  </a>
+                </Button>
+              </div>
+              <button
+                type="button"
+                onClick={() => openModal()}
+                className="inline-flex items-center gap-1.5 mt-6 text-sm font-medium text-background/70 hover:text-background transition-colors"
+              >
+                Ready to get started instead?
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
         </div>
@@ -134,6 +167,7 @@ const FAQPage = () => {
 
       <Footer />
       <GetStartedModal />
+      <WhatsAppModal open={whatsappOpen} onClose={() => setWhatsappOpen(false)} />
     </div>
   );
 };
