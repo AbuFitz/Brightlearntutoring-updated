@@ -29,13 +29,17 @@ const JSON_LD_LOCAL_BUSINESS = {
   "name": "BrightLearn Tutoring",
   "alternateName": ["BrightLearn Tutoring UK", "BrightLearn Maths Tutoring"],
   "legalName": "BrightLearn Tutoring Ltd",
-  "description": "Expert online group maths tutoring for KS2, KS3 and GCSE students, delivered across England, Wales and Northern Ireland. DBS-checked tutor with personalised lesson plans.",
+  "description": "Online group and 1-on-1 maths tutoring based in North London (Enfield, Edmonton, Tottenham and Haringey), delivered live across England, Wales and Northern Ireland. DBS-checked tutor with personalised lesson plans.",
   "url": "https://brightlearntutoring.co.uk",
   "logo": "https://brightlearntutoring.co.uk/favicon.png",
   "image": "https://brightlearntutoring.co.uk/og-image.png",
   "email": "info@brightlearntutoring.co.uk",
   "telephone": "+447577702613",
   "areaServed": [
+    { "@type": "Place", "name": "Enfield" },
+    { "@type": "Place", "name": "Edmonton" },
+    { "@type": "Place", "name": "Tottenham" },
+    { "@type": "Place", "name": "Haringey" },
     { "@type": "AdministrativeArea", "name": "England" },
     { "@type": "AdministrativeArea", "name": "Wales" },
     { "@type": "AdministrativeArea", "name": "Northern Ireland" }
@@ -58,17 +62,17 @@ const JSON_LD_LOCAL_BUSINESS = {
         "@type": "Offer",
         "name": "KS3 Maths Tutoring",
         "description": "Online group maths tutoring for Year 7–9 students. Algebra, geometry, ratios and building towards GCSE.",
-        "price": "50",
+        "price": "90",
         "priceCurrency": "GBP",
-        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "50", "priceCurrency": "GBP", "unitText": "month" }
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "90", "priceCurrency": "GBP", "unitText": "month" }
       },
       {
         "@type": "Offer",
         "name": "GCSE Maths Tutoring",
         "description": "Online group GCSE maths tutoring for Year 10–11. Aligned to AQA, Edexcel, OCR and WJEC/Eduqas. Past paper practice and exam technique.",
-        "price": "60",
+        "price": "100",
         "priceCurrency": "GBP",
-        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "GBP", "unitText": "month" }
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "100", "priceCurrency": "GBP", "unitText": "month" }
       }
     ]
   },
@@ -101,13 +105,13 @@ const COURSES = [
     name: "KS3 Maths Tutoring",
     description:
       "Live online group maths tutoring for Year 7–9 students. Covers algebra, geometry, ratio and proportion, building towards GCSE.",
-    price: "50",
+    price: "90",
   },
   {
     name: "GCSE Maths Tutoring",
     description:
       "Live online group GCSE maths tutoring for Year 10–11. Aligned to AQA, Edexcel, OCR and WJEC/Eduqas, with past paper practice and exam technique.",
-    price: "60",
+    price: "100",
   },
 ];
 

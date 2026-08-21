@@ -8,7 +8,7 @@ export interface Faq {
 export const homeFaqs: Faq[] = [
   {
     q: "How much does online maths tutoring cost?",
-    a: "BrightLearn tutoring starts from £40/month for KS2, £50/month for KS3, and £60/month for GCSE. KS2 includes 4 sessions per month, and KS3/GCSE include 8 sessions per month, with no contracts.",
+    a: "BrightLearn tutoring starts from £40/month for KS2, £90/month for KS3, and £100/month for GCSE. KS2 includes 4 sessions per month, and KS3/GCSE include 8 sessions per month, with no contracts.",
   },
   {
     q: "Is the tutor DBS checked?",
@@ -27,12 +27,8 @@ export const homeFaqs: Faq[] = [
     a: "All sessions are delivered live online in small groups via video call. KS2 sessions are 1 hour, and KS3/GCSE sessions are 1.5 hours.",
   },
   {
-    q: "Do you tutor students outside a specific city?",
-    a: "Yes. Because every session is delivered live online, we work with families across England, Wales and Northern Ireland — not just in major cities. There's nothing to commute to.",
+    q: "Are you only for families in North London?",
+    a: "No. BrightLearn Tutoring is based in North London — Enfield, Edmonton, Tottenham and Haringey — but because every session is delivered live online, we work with families right across the UK. There's nothing to commute to.",
     link: { label: "See the areas we cover", to: "/online-maths-tutor" },
-  },
-  {
-    q: "Can you help with 11+ or grammar school entrance maths?",
-    a: "Our KS2 programme builds the number fluency and problem-solving skills that underpin 11+ and grammar school entrance papers, including Northern Ireland's transfer test (AQE/PPTC), alongside general SATs preparation.",
   },
 ];

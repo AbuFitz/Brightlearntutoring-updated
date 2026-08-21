@@ -15,8 +15,8 @@ const SITE_URL = "https://brightlearntutoring.co.uk";
 
 const PROGRAMMES = [
   { name: "KS2", price: "£40", desc: "Ages 7–11 · SATs & foundations" },
-  { name: "KS3", price: "£50", desc: "Ages 11–14 · Core topic mastery" },
-  { name: "GCSE", price: "£60", desc: "Ages 14–16 · Grades & exam technique" },
+  { name: "KS3", price: "£90", desc: "Ages 11–14 · Core topic mastery" },
+  { name: "GCSE", price: "£100", desc: "Ages 14–16 · Grades & exam technique" },
 ] as const;
 
 const LocationPage = () => {
@@ -86,10 +86,7 @@ const LocationPage = () => {
 
   if (!location) return <Navigate to="/online-maths-tutor" replace />;
 
-  const nearby = [...locations]
-    .filter((l) => l.slug !== location.slug)
-    .sort((a, b) => Number(b.nation === location.nation) - Number(a.nation === location.nation))
-    .slice(0, 3);
+  const nearby = locations.filter((l) => l.slug !== location.slug);
 
   return (
     <div className="min-h-screen bg-background">
@@ -213,7 +210,7 @@ const LocationPage = () => {
           <div className="container max-w-3xl">
             <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Also nearby</span>
             <h2 className="mt-3 text-2xl md:text-3xl text-ink font-semibold tracking-tight leading-[1.1]">
-              We tutor students across {location.nation} too
+              Other North London areas we cover
             </h2>
             <div className="mt-6 grid sm:grid-cols-3 gap-4">
               {nearby.map((n) => (

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { WhatsAppModal } from "@/components/WhatsAppModal";
 
 const WHATSAPP_NUMBER = "447577702613"; // 07577 702613, UK
+export const WHATSAPP_DISPLAY_NUMBER = "07577 702613";
 const DEFAULT_MESSAGE = "Hi! I'd like to find out more about BrightLearn Tutoring.";
 
 export const whatsappLink = (message: string = DEFAULT_MESSAGE) =>
@@ -24,6 +26,7 @@ export const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export const WhatsAppButton = () => {
   const location = useLocation();
   const [nearFooter, setNearFooter] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const footer = document.querySelector("footer");
@@ -39,18 +42,20 @@ export const WhatsAppButton = () => {
   }, [location.pathname]);
 
   return (
-    <a
-      href={whatsappLink()}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with BrightLearn Tutoring on WhatsApp"
-      className={cn(
-        "fixed z-40 bottom-5 right-4 sm:bottom-6 sm:right-6 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-elevated hover:scale-105 active:scale-95 transition-all duration-300",
-        nearFooter ? "opacity-0 translate-y-3 pointer-events-none" : "opacity-100"
-      )}
-      style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
-    >
-      <WhatsAppIcon className="w-7 h-7" />
-    </a>
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="Chat with BrightLearn Tutoring on WhatsApp"
+        className={cn(
+          "fixed z-40 bottom-5 right-4 sm:bottom-6 sm:right-6 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-elevated hover:scale-105 active:scale-95 transition-all duration-300",
+          nearFooter ? "opacity-0 translate-y-3 pointer-events-none" : "opacity-100"
+        )}
+        style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
+      >
+        <WhatsAppIcon className="w-7 h-7" />
+      </button>
+      <WhatsAppModal open={open} onClose={() => setOpen(false)} />
+    </>
   );
 };
