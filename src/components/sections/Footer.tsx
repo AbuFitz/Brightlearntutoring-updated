@@ -3,6 +3,7 @@ import { Instagram, Youtube, Facebook, Mail, MapPin, Link } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { WhatsAppModal } from "@/components/WhatsAppModal";
+import { InPersonModal } from "@/components/InPersonModal";
 import { locations } from "@/data/locations";
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -18,9 +19,19 @@ const linkGroups: {
   {
     title: "Programmes",
     links: [
-      { label: "KS2 Maths", href: "/#services" },
-      { label: "KS3 Maths", href: "/#services" },
-      { label: "GCSE Maths", href: "/#services" },
+      { label: "KS2 Maths & SATs Prep", href: "/ks2-maths-confidence-sats-preparation" },
+      { label: "Year 7–9 Maths", href: "/year-7-9-maths-support" },
+      { label: "GCSE Maths Foundation", href: "/gcse-maths-foundation-tutor" },
+      { label: "GCSE Maths Higher", href: "/gcse-maths-higher-tutor" },
+    ],
+  },
+  {
+    title: "Guides",
+    links: [
+      { label: "GCSE Maths Resit", href: "/gcse-maths-resit-tuition" },
+      { label: "1-on-1 Online Tutoring", href: "/online-one-to-one-maths-tutoring" },
+      { label: "Small-Group GCSE Revision", href: "/small-group-gcse-maths-revision" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
   {
@@ -46,6 +57,7 @@ export const Footer = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [whatsappOpen, setWhatsappOpen] = useState(false);
+  const [inPersonOpen, setInPersonOpen] = useState(false);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +69,7 @@ export const Footer = () => {
       <div className="container">
         {/* Top: brand + newsletter */}
         <div className="grid lg:grid-cols-12 gap-12 pb-16 border-b border-border-soft">
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <div className="flex items-center gap-2.5 mb-5">
               <div className="w-9 h-9 rounded-lg bg-ink flex items-center justify-center">
                 <svg viewBox="0 0 24 24" className="w-4 h-4 text-background" fill="currentColor">
@@ -94,7 +106,7 @@ export const Footer = () => {
             <p className="text-xs text-ink-soft mt-3">Monthly parenting + maths tips. No spam.</p>
           </div>
 
-          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-6">
             {linkGroups.map((g) => (
               <div key={g.title}>
                 <h4 className="text-sm font-semibold text-ink mb-4">{g.title}</h4>
@@ -127,7 +139,7 @@ export const Footer = () => {
 
         {/* Middle: contact bar */}
         <div className="py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-border-soft">
-          <div className="flex flex-col sm:flex-row gap-6">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-3">
             <a href="mailto:info@brightlearntutoring.co.uk" className="flex items-center gap-2.5 text-sm text-ink-soft hover:text-ink transition-colors">
               <Mail className="w-4 h-4" />
               info@brightlearntutoring.co.uk
@@ -144,6 +156,14 @@ export const Footer = () => {
               <MapPin className="w-4 h-4" />
               North London · Online UK-wide
             </RouterLink>
+            <button
+              type="button"
+              onClick={() => setInPersonOpen(true)}
+              className="flex items-center gap-2.5 text-sm text-ink-soft hover:text-ink transition-colors"
+            >
+              <MapPin className="w-4 h-4 text-accent" />
+              In-person tutoring · Coming soon
+            </button>
           </div>
           <div className="flex items-center gap-2">
             {[
@@ -179,6 +199,7 @@ export const Footer = () => {
         </div>
       </div>
       <WhatsAppModal open={whatsappOpen} onClose={() => setWhatsappOpen(false)} />
+      <InPersonModal open={inPersonOpen} onClose={() => setInPersonOpen(false)} />
     </footer>
   );
 };
