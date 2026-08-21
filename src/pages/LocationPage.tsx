@@ -14,6 +14,8 @@ import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const SITE_URL = "https://brightlearntutoring.co.uk";
 
+const fmtPrice = (n: number) => (Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`);
+
 const LocationPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const location = slug ? findLocation(slug) : undefined;
@@ -165,7 +167,9 @@ const LocationPage = () => {
                   <span className="text-2xl font-semibold text-ink">£{t.group.price}</span>
                   <span className="text-xs text-ink-soft">/month</span>
                 </div>
-                <div className="mt-1.5 text-xs text-ink-soft">{t.ageTag} · {t.group.sessionsPerMonth} sessions</div>
+                <div className="mt-1.5 inline-flex items-center rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-semibold text-accent">
+                  {fmtPrice(t.group.price / t.group.sessionsPerMonth)}/lesson · {t.group.sessionsPerMonth} sessions
+                </div>
                 <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-accent">
                   Get started
                   <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />

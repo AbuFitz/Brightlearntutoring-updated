@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Check, ArrowRight } from "lucide-react";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { pricingTiers, TierPricing } from "@/data/pricing";
+
+const fmtPrice = (n: number) => (Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`);
 import { PricingModal } from "@/components/PricingModal";
 
 export const Pricing = () => {
@@ -74,6 +76,13 @@ const PriceCard = ({ t, delay, featured }: { t: TierPricing; delay: number; feat
           <span className={`text-base ${featured ? "text-background/70" : "text-ink-soft"}`}>£</span>
           <span className={`text-6xl font-semibold tracking-tight ${featured ? "text-background" : "text-ink"}`}>{t.group.price}</span>
           <span className={`text-sm ${featured ? "text-background/70" : "text-ink-soft"}`}>/ month</span>
+        </div>
+        <div
+          className={`mt-2 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${
+            featured ? "bg-background/10 text-accent" : "bg-accent-soft text-accent"
+          }`}
+        >
+          {fmtPrice(t.group.price / t.group.sessionsPerMonth)}/lesson · {t.group.sessionsPerMonth} lessons
         </div>
 
         <Button

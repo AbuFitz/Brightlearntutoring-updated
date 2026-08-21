@@ -15,6 +15,8 @@ import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const SITE_URL = "https://brightlearntutoring.co.uk";
 
+const fmtPrice = (n: number) => (Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`);
+
 const TopicPage = () => {
   const { topicSlug } = useParams<{ topicSlug: string }>();
   const topic = topicSlug ? findTopic(topicSlug) : undefined;
@@ -196,6 +198,9 @@ const TopicPage = () => {
                     <span className="text-2xl font-semibold text-ink">£{t.group.price}</span>
                     <span className="text-xs text-ink-soft">/month group</span>
                   </div>
+                </div>
+                <div className="mt-1.5 inline-flex items-center rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-semibold text-accent">
+                  {fmtPrice(t.group.price / t.group.sessionsPerMonth)}/lesson · {t.group.sessionsPerMonth} lessons
                 </div>
                 <div className="mt-1 text-xs text-ink-soft">
                   or from £{t.oneToOne.singleLessonPrice}/lesson 1-on-1
