@@ -8,16 +8,11 @@ import { GetStartedModal } from "@/components/GetStartedModal";
 import { PricingModal } from "@/components/PricingModal";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { findLocation, locations } from "@/data/locations";
+import { pricingTiers } from "@/data/pricing";
 import { useSEO } from "@/hooks/useSEO";
 import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const SITE_URL = "https://brightlearntutoring.co.uk";
-
-const PROGRAMMES = [
-  { name: "KS2", price: "£40", desc: "Ages 7–11 · SATs & foundations" },
-  { name: "KS3", price: "£90", desc: "Ages 11–14 · Core topic mastery" },
-  { name: "GCSE", price: "£100", desc: "Ages 14–16 · Grades & exam technique" },
-] as const;
 
 const LocationPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -158,19 +153,19 @@ const LocationPage = () => {
           </div>
 
           <div className="mt-10 grid sm:grid-cols-3 gap-4">
-            {PROGRAMMES.map((p) => (
+            {pricingTiers.map((t) => (
               <button
-                key={p.name}
+                key={t.name}
                 type="button"
-                onClick={() => openModal(p.name)}
+                onClick={() => openModal(t.name, "group")}
                 className="group block text-left rounded-2xl border border-border-soft bg-background p-5 hover:border-accent/40 hover:shadow-card hover:-translate-y-0.5 transition-all"
               >
-                <div className="text-sm font-semibold text-ink-soft">{p.name} Maths</div>
+                <div className="text-sm font-semibold text-ink-soft">{t.name} Maths</div>
                 <div className="mt-1.5 flex items-baseline gap-1">
-                  <span className="text-2xl font-semibold text-ink">{p.price}</span>
+                  <span className="text-2xl font-semibold text-ink">£{t.group.price}</span>
                   <span className="text-xs text-ink-soft">/month</span>
                 </div>
-                <div className="mt-1.5 text-xs text-ink-soft">{p.desc}</div>
+                <div className="mt-1.5 text-xs text-ink-soft">{t.ageTag} · {t.group.sessionsPerMonth} sessions</div>
                 <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-accent">
                   Get started
                   <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
@@ -178,6 +173,14 @@ const LocationPage = () => {
               </button>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => setPricingOpen(true)}
+            className="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-accent hover:underline"
+          >
+            1-on-1 tuition also available — see all pricing options
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
       </section>
 

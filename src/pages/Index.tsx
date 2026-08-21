@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { useSEO } from "@/hooks/useSEO";
 import { homeFaqs } from "@/data/faq";
+import { pricingTiers } from "@/data/pricing";
 import thumb1 from "@/assets/tiktok-thumb-1.webp";
 import thumb2 from "@/assets/tiktok-thumb-2.webp";
 import thumb3 from "@/assets/tiktok-thumb-3.webp";
@@ -49,32 +50,24 @@ const JSON_LD_LOCAL_BUSINESS = {
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Maths Tutoring Programmes",
-    "itemListElement": [
+    "itemListElement": pricingTiers.flatMap((t) => [
       {
         "@type": "Offer",
-        "name": "KS2 Maths Tutoring",
-        "description": "Online group maths tutoring for Year 5–6 students. Covers times tables, fractions, problem solving and SATs preparation.",
-        "price": "40",
+        "name": `${t.name} Maths Tutoring — Small Group`,
+        "description": `Online group maths tutoring for ${t.name} students, maximum 5 per group. ${t.group.sessionsPerMonth} × ${t.group.sessionLength} sessions per month.`,
+        "price": String(t.group.price),
         "priceCurrency": "GBP",
-        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "40", "priceCurrency": "GBP", "unitText": "month" }
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": String(t.group.price), "priceCurrency": "GBP", "unitText": "month" }
       },
       {
         "@type": "Offer",
-        "name": "KS3 Maths Tutoring",
-        "description": "Online group maths tutoring for Year 7–9 students. Algebra, geometry, ratios and building towards GCSE.",
-        "price": "90",
+        "name": `${t.name} Maths Tutoring — 1-on-1`,
+        "description": `Online 1-on-1 maths tutoring for ${t.name} students. £${t.oneToOne.singleLessonPrice} per lesson, or ${t.oneToOne.sessionsPerMonth} × ${t.oneToOne.sessionLength} sessions per month.`,
+        "price": String(t.oneToOne.monthlyPrice),
         "priceCurrency": "GBP",
-        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "90", "priceCurrency": "GBP", "unitText": "month" }
-      },
-      {
-        "@type": "Offer",
-        "name": "GCSE Maths Tutoring",
-        "description": "Online group GCSE maths tutoring for Year 10–11. Aligned to AQA, Edexcel, OCR and WJEC/Eduqas. Past paper practice and exam technique.",
-        "price": "100",
-        "priceCurrency": "GBP",
-        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "100", "priceCurrency": "GBP", "unitText": "month" }
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": String(t.oneToOne.monthlyPrice), "priceCurrency": "GBP", "unitText": "month" }
       }
-    ]
+    ])
   },
   "sameAs": [
     "https://www.tiktok.com/@brightlearntutoring",
@@ -94,47 +87,45 @@ const buildFaqSchema = () => ({
   })),
 });
 
-const COURSES = [
-  {
-    name: "KS2 Maths Tutoring",
-    description:
-      "Live online group maths tutoring for Year 5–6 students. Covers times tables, fractions, mental maths, problem solving and SATs preparation.",
-    price: "40",
-  },
-  {
-    name: "KS3 Maths Tutoring",
-    description:
-      "Live online group maths tutoring for Year 7–9 students. Covers algebra, geometry, ratio and proportion, building towards GCSE.",
-    price: "90",
-  },
-  {
-    name: "GCSE Maths Tutoring",
-    description:
-      "Live online group GCSE maths tutoring for Year 10–11. Aligned to AQA, Edexcel, OCR and WJEC/Eduqas, with past paper practice and exam technique.",
-    price: "100",
-  },
-];
+const COURSE_DESCRIPTIONS: Record<string, string> = {
+  KS2: "Live online maths tutoring for Year 5–6 students. Covers times tables, fractions, mental maths, problem solving and SATs preparation.",
+  KS3: "Live online maths tutoring for Year 7–9 students. Covers algebra, geometry, ratio and proportion, building towards GCSE.",
+  GCSE: "Live online GCSE maths tutoring for Year 10–11. Aligned to AQA, Edexcel, OCR and WJEC/Eduqas, with past paper practice and exam technique.",
+};
 
 const buildCourseSchemas = () =>
-  COURSES.map((c) => ({
-    "@context": "https://schema.org",
-    "@type": "Course",
-    "name": c.name,
-    "description": c.description,
-    "provider": { "@type": "Organization", "name": "BrightLearn Tutoring", "sameAs": SITE_URL },
-    "hasCourseInstance": {
-      "@type": "CourseInstance",
-      "courseMode": "online",
-      "inLanguage": "en-GB",
+  pricingTiers.flatMap((t) => [
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": `${t.name} Maths Tutoring — Small Group`,
+      "description": COURSE_DESCRIPTIONS[t.name],
+      "provider": { "@type": "Organization", "name": "BrightLearn Tutoring", "sameAs": SITE_URL },
+      "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "online", "inLanguage": "en-GB" },
+      "offers": {
+        "@type": "Offer",
+        "price": String(t.group.price),
+        "priceCurrency": "GBP",
+        "category": "Subscription",
+        "url": `${SITE_URL}/enquire`,
+      },
     },
-    "offers": {
-      "@type": "Offer",
-      "price": c.price,
-      "priceCurrency": "GBP",
-      "category": "Subscription",
-      "url": `${SITE_URL}/enquire`,
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": `${t.name} Maths Tutoring — 1-on-1`,
+      "description": COURSE_DESCRIPTIONS[t.name],
+      "provider": { "@type": "Organization", "name": "BrightLearn Tutoring", "sameAs": SITE_URL },
+      "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "online", "inLanguage": "en-GB" },
+      "offers": {
+        "@type": "Offer",
+        "price": String(t.oneToOne.monthlyPrice),
+        "priceCurrency": "GBP",
+        "category": "Subscription",
+        "url": `${SITE_URL}/enquire`,
+      },
     },
-  }));
+  ]);
 
 const TIKTOK_VIDEOS = [
   {

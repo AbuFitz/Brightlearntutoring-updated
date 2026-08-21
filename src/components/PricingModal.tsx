@@ -1,6 +1,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Check, X, ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
+import { pricingTiers, MAX_GROUP_SIZE, SessionType } from "@/data/pricing";
 import { cn } from "@/lib/utils";
 
 interface PricingModalProps {
@@ -8,62 +9,12 @@ interface PricingModalProps {
   onClose: () => void;
 }
 
-const tiers: {
-  name: Package;
-  price: string;
-  desc: string;
-  badge?: string;
-  features: string[];
-  featured?: boolean;
-}[] = [
-  {
-    name: "KS2",
-    price: "40",
-    desc: "Strong foundations and SATs confidence for primary students.",
-    features: [
-      "Group of 5 lesson (1 hour)",
-      "4 sessions per month",
-      "Custom learning plan",
-      "Parent report",
-      "End of term assessment",
-    ],
-  },
-  {
-    name: "KS3",
-    price: "90",
-    desc: "Core topic mastery building a clear path towards GCSE.",
-    features: [
-      "Group of 5 lesson (1.5 hours)",
-      "8 sessions per month",
-      "Custom learning plan",
-      "Parent report",
-      "End of term assessment",
-      "End of topic assessment",
-    ],
-  },
-  {
-    name: "GCSE",
-    price: "100",
-    badge: "Most chosen",
-    featured: true,
-    desc: "Targeted revision and exam technique to boost grades.",
-    features: [
-      "Group of 5 lesson (1.5 hours)",
-      "8 sessions per month",
-      "Custom learning plan",
-      "Parent report",
-      "Past paper sessions",
-      "Mock exam support",
-    ],
-  },
-];
-
 export const PricingModal = ({ open, onClose }: PricingModalProps) => {
   const { openModal } = useGetStarted();
 
-  const handleGetStarted = (name: Package) => {
+  const handleGetStarted = (name: Package, sessionType: SessionType) => {
     onClose();
-    setTimeout(() => openModal(name), 200);
+    setTimeout(() => openModal(name, sessionType), 200);
   };
 
   return (
@@ -74,17 +25,14 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
           aria-describedby="pricing-desc"
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 flex flex-col",
-            "bg-background rounded-t-[2rem] shadow-elevated max-h-[92dvh]",
+            "bg-background rounded-t-[2rem] shadow-elevated h-[85dvh]",
             "md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
-            "md:rounded-3xl md:w-full md:max-w-[500px] md:max-h-[92dvh]",
+            "md:rounded-3xl md:w-full md:max-w-[540px] md:h-[640px] md:max-h-[85dvh]",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "duration-200"
           )}
         >
-          <DialogPrimitive.Title className="sr-only">Pricing plans</DialogPrimitive.Title>
-          <span id="pricing-desc" className="sr-only">Monthly pricing for BrightLearn tutoring</span>
-
           {/* Drag handle — mobile only */}
           <div className="flex justify-center pt-3.5 md:hidden shrink-0">
             <div className="w-10 h-1 rounded-full bg-ink/10" />
@@ -94,12 +42,12 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
           <div className="flex items-start justify-between gap-4 px-6 pt-5 pb-4 md:px-8 md:pt-7 shrink-0">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-soft mb-1.5">Pricing</p>
-              <h2 className="text-[1.6rem] md:text-[1.75rem] font-semibold text-ink tracking-tight leading-tight">
-                Honest pricing.{" "}
-                <span className="font-display italic font-normal text-accent">Real value.</span>
-              </h2>
-              <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">
-                Flat monthly rate — no hidden fees, cancel any time.
+              <DialogPrimitive.Title className="text-[1.6rem] md:text-[1.75rem] font-semibold text-ink tracking-tight leading-tight">
+                All our pricing{" "}
+                <span className="font-display italic font-normal text-accent">options.</span>
+              </DialogPrimitive.Title>
+              <p id="pricing-desc" className="text-sm text-ink-soft mt-1.5 leading-relaxed">
+                Small group or 1-on-1 — flat rate, cancel any time.
               </p>
             </div>
             <button
@@ -110,69 +58,78 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
             </button>
           </div>
 
-          {/* Tier cards */}
-          <div className="flex-1 overflow-y-auto px-6 pb-6 md:px-8 md:pb-8 space-y-3">
-            {tiers.map((t) => (
-              <div
-                key={t.name}
-                className={cn(
-                  "rounded-2xl border overflow-hidden",
-                  t.featured ? "bg-ink border-ink" : "bg-background-soft border-border-soft"
-                )}
-              >
-                <div className="px-5 pt-5 pb-4 flex items-start justify-between gap-3">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className={cn("font-bold text-sm tracking-wide", t.featured ? "text-white" : "text-ink")}>
-                        {t.name}
-                      </span>
-                      {t.badge && (
-                        <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-accent/20 text-accent">
-                          {t.badge}
-                        </span>
-                      )}
-                    </div>
-                    <p className={cn("text-xs leading-relaxed", t.featured ? "text-white/60" : "text-ink-soft")}>
-                      {t.desc}
-                    </p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="flex items-baseline gap-0.5 justify-end">
-                      <span className={cn("text-sm", t.featured ? "text-white/60" : "text-ink-soft")}>£</span>
-                      <span className={cn("text-[2.25rem] font-bold leading-none tracking-tight", t.featured ? "text-white" : "text-ink")}>
-                        {t.price}
-                      </span>
-                    </div>
-                    <span className={cn("text-[11px]", t.featured ? "text-white/40" : "text-ink-soft")}>/month</span>
-                  </div>
-                </div>
-                <div className={cn("px-5 pb-5 pt-4 border-t", t.featured ? "border-white/10" : "border-border-soft")}>
-                  <ul className="space-y-2 mb-5">
-                    {t.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2.5 text-sm">
-                        <div className={cn("w-5 h-5 rounded-full flex items-center justify-center shrink-0", t.featured ? "bg-accent/25" : "bg-accent/10")}>
-                          <Check className="w-2.5 h-2.5 text-accent" strokeWidth={3} />
-                        </div>
-                        <span className={t.featured ? "text-white/80" : "text-ink/85"}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    type="button"
-                    onClick={() => handleGetStarted(t.name)}
-                    className={cn(
-                      "w-full h-11 rounded-full text-sm font-semibold flex items-center justify-center gap-2 transition-all active:scale-[0.98]",
-                      t.featured
-                        ? "bg-accent text-white hover:bg-accent/90"
-                        : "bg-ink text-background hover:bg-ink-soft"
-                    )}
-                  >
-                    Get started with {t.name}
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
+          <div className="flex-1 overflow-y-auto px-6 pb-6 md:px-8 md:pb-8 space-y-8">
+            {/* Small group tuition */}
+            <div>
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="text-sm font-bold text-ink uppercase tracking-wide">Small Group Tuition</h3>
+                <span className="text-[11px] text-ink-soft">Monthly only</span>
               </div>
-            ))}
+              <div className="mt-3 rounded-2xl border border-border-soft bg-background-soft divide-y divide-border-soft overflow-hidden">
+                {pricingTiers.map((t) => (
+                  <div key={t.name} className="flex items-center justify-between gap-3 px-4 py-3.5">
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold text-ink">{t.name}</div>
+                      <div className="text-xs text-ink-soft mt-0.5">
+                        {t.group.sessionsPerMonth} × {t.group.sessionLength} lessons
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-ink leading-none">£{t.group.price}</div>
+                        <div className="text-[10px] text-ink-soft mt-0.5">/month</div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleGetStarted(t.name, "group")}
+                        aria-label={`Get started with ${t.name} group tuition`}
+                        className="w-9 h-9 rounded-full bg-ink text-background flex items-center justify-center hover:bg-ink-soft transition-all active:scale-[0.96] shrink-0"
+                      >
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-ink-soft mt-2">Maximum {MAX_GROUP_SIZE} students per group.</p>
+            </div>
+
+            {/* 1-to-1 tuition */}
+            <div>
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="text-sm font-bold text-ink uppercase tracking-wide">1-to-1 Tuition</h3>
+                <span className="text-[11px] text-ink-soft">Single lesson or monthly</span>
+              </div>
+              <div className="mt-3 rounded-2xl border border-accent/20 bg-accent-soft/40 divide-y divide-accent/15 overflow-hidden">
+                {pricingTiers.map((t) => (
+                  <div key={t.name} className="flex items-center justify-between gap-3 px-4 py-3.5">
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold text-ink">{t.name}</div>
+                      <div className="text-xs text-ink-soft mt-0.5">
+                        £{t.oneToOne.singleLessonPrice} / lesson · {t.oneToOne.sessionLength}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-ink leading-none">£{t.oneToOne.monthlyPrice}</div>
+                        <div className="text-[10px] text-ink-soft mt-0.5">/month</div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleGetStarted(t.name, "1on1")}
+                        aria-label={`Get started with ${t.name} 1-on-1 tuition`}
+                        className="w-9 h-9 rounded-full bg-accent text-white flex items-center justify-center hover:bg-accent/90 transition-all active:scale-[0.96] shrink-0"
+                      >
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-ink-soft mt-2">
+                Monthly 1-to-1 = {pricingTiers[0].oneToOne.sessionsPerMonth} × {pricingTiers[0].oneToOne.sessionLength} lessons.
+              </p>
+            </div>
 
             <p className="text-center text-xs text-ink-soft py-1">
               Cancel any time · No contracts · No card details required to enquire

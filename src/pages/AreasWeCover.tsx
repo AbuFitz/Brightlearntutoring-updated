@@ -106,6 +106,28 @@ const AreasWeCover = () => {
         </div>
       </section>
 
+      {/* Map */}
+      <section className="py-14 lg:py-16 bg-background">
+        <div className="container max-w-4xl">
+          <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Where we're based</span>
+          <h2 className="mt-3 text-2xl md:text-3xl text-ink font-semibold tracking-tight">
+            Enfield, Edmonton, Tottenham &amp; Haringey
+          </h2>
+          <div className="mt-6 rounded-3xl overflow-hidden border border-border-soft shadow-card">
+            <iframe
+              title="BrightLearn Tutoring's North London coverage area — Enfield, Edmonton, Tottenham and Haringey"
+              src="https://maps.google.com/maps?q=Haringey,London&z=12&output=embed"
+              className="w-full h-[360px] md:h-[420px] border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+          <p className="mt-3 text-sm text-ink-soft">
+            Based across these four North London areas — and reachable online anywhere else in the UK.
+          </p>
+        </div>
+      </section>
+
       {/* Beyond North London */}
       <section className="py-14 lg:py-16 border-t border-border-soft bg-background">
         <div className="container max-w-3xl">

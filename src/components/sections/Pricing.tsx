@@ -1,34 +1,15 @@
+import { useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
-import { useGetStarted, Package } from "@/contexts/GetStartedContext";
-
-const tiers: { name: Package; price: string; desc: string; features: string[]; featured: boolean }[] = [
-  {
-    name: "KS2",
-    price: "40",
-    desc: "Fun, structured maths support building strong foundations for SATs.",
-    features: ["Group of 5 lesson (1 hour)", "4 sessions per month", "Custom learning plan", "Parent report", "End of term assessment"],
-    featured: false,
-  },
-  {
-    name: "KS3",
-    price: "90",
-    desc: "Targeted support covering core topics, building towards GCSE.",
-    features: ["Group of 5 lesson (1.5 hours)", "8 sessions per month", "Custom learning plan", "Parent report", "End of term assessment", "End of topic assessment"],
-    featured: false,
-  },
-  {
-    name: "GCSE",
-    price: "100",
-    desc: "Personalised revision strategies designed to improve grades and confidence.",
-    features: ["Group of 5 lesson (1.5 hours)", "8 sessions per month", "Custom learning plan", "Parent report", "Past paper sessions", "Mock exam support"],
-    featured: true,
-  },
-];
+import { Check, ArrowRight } from "lucide-react";
+import { useGetStarted } from "@/contexts/GetStartedContext";
+import { pricingTiers, TierPricing } from "@/data/pricing";
+import { PricingModal } from "@/components/PricingModal";
 
 export const Pricing = () => {
   const ref = useReveal<HTMLDivElement>();
+  const [exploreOpen, setExploreOpen] = useState(false);
+
   return (
     <section id="pricing" className="relative py-24 lg:py-32 bg-background-soft">
       <div className="container">
@@ -43,59 +24,71 @@ export const Pricing = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-          {tiers.map((t, i) => (
-            <PriceCard key={t.name} t={t} delay={i * 100} />
+          {pricingTiers.map((t, i) => (
+            <PriceCard key={t.name} t={t} delay={i * 100} featured={t.name === "GCSE"} />
           ))}
         </div>
 
-        <p className="text-center text-sm text-ink-soft mt-10">
-          No card details required. No contracts. Cancel anytime.
-        </p>
+        <div className="text-center mt-10 space-y-4">
+          <p className="text-sm text-ink-soft">
+            No card details required. No contracts. Cancel anytime.
+          </p>
+          <button
+            type="button"
+            onClick={() => setExploreOpen(true)}
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
+          >
+            Also offering 1-on-1 tuition — explore all pricing options
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
+
+      <PricingModal open={exploreOpen} onClose={() => setExploreOpen(false)} />
     </section>
   );
 };
 
-const PriceCard = ({ t, delay }: { t: typeof tiers[number]; delay: number }) => {
+const PriceCard = ({ t, delay, featured }: { t: TierPricing; delay: number; featured: boolean }) => {
   const ref = useReveal<HTMLDivElement>();
   const { openModal } = useGetStarted();
   return (
     <div ref={ref} className="reveal" style={{ transitionDelay: `${delay}ms` }}>
       <div
         className={`relative h-full rounded-3xl p-8 transition-all duration-400 hover:-translate-y-1 ${
-          t.featured
+          featured
             ? "bg-ink text-background shadow-elevated"
             : "bg-background border border-border-soft shadow-card hover:shadow-soft"
         }`}
       >
-        {t.featured && (
+        {featured && (
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-accent text-accent-foreground text-[10px] font-bold tracking-widest uppercase">
             Most chosen
           </div>
         )}
 
-        <div className={`text-sm font-semibold tracking-wide ${t.featured ? "text-background/70" : "text-ink-soft"}`}>{t.name}</div>
-        <p className={`mt-2 text-sm min-h-[44px] ${t.featured ? "text-background/80" : "text-ink-soft"}`}>{t.desc}</p>
+        <div className={`text-sm font-semibold tracking-wide ${featured ? "text-background/70" : "text-ink-soft"}`}>{t.name}</div>
+        <p className={`mt-2 text-sm min-h-[44px] ${featured ? "text-background/80" : "text-ink-soft"}`}>{t.desc}</p>
 
         <div className="mt-6 flex items-baseline gap-1">
-          <span className={`text-base ${t.featured ? "text-background/70" : "text-ink-soft"}`}>£</span>
-          <span className={`text-6xl font-semibold tracking-tight ${t.featured ? "text-background" : "text-ink"}`}>{t.price}</span>
-          <span className={`text-sm ${t.featured ? "text-background/70" : "text-ink-soft"}`}>/ month</span>
+          <span className={`text-base ${featured ? "text-background/70" : "text-ink-soft"}`}>£</span>
+          <span className={`text-6xl font-semibold tracking-tight ${featured ? "text-background" : "text-ink"}`}>{t.group.price}</span>
+          <span className={`text-sm ${featured ? "text-background/70" : "text-ink-soft"}`}>/ month</span>
         </div>
 
         <Button
-          variant={t.featured ? "accent" : "default"}
+          variant={featured ? "accent" : "default"}
           size="lg"
-          className={`w-full mt-7 ${t.featured ? "" : ""}`}
-          onClick={() => openModal(t.name)}
+          className="w-full mt-7"
+          onClick={() => openModal(t.name, "group")}
         >
           Get started
         </Button>
 
-        <ul className="mt-7 space-y-3 border-t pt-6 border-border-soft" style={t.featured ? { borderColor: "hsl(0 0% 100% / 0.12)" } : undefined}>
-          {t.features.map((f: string) => (
-            <li key={f} className={`flex items-start gap-3 text-sm ${t.featured ? "text-background/90" : "text-ink/85"}`}>
-              <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${t.featured ? "bg-accent text-accent-foreground" : "bg-secondary text-ink"}`}>
+        <ul className="mt-7 space-y-3 border-t pt-6 border-border-soft" style={featured ? { borderColor: "hsl(0 0% 100% / 0.12)" } : undefined}>
+          {t.group.features.map((f: string) => (
+            <li key={f} className={`flex items-start gap-3 text-sm ${featured ? "text-background/90" : "text-ink/85"}`}>
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${featured ? "bg-accent text-accent-foreground" : "bg-secondary text-ink"}`}>
                 <Check className="w-3 h-3" strokeWidth={3} />
               </div>
               {f}

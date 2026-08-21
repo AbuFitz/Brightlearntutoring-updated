@@ -24,7 +24,11 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "How are the sessions delivered?",
-    a: "All sessions are delivered live online in small groups via video call. KS2 sessions are 1 hour, and KS3/GCSE sessions are 1.5 hours.",
+    a: "All sessions are delivered live online via video call. Group sessions are small — a maximum of 5 students — with KS2 sessions running 1 hour and KS3/GCSE sessions 1.5 hours.",
+  },
+  {
+    q: "Do you offer 1-on-1 tutoring?",
+    a: "Yes. Alongside our small-group sessions, we offer 1-on-1 tutoring from £25 per lesson, or £80/month for KS2, £100/month for KS3 and £120/month for GCSE (4 lessons a month). 1-on-1 sessions are scheduled around your own availability rather than a fixed timetable.",
   },
   {
     q: "Are you only for families in North London?",
