@@ -5,6 +5,8 @@ import { useGetStarted, Package } from "@/contexts/GetStartedContext";
 import { getTier, sessionLabel, SessionType } from "@/data/pricing";
 import { cn } from "@/lib/utils";
 
+const fmtPrice = (n: number) => (Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`);
+
 export interface Programme {
   name: Package;
   tag: string;
@@ -94,9 +96,18 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                     >
                       <div className="text-sm font-semibold text-ink">{sessionLabel(type)}</div>
                       {tier && (
-                        <div className="text-xs text-ink-soft mt-0.5">
-                          £{type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice}/month
-                        </div>
+                        <>
+                          <div className="text-xs text-ink-soft mt-0.5">
+                            £{type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice}/month
+                          </div>
+                          <div className="text-xs font-semibold text-accent mt-0.5">
+                            {fmtPrice(
+                              (type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice) /
+                                (type === "group" ? tier.group.sessionsPerMonth : tier.oneToOne.sessionsPerMonth)
+                            )}
+                            /lesson
+                          </div>
+                        </>
                       )}
                     </button>
                   ))}
