@@ -53,8 +53,8 @@ const Terms = () => {
             <h2 className="text-lg font-semibold text-ink mb-3">3. Fees and payment</h2>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>KS2 Maths — £40 per month (4 sessions)</li>
-              <li>KS3 Maths — £50 per month (8 sessions)</li>
-              <li>GCSE Maths — £60 per month (8 sessions)</li>
+              <li>KS3 Maths — £90 per month (8 sessions)</li>
+              <li>GCSE Maths — £100 per month (8 sessions)</li>
             </ul>
             <p className="mt-3">
               Payment is due at the start of each monthly billing period. No card details are required at the

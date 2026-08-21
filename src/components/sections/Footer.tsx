@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Instagram, Youtube, Mail, MapPin, Link } from "lucide-react";
+import { Instagram, Youtube, Facebook, Mail, MapPin, Link } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
-import { WhatsAppIcon, whatsappLink } from "@/components/WhatsAppButton";
+import { WhatsAppIcon } from "@/components/WhatsAppButton";
+import { WhatsAppModal } from "@/components/WhatsAppModal";
 import { locations } from "@/data/locations";
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -23,12 +24,9 @@ const linkGroups: {
     ],
   },
   {
-    title: "Popular areas",
+    title: "Areas we cover",
     links: [
-      ...["london", "manchester", "birmingham", "cardiff", "belfast"].map((slug) => {
-        const loc = locations.find((l) => l.slug === slug)!;
-        return { label: loc.city, href: `/online-maths-tutor/${loc.slug}` };
-      }),
+      ...locations.map((loc) => ({ label: loc.city, href: `/online-maths-tutor/${loc.slug}` })),
       { label: "View all areas", href: "/online-maths-tutor" },
     ],
   },
@@ -37,6 +35,7 @@ const linkGroups: {
     links: [
       { label: "TikTok", href: "https://www.tiktok.com/@brightlearntutoring", external: true },
       { label: "Instagram", href: "https://www.instagram.com/brightlearn_tutoring/", external: true },
+      { label: "Facebook", href: "https://www.facebook.com/p/BrightLearn-Tutoring-61592769766314/", external: true },
       { label: "YouTube", href: "https://www.youtube.com/channel/UCwLfSed7TDecNnVqY5RjuFQ", external: true },
       { label: "Linktree", href: "https://linktr.ee/BrightLearnTutoring", external: true },
     ],
@@ -46,6 +45,7 @@ const linkGroups: {
 export const Footer = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [whatsappOpen, setWhatsappOpen] = useState(false);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -132,24 +132,24 @@ export const Footer = () => {
               <Mail className="w-4 h-4" />
               info@brightlearntutoring.co.uk
             </a>
-            <a
-              href={whatsappLink()}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() => setWhatsappOpen(true)}
               className="flex items-center gap-2.5 text-sm text-ink-soft hover:text-ink transition-colors"
             >
               <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
               WhatsApp · 07577 702613
-            </a>
+            </button>
             <RouterLink to="/online-maths-tutor" className="flex items-center gap-2.5 text-sm text-ink-soft hover:text-ink transition-colors">
               <MapPin className="w-4 h-4" />
-              Online · England, Wales &amp; Northern Ireland
+              North London · Online UK-wide
             </RouterLink>
           </div>
           <div className="flex items-center gap-2">
             {[
               { Icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@brightlearntutoring" },
               { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/brightlearn_tutoring/" },
+              { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com/p/BrightLearn-Tutoring-61592769766314/" },
               { Icon: Youtube, label: "YouTube", href: "https://www.youtube.com/channel/UCwLfSed7TDecNnVqY5RjuFQ" },
               { Icon: Link, label: "Linktree", href: "https://linktr.ee/BrightLearnTutoring" },
             ].map(({ Icon, label, href }) => (
@@ -178,6 +178,7 @@ export const Footer = () => {
           </div>
         </div>
       </div>
+      <WhatsAppModal open={whatsappOpen} onClose={() => setWhatsappOpen(false)} />
     </footer>
   );
 };

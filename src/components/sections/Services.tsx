@@ -31,7 +31,7 @@ const services: (Programme & {
   {
     name: "KS3",
     tag: "Ages 11–14",
-    price: "50",
+    price: "90",
     tagline: "Core topic mastery building a clear path towards GCSE.",
     description: "Bridging the gap between primary and GCSE with structured lessons that develop algebraic thinking.",
     whoFor: "Year 7–9 students adjusting to secondary maths, struggling with specific topics, or those who want to get ahead before GCSE begins. Also great for students whose confidence dipped in Year 7.",
@@ -50,7 +50,7 @@ const services: (Programme & {
   {
     name: "GCSE",
     tag: "Ages 14–16",
-    price: "60",
+    price: "100",
     tagline: "Targeted revision and exam technique to boost grades.",
     description: "Targeted exam preparation across all UK boards. We turn understanding into grades - confidently.",
     whoFor: "Year 10–11 students preparing for AQA, Edexcel, OCR or WJEC/Eduqas exams who want to hit their target grade - whether that's a Grade 4 pass or pushing for Grade 7–9.",

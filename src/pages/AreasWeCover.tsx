@@ -1,31 +1,24 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
 import { SimpleHeader } from "@/components/SimpleHeader";
 import { Footer } from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
 import { GetStartedModal } from "@/components/GetStartedModal";
 import { useGetStarted } from "@/contexts/GetStartedContext";
-import { locations, Nation } from "@/data/locations";
+import { locations } from "@/data/locations";
 import { useSEO } from "@/hooks/useSEO";
 import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
 const SITE_URL = "https://brightlearntutoring.co.uk";
 
-const NATION_ORDER: Nation[] = ["England", "Wales", "Northern Ireland"];
-const NATION_BLURB: Record<Nation, string> = {
-  England: "Live small-group tutoring aligned to AQA, Edexcel and OCR GCSE specifications.",
-  Wales: "Tutoring built around the WJEC/Eduqas specification, headquartered in Cardiff.",
-  "Northern Ireland": "Transfer test (AQE/PPTC) preparation and CCEA-aligned GCSE tutoring.",
-};
-
 const AreasWeCover = () => {
   const { openModal } = useGetStarted();
 
   useSEO({
-    title: "Areas We Cover — Online Maths Tutor Across England, Wales & Northern Ireland",
+    title: "Areas We Cover — North London Maths Tutor, Online UK-Wide",
     description:
-      "BrightLearn Tutoring delivers live online group maths tutoring to families across England, Wales and Northern Ireland. See exam-board-aligned tutoring for your city.",
+      "BrightLearn Tutoring is based in North London, covering Enfield, Edmonton, Tottenham and Haringey, and delivers live online maths tutoring to families across the UK.",
     path: "/online-maths-tutor",
   });
 
@@ -69,13 +62,14 @@ const AreasWeCover = () => {
         <div className="container relative max-w-2xl">
           <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Areas we cover</span>
           <h1 className="mt-3 text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-[-0.02em] text-ink font-semibold">
-            One online tutor,{" "}
-            <span className="font-display italic font-normal text-accent">every city.</span>
+            North London based,{" "}
+            <span className="font-display italic font-normal text-accent">UK wide online.</span>
           </h1>
           <p className="mt-6 text-lg text-ink-soft leading-relaxed">
-            Every BrightLearn session is delivered live online, so there's no local branch to find and no commute
-            either side of a lesson — just structured, small-group tutoring wherever a family happens to live
-            across England, Wales and Northern Ireland. Pick your city below for exam-board-specific detail, or{" "}
+            BrightLearn Tutoring is based in North London, and every session is delivered live online — so while
+            we know Enfield, Edmonton, Tottenham and Haringey best, there's no local branch to find and no
+            commute either way, which means we work with families anywhere in the UK too. Pick your area below,
+            or{" "}
             <button type="button" onClick={() => openModal()} className="text-accent font-medium hover:underline">
               get started
             </button>{" "}
@@ -84,36 +78,51 @@ const AreasWeCover = () => {
         </div>
       </section>
 
-      {/* Grouped location grid */}
-      {NATION_ORDER.map((nation) => {
-        const cities = locations.filter((l) => l.nation === nation);
-        return (
-          <section key={nation} className="py-10 lg:py-14 border-t border-border-soft bg-background-soft">
-            <div className="container max-w-5xl">
-              <div className="flex items-baseline justify-between gap-4 mb-6">
-                <h2 className="text-2xl md:text-3xl text-ink font-semibold tracking-tight">{nation}</h2>
-                <span className="text-sm text-ink-soft hidden sm:block">{NATION_BLURB[nation]}</span>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {cities.map((loc) => (
-                  <Link
-                    key={loc.slug}
-                    to={`/online-maths-tutor/${loc.slug}`}
-                    className="group block rounded-2xl border border-border-soft bg-background p-5 hover:border-accent/40 hover:shadow-card hover:-translate-y-0.5 transition-all"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="font-semibold text-ink text-lg">{loc.city}</div>
-                      <ArrowUpRight className="w-4 h-4 text-ink-soft shrink-0 transition-transform group-hover:rotate-45 group-hover:text-accent" />
-                    </div>
-                    <div className="text-xs text-ink-soft mt-1">{loc.region}</div>
-                    <p className="mt-3 text-sm text-ink-soft leading-relaxed">{loc.tagline}</p>
-                  </Link>
-                ))}
-              </div>
+      {/* Local areas grid */}
+      <section className="py-10 lg:py-14 border-t border-border-soft bg-background-soft">
+        <div className="container max-w-5xl">
+          <div className="flex items-baseline justify-between gap-4 mb-6">
+            <h2 className="text-2xl md:text-3xl text-ink font-semibold tracking-tight">Our North London base</h2>
+            <span className="text-sm text-ink-soft hidden sm:block">
+              Small-group and 1-on-1 tutoring for SATs, KS3 and GCSE maths.
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {locations.map((loc) => (
+              <Link
+                key={loc.slug}
+                to={`/online-maths-tutor/${loc.slug}`}
+                className="group block rounded-2xl border border-border-soft bg-background p-5 hover:border-accent/40 hover:shadow-card hover:-translate-y-0.5 transition-all"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="font-semibold text-ink text-lg">{loc.city}</div>
+                  <ArrowUpRight className="w-4 h-4 text-ink-soft shrink-0 transition-transform group-hover:rotate-45 group-hover:text-accent" />
+                </div>
+                <div className="text-xs text-ink-soft mt-1">{loc.region}</div>
+                <p className="mt-3 text-sm text-ink-soft leading-relaxed">{loc.tagline}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Beyond North London */}
+      <section className="py-14 lg:py-16 border-t border-border-soft bg-background">
+        <div className="container max-w-3xl">
+          <div className="flex items-start gap-4 rounded-2xl border border-border-soft bg-background-soft p-6">
+            <div className="w-10 h-10 rounded-full bg-accent-soft flex items-center justify-center shrink-0">
+              <MapPin className="w-5 h-5 text-accent" />
             </div>
-          </section>
-        );
-      })}
+            <div>
+              <h2 className="font-semibold text-ink text-lg">Not in North London? We still tutor you.</h2>
+              <p className="mt-2 text-sm text-ink-soft leading-relaxed">
+                Every BrightLearn session is delivered live online, so families anywhere in the UK can join a
+                group or book 1-on-1 sessions — you're not limited to our home boroughs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="py-14 lg:py-20 bg-background">
@@ -122,11 +131,10 @@ const AreasWeCover = () => {
             <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
             <div className="relative">
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
-                Don't see your city? <span className="font-display italic font-normal text-accent">We still cover it.</span>
+                Ready to get started? <span className="font-display italic font-normal text-accent">Let's talk.</span>
               </h2>
               <p className="mt-4 text-background/75 max-w-xl mx-auto">
-                These are just our most-asked-about areas — every session is online, so we work with families
-                anywhere in England, Wales or Northern Ireland.
+                No card details required. Cancel any time.
               </p>
               <Button variant="accent" size="xl" className="mt-8 group" onClick={() => openModal()}>
                 Get started
