@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Instagram, Youtube, Facebook, Mail, MapPin, Link, UserCircle2 } from "lucide-react";
+import { Instagram, Youtube, Facebook, Linkedin, Mail, MapPin, Link, UserCircle2 } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { WhatsAppModal } from "@/components/WhatsAppModal";
@@ -7,6 +7,7 @@ import { InPersonModal } from "@/components/InPersonModal";
 import { locations } from "@/data/locations";
 
 const PORTAL_URL = "https://lessons.brightlearntutoring.co.uk";
+const LINKEDIN_URL = "https://www.linkedin.com/company/brightlearn-tutoring/";
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -50,6 +51,7 @@ const linkGroups: {
       { label: "TikTok", href: "https://www.tiktok.com/@brightlearntutoring", external: true },
       { label: "Instagram", href: "https://www.instagram.com/brightlearn_tutoring/", external: true },
       { label: "Facebook", href: "https://www.facebook.com/p/BrightLearn-Tutoring-61592769766314/", external: true },
+      { label: "LinkedIn", href: LINKEDIN_URL, external: true },
       { label: "YouTube", href: "https://www.youtube.com/channel/UCwLfSed7TDecNnVqY5RjuFQ", external: true },
       { label: "Linktree", href: "https://linktr.ee/BrightLearnTutoring", external: true },
     ],
@@ -173,6 +175,7 @@ export const Footer = () => {
               { Icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@brightlearntutoring" },
               { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/brightlearn_tutoring/" },
               { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com/p/BrightLearn-Tutoring-61592769766314/" },
+              { Icon: Linkedin, label: "LinkedIn", href: LINKEDIN_URL },
               { Icon: Youtube, label: "YouTube", href: "https://www.youtube.com/channel/UCwLfSed7TDecNnVqY5RjuFQ" },
               { Icon: Link, label: "Linktree", href: "https://linktr.ee/BrightLearnTutoring" },
             ].map(({ Icon, label, href }) => (

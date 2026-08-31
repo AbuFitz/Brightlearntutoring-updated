@@ -45,6 +45,7 @@ const JSON_LD_ORGANIZATION = {
     "https://www.instagram.com/brightlearn_tutoring/",
     "https://www.youtube.com/channel/UCwLfSed7TDecNnVqY5RjuFQ",
     "https://www.facebook.com/p/BrightLearn-Tutoring-61592769766314/",
+    "https://www.linkedin.com/company/brightlearn-tutoring/",
     "https://linktr.ee/BrightLearnTutoring"
   ]
 };
@@ -96,6 +97,8 @@ const JSON_LD_LOCAL_BUSINESS = {
     "https://www.tiktok.com/@brightlearntutoring",
     "https://www.instagram.com/brightlearn_tutoring/",
     "https://www.youtube.com/channel/UCwLfSed7TDecNnVqY5RjuFQ",
+    "https://www.facebook.com/p/BrightLearn-Tutoring-61592769766314/",
+    "https://www.linkedin.com/company/brightlearn-tutoring/",
     "https://linktr.ee/BrightLearnTutoring"
   ]
 };
