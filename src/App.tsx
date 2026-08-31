@@ -15,6 +15,8 @@ import AreasWeCover from "./pages/AreasWeCover.tsx";
 import LocationPage from "./pages/LocationPage.tsx";
 import FAQPage from "./pages/FAQPage.tsx";
 import TopicPage from "./pages/TopicPage.tsx";
+import GuidesHub from "./pages/GuidesHub.tsx";
+import GuidePage from "./pages/GuidePage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
             <Route path="/online-maths-tutor" element={<AreasWeCover />} />
             <Route path="/online-maths-tutor/:slug" element={<LocationPage />} />
             <Route path="/faq" element={<FAQPage />} />
+            <Route path="/guides" element={<GuidesHub />} />
+            <Route path="/guides/:guideSlug" element={<GuidePage />} />
             <Route path="/:topicSlug" element={<TopicPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

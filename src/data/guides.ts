@@ -23,7 +23,6 @@ export interface GuideInfo {
   sections: GuideSection[];
   faqs: GuideFaq[];
   relatedGuideSlugs: string[];
-  relatedProgrammeالسlug?: never; // placeholder to avoid accidental typo field, unused
   relatedProgrammeSlug: string;
   relatedProgrammeLabel: string;
 }

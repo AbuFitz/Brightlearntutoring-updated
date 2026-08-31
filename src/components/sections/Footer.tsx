@@ -35,6 +35,7 @@ const linkGroups: {
     title: "Resources",
     links: [
       { label: "FAQ", href: "/faq" },
+      { label: "Guides", href: "/guides" },
       { label: "Learning Portal", href: PORTAL_URL, external: true },
     ],
   },
