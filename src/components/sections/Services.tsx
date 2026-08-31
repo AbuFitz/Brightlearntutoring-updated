@@ -48,11 +48,11 @@ const services: (Programme & {
   {
     name: "GCSE",
     tag: "Ages 14–16",
-    tagline: "Targeted revision and exam technique to boost grades.",
-    description: "Targeted exam preparation across all UK boards. We turn understanding into grades - confidently.",
-    whoFor: "Year 10–11 students preparing for AQA, Edexcel, OCR or WJEC/Eduqas exams who want to hit their target grade - whether that's a Grade 4 pass or pushing for Grade 7–9.",
+    tagline: "Targeted revision and exam technique to boost grades — Foundation, Higher and resits.",
+    description: "Targeted GCSE exam preparation across AQA and Pearson Edexcel. We turn understanding into grades - confidently.",
+    whoFor: "Year 10–11 students preparing for AQA or Pearson Edexcel exams who want to hit their target grade - whether that's a Grade 4 pass, pushing for Grade 7–9, or retaking the exam as a resit student.",
     sessionStructure: "Sessions combine topic mastery with real exam practice. We work through past paper questions under timed conditions, dissect mark schemes, and build the exam technique that turns understanding into marks.",
-    topics: ["All GCSE topics", "Past paper practice", "Mark scheme technique", "Grade 7–9 extension", "Mock exam prep", "AQA · Edexcel · OCR · WJEC"],
+    topics: ["All GCSE topics", "Foundation & Higher tier", "GCSE resits", "Past paper practice", "Mark scheme technique", "AQA · Pearson Edexcel"],
     outcomes: [
       "Clear understanding of the exact style of questions that appear on your exam board",
       "Exam technique that maximises marks - not just correct answers",

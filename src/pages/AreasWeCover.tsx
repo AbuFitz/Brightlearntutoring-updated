@@ -10,15 +10,15 @@ import { locations } from "@/data/locations";
 import { useSEO } from "@/hooks/useSEO";
 import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
-const SITE_URL = "https://brightlearntutoring.co.uk";
+const SITE_URL = "https://www.brightlearntutoring.co.uk";
 
 const AreasWeCover = () => {
   const { openModal } = useGetStarted();
 
   useSEO({
-    title: "Areas We Cover — North London Maths Tutor, Online UK-Wide",
+    title: "Online Maths Tutor North London | BrightLearn",
     description:
-      "BrightLearn Tutoring is based in North London, covering Enfield, Edmonton, Tottenham and Haringey, and delivers live online maths tutoring to families across the UK.",
+      "BrightLearn Tutoring is based in North London, covering Enfield, Edmonton, Tottenham and Haringey, and delivers live online maths tutoring for students following the English curriculum.",
     path: "/online-maths-tutor",
   });
 
@@ -71,7 +71,7 @@ const AreasWeCover = () => {
             commute either way, which means we work with families anywhere in the UK too. Pick your area below,
             or{" "}
             <button type="button" onClick={() => openModal()} className="text-accent font-medium hover:underline">
-              get started
+              enquire
             </button>{" "}
             straight away.
           </p>
@@ -153,13 +153,14 @@ const AreasWeCover = () => {
             <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
             <div className="relative">
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
-                Ready to get started? <span className="font-display italic font-normal text-accent">Let's talk.</span>
+                Ready to help your child feel more confident in maths?{" "}
+                <span className="font-display italic font-normal text-accent">Let's talk.</span>
               </h2>
               <p className="mt-4 text-background/75 max-w-xl mx-auto">
-                No card details required. Cancel any time.
+                Tell us what support you're looking for and we'll get back to you to discuss the next steps.
               </p>
               <Button variant="accent" size="xl" className="mt-8 group" onClick={() => openModal()}>
-                Get started
+                Enquire about tuition
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
             </div>

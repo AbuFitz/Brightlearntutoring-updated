@@ -42,7 +42,7 @@ export const locations: LocationInfo[] = [
         "Our groups stay small on purpose, so a tutor can actually see where a student is stuck and adjust the pace, rather than moving on regardless. For students who need more focused support, we also offer 1-on-1 sessions.",
       ],
     },
-    examBoards: ["AQA", "Edexcel", "OCR"],
+    examBoards: ["AQA", "Pearson Edexcel"],
     faqs: [
       {
         q: "Do you tutor students in Enfield in person or online?",
@@ -50,7 +50,7 @@ export const locations: LocationInfo[] = [
       },
       {
         q: "What age groups do you cover?",
-        a: "We tutor primary students preparing for SATs and KS2 maths, KS3 students building core mathematical fluency, and GCSE students working towards Foundation or Higher tier, across AQA, Edexcel and OCR.",
+        a: "We tutor primary students preparing for SATs and KS2 maths, KS3 students building core mathematical fluency, and GCSE students working towards Foundation or Higher tier, across AQA and Pearson Edexcel.",
       },
     ],
   },
@@ -71,7 +71,7 @@ export const locations: LocationInfo[] = [
         "Every session ends with a quick recap and parents get progress notes afterwards, so an Edmonton parent always has a clear, current picture of where their child stands — not just a grade at the end of term.",
       ],
     },
-    examBoards: ["AQA", "Edexcel", "OCR"],
+    examBoards: ["AQA", "Pearson Edexcel"],
     faqs: [
       {
         q: "Is tutoring in Edmonton done in person?",
@@ -100,7 +100,7 @@ export const locations: LocationInfo[] = [
         "We track progress topic by topic rather than waiting for an end-of-term grade, so a gap in fractions or negative numbers gets caught and fixed while it's still small — well before it turns into a GCSE problem.",
       ],
     },
-    examBoards: ["AQA", "Edexcel", "OCR"],
+    examBoards: ["AQA", "Pearson Edexcel"],
     faqs: [
       {
         q: "Do you offer in-person tutoring in Tottenham?",
@@ -129,7 +129,7 @@ export const locations: LocationInfo[] = [
         "Our small-group format means a tutor can genuinely get to know how each Haringey student thinks through a problem, not just whether they got the right answer — which is what actually moves a student from Foundation-level uncertainty to Higher-tier confidence.",
       ],
     },
-    examBoards: ["AQA", "Edexcel", "OCR"],
+    examBoards: ["AQA", "Pearson Edexcel"],
     faqs: [
       {
         q: "What areas of Haringey do you cover?",
@@ -137,7 +137,7 @@ export const locations: LocationInfo[] = [
       },
       {
         q: "What does a typical GCSE session cover?",
-        a: "GCSE sessions combine topic teaching with real past paper practice under timed conditions, covering both Foundation and Higher tier across AQA, Edexcel and OCR.",
+        a: "GCSE sessions combine topic teaching with real past paper practice under timed conditions, covering both Foundation and Higher tier across AQA and Pearson Edexcel.",
       },
     ],
   },

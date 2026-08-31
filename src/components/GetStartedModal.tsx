@@ -15,92 +15,92 @@ import { cn } from "@/lib/utils";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
-type UserType = "parent" | "student";
+type UserType = "parent" | "self";
 type StepId =
   | "userType"
-  | "parentDetails"
   | "studentDetails"
-  | "learning"
-  | "timings"
+  | "support"
+  | "level"
+  | "notes"
+  | "contact"
   | "review";
 
-const PARENT_FLOW: StepId[] = [
-  "userType",
-  "parentDetails",
-  "studentDetails",
-  "learning",
-  "timings",
-  "review",
-];
-const STUDENT_FLOW: StepId[] = [
+const FLOW: StepId[] = [
   "userType",
   "studentDetails",
-  "parentDetails",
-  "learning",
-  "timings",
+  "support",
+  "level",
+  "notes",
+  "contact",
   "review",
 ];
 
 const CONTACT_METHODS = ["Email", "Phone call", "WhatsApp"];
-const YEAR_GROUPS: Record<string, string[]> = {
-  "": [],
-  KS2: ["Year 5", "Year 6"],
-  KS3: ["Year 7", "Year 8", "Year 9"],
-  GCSE: ["Year 10", "Year 11"],
-};
 
-const TIMINGS_DATA = {
-  KS2: [
-    { day: "WED", time: "6pm - 7pm" },
-  ],
-  KS3: [
-    { day: "MON", time: "7pm - 8:30pm" },
-    { day: "THURS", time: "7pm - 8:30pm" },
-  ],
-  "GCSE-H": [
-    { day: "WED", time: "7pm - 8:30pm" },
-    { day: "FRI", time: "7:30pm - 9pm" },
-  ],
-  "GCSE-F": [
-    { day: "TUESDAY", time: "7pm - 8:30pm" },
-    { day: "FRI", time: "6pm - 7:30pm" },
-  ],
+const YEAR_GROUP_OPTIONS = [
+  "Year 5",
+  "Year 6",
+  "Year 7",
+  "Year 8",
+  "Year 9",
+  "Year 10",
+  "Year 11",
+  "Year 12 / Year 13",
+  "College or Sixth Form",
+  "Adult learner",
+];
+
+const SUPPORT_OPTIONS = [
+  "KS2 Maths",
+  "SATs Preparation",
+  "KS3 Maths",
+  "GCSE Maths Foundation",
+  "GCSE Maths Higher",
+  "GCSE Maths Resit",
+  "Not sure",
+] as const;
+
+const EXAM_BOARD_OPTIONS = ["AQA", "Pearson Edexcel", "Not sure"];
+
+const isGcseSupport = (s: string) => s.startsWith("GCSE");
+
+const supportToLevel = (s: string): Package => {
+  if (s === "KS2 Maths" || s === "SATs Preparation") return "KS2";
+  if (s === "KS3 Maths") return "KS3";
+  if (isGcseSupport(s)) return "GCSE";
+  return "";
 };
 
 interface FormData {
   userType: UserType | null;
-  parentName: string;
-  parentEmail: string;
-  parentPhone: string;
-  preferredContact: string;
   studentName: string;
-  studentEmail: string;
-  studentPhone: string;
-  studentLevel: Package;
-  sessionType: SessionType | "";
   yearGroup: string;
-  helpNeeded: string;
+  supportType: string;
+  sessionType: SessionType | "";
   currentGrade: string;
   targetGrade: string;
+  examBoard: string;
   notes: string;
+  contactName: string;
+  contactEmail: string;
+  contactPhone: string;
+  preferredContact: string;
 }
 
 const blank = (): FormData => ({
   userType: null,
-  parentName: "",
-  parentEmail: "",
-  parentPhone: "",
-  preferredContact: "",
   studentName: "",
-  studentEmail: "",
-  studentPhone: "",
-  studentLevel: "",
-  sessionType: "",
   yearGroup: "",
-  helpNeeded: "",
+  supportType: "",
+  sessionType: "",
   currentGrade: "",
   targetGrade: "",
+  examBoard: "",
   notes: "",
+  contactName: "",
+  contactEmail: "",
+  contactPhone: "",
+  preferredContact: "",
 });
 
 // ── Validation ─────────────────────────────────────────────────────────────
@@ -113,24 +113,22 @@ const validateStep = (step: StepId, form: FormData): string[] => {
     case "userType":
       if (!form.userType) e.push("userType");
       break;
-    case "parentDetails":
-      if (!form.parentName.trim()) e.push("parentName");
-      if (!emailRe.test(form.parentEmail)) e.push("parentEmail");
-      if (!form.parentPhone.trim()) e.push("parentPhone");
-      if (!form.preferredContact) e.push("preferredContact");
-      break;
     case "studentDetails":
       if (!form.studentName.trim()) e.push("studentName");
-      if (form.userType === "student") {
-        if (!emailRe.test(form.studentEmail)) e.push("studentEmail");
-        if (!form.studentPhone.trim()) e.push("studentPhone");
-      }
-      if (!form.studentLevel) e.push("studentLevel");
-      if (!form.sessionType) e.push("sessionType");
       if (!form.yearGroup) e.push("yearGroup");
       break;
-    case "learning":
-      if (!form.helpNeeded.trim()) e.push("helpNeeded");
+    case "support":
+      if (!form.supportType) e.push("supportType");
+      if (form.supportType && !form.sessionType) e.push("sessionType");
+      break;
+    case "level":
+      if (isGcseSupport(form.supportType) && !form.examBoard) e.push("examBoard");
+      break;
+    case "contact":
+      if (!form.contactName.trim()) e.push("contactName");
+      if (!emailRe.test(form.contactEmail)) e.push("contactEmail");
+      if (!form.contactPhone.trim()) e.push("contactPhone");
+      if (!form.preferredContact) e.push("preferredContact");
       break;
   }
   return e;
@@ -139,22 +137,19 @@ const validateStep = (step: StepId, form: FormData): string[] => {
 // ── Payload builder ────────────────────────────────────────────────────────
 
 const buildPayload = (form: FormData) => ({
-  "Enquiry type": form.userType === "parent" ? "Parent / Guardian" : "Student",
-  "Parent name": form.parentName || "—",
-  "Parent email": form.parentEmail || "—",
-  "Parent phone": form.parentPhone || "—",
-  "Preferred contact": form.preferredContact || "—",
+  "Enquiry type": form.userType === "parent" ? "Parent / Guardian" : "Enquiring for myself",
   "Student name": form.studentName || "—",
-  ...(form.userType === "student"
-    ? { "Student email": form.studentEmail, "Student phone": form.studentPhone }
-    : {}),
-  Programme: form.studentLevel || "—",
-  "Session type": form.sessionType ? sessionLabel(form.sessionType) : "—",
   "Year group": form.yearGroup || "—",
-  "Help needed": form.helpNeeded || "—",
+  "Support needed": form.supportType || "—",
+  "Session type": form.sessionType ? sessionLabel(form.sessionType) : "—",
   ...(form.currentGrade ? { "Current grade": form.currentGrade } : {}),
   ...(form.targetGrade ? { "Target grade": form.targetGrade } : {}),
+  ...(form.examBoard ? { "Exam board": form.examBoard } : {}),
   ...(form.notes ? { "Additional notes": form.notes } : {}),
+  "Contact name": form.contactName || "—",
+  "Contact email": form.contactEmail || "—",
+  "Contact phone": form.contactPhone || "—",
+  "Preferred contact": form.preferredContact || "—",
 });
 
 // ── Shared UI components ───────────────────────────────────────────────────
@@ -220,7 +215,7 @@ const Pill = ({
 // ── Main component ─────────────────────────────────────────────────────────
 
 export const GetStartedModal = () => {
-  const { open, preselectedPackage, preselectedSessionType, closeModal } = useGetStarted();
+  const { open, preselectedPackage, preselectedSessionType, preselectedSupportType, closeModal } = useGetStarted();
   const [form, setForm] = useState<FormData>(blank());
   const [stepIndex, setStepIndex] = useState(0);
   const [errors, setErrors] = useState<string[]>([]);
@@ -228,20 +223,20 @@ export const GetStartedModal = () => {
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
-  const flow = form.userType === "student" ? STUDENT_FLOW : PARENT_FLOW;
-  const currentStep = flow[stepIndex];
-  const totalSteps = flow.length;
+  const currentStep = FLOW[stepIndex];
+  const totalSteps = FLOW.length;
 
   // Sync pre-selected package when modal opens
   useEffect(() => {
-    if (open && preselectedPackage) {
-      setForm((p) => ({
-        ...p,
-        studentLevel: preselectedPackage,
-        sessionType: preselectedSessionType,
-      }));
-    }
-  }, [open, preselectedPackage, preselectedSessionType]);
+    if (!open) return;
+    setForm((p) => ({
+      ...p,
+      sessionType: preselectedSessionType || p.sessionType,
+      supportType:
+        preselectedSupportType ||
+        (preselectedPackage === "KS2" ? "KS2 Maths" : preselectedPackage === "KS3" ? "KS3 Maths" : p.supportType),
+    }));
+  }, [open, preselectedPackage, preselectedSessionType, preselectedSupportType]);
 
   const handleClose = () => {
     closeModal();
@@ -312,36 +307,28 @@ export const GetStartedModal = () => {
   const hasErr = (f: string) => errors.includes(f);
   const progressPct = ((stepIndex + 1) / totalSteps) * 100;
   const isLastStep = stepIndex === totalSteps - 1;
+  const isSelf = form.userType === "self";
 
   // ── Step titles ────────────────────────────────────────────────────────────
   const stepTitles: Record<StepId, string> = {
     userType: "Who is this enquiry for?",
-    parentDetails:
-      form.userType === "student"
-        ? "Parent / guardian details"
-        : "Your details",
-    studentDetails:
-      form.userType === "student" ? "Your details" : "Student details",
-    learning: "Learning needs",
-    timings: "Timings",
+    studentDetails: isSelf ? "Your details" : "Student details",
+    support: "What support are you looking for?",
+    level: "Current level",
+    notes: "Anything else we should know?",
+    contact: isSelf ? "Your contact details" : "Parent / guardian contact details",
     review: "Review & submit",
   };
 
   const stepSubtitles: Record<StepId, string> = {
-    userType: "This controls the entire form flow.",
-    parentDetails:
-      form.userType === "student"
-        ? "Required — students cannot submit without a parent or guardian."
-        : "We'll use these to get in touch with you.",
-    studentDetails:
-      form.userType === "student"
-        ? "Tell us about yourself."
-        : "Tell us about the student we'll be working with.",
-    learning: "Help us understand what support is needed.",
-    timings:
-      form.sessionType === "1on1"
-        ? "1-on-1 sessions are arranged around your availability."
-        : "Here are our available session times.",
+    userType: "This helps us direct your enquiry to the right place.",
+    studentDetails: isSelf ? "Tell us a little about yourself." : "Tell us about the student we'll be working with.",
+    support: "Choose whichever matches best — you can always tell us more later.",
+    level: isGcseSupport(form.supportType)
+      ? "Optional details that help us prepare — skip anything you're not sure of."
+      : "Nothing else needed here for this level.",
+    notes: "Optional — anything that helps us understand the situation.",
+    contact: "We'll use these details to get in touch and discuss next steps.",
     review: "Check everything looks right before sending.",
   };
 
@@ -362,9 +349,9 @@ export const GetStartedModal = () => {
                     icon: UserRound,
                   },
                   {
-                    value: "student",
-                    label: "I'm a student",
-                    sub: "Applying for yourself",
+                    value: "self",
+                    label: "I'm enquiring for myself",
+                    sub: "Arranging tuition for yourself",
                     icon: GraduationCap,
                   },
                 ] as const
@@ -415,57 +402,222 @@ export const GetStartedModal = () => {
           </div>
         );
 
-      // ─ Step: Parent details ────────────────────────────────────────────────
-      case "parentDetails":
+      // ─ Step: Student details ───────────────────────────────────────────────
+      case "studentDetails":
         return (
           <div className="space-y-5">
-            {form.userType === "student" && (
-              <div className="flex items-start gap-2.5 rounded-2xl bg-amber-50 border border-amber-200 px-4 py-3">
-                <span className="text-base mt-0.5">⚠️</span>
-                <p className="text-xs text-amber-800 leading-relaxed">
-                  Students cannot submit an enquiry without a parent or
-                  guardian's contact details. This is a safeguarding
-                  requirement.
-                </p>
-              </div>
-            )}
             <Field
-              label="Full name"
+              label={isSelf ? "Your first name" : "Student's first name"}
               required
-              error={hasErr("parentName")}
+              error={hasErr("studentName")}
             >
               <input
-                className={inp(hasErr("parentName"))}
+                className={inp(hasErr("studentName"))}
+                placeholder={isSelf ? "e.g. Omar" : "e.g. Omar"}
+                value={form.studentName}
+                onChange={(e) => set("studentName")(e.target.value)}
+              />
+            </Field>
+            <Field
+              label="School year / age range"
+              required
+              error={hasErr("yearGroup")}
+              errorMsg="Please select a year group"
+            >
+              <select
+                className={inp(hasErr("yearGroup"))}
+                value={form.yearGroup}
+                onChange={(e) => set("yearGroup")(e.target.value)}
+              >
+                <option value="">Select…</option>
+                {YEAR_GROUP_OPTIONS.map((y) => (
+                  <option key={y} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </Field>
+          </div>
+        );
+
+      // ─ Step: Support needed ────────────────────────────────────────────────
+      case "support": {
+        const level = supportToLevel(form.supportType);
+        const tier = level ? getTier(level) : undefined;
+        return (
+          <div className="space-y-5">
+            <Field
+              label="What support are you looking for?"
+              required
+              error={hasErr("supportType")}
+            >
+              <div className="flex flex-wrap gap-2">
+                {SUPPORT_OPTIONS.map((opt) => (
+                  <Pill
+                    key={opt}
+                    active={form.supportType === opt}
+                    onClick={() => {
+                      setForm((p) => ({ ...p, supportType: opt }));
+                      setErrors((e) => e.filter((x) => x !== "supportType"));
+                    }}
+                  >
+                    {opt}
+                  </Pill>
+                ))}
+              </div>
+            </Field>
+
+            {form.supportType && form.supportType !== "Not sure" && (
+              <Field
+                label="How would you like to learn?"
+                required
+                error={hasErr("sessionType")}
+                errorMsg="Please choose group or 1-on-1"
+              >
+                <div className="grid grid-cols-2 gap-2 pt-0.5">
+                  {(["group", "1on1"] as SessionType[]).map((type) => {
+                    const price = tier && (type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice);
+                    return (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => {
+                          setForm((p) => ({ ...p, sessionType: type }));
+                          setErrors((e) => e.filter((x) => x !== "sessionType"));
+                        }}
+                        className={cn(
+                          "flex flex-col items-start gap-0.5 rounded-2xl border p-3.5 text-left transition-all",
+                          form.sessionType === type
+                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                            : "border-border bg-background-soft hover:border-ink/25"
+                        )}
+                      >
+                        <span className="text-sm font-semibold text-ink">
+                          {sessionLabel(type)}
+                        </span>
+                        {tier && (
+                          <span className="text-xs text-ink-soft">
+                            £{price} · 4 lessons, 60 min each
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </Field>
+            )}
+          </div>
+        );
+      }
+
+      // ─ Step: Current level ─────────────────────────────────────────────────
+      case "level": {
+        if (!isGcseSupport(form.supportType)) {
+          return (
+            <div className="rounded-2xl bg-background-soft border border-border-soft p-5 text-sm text-ink-soft leading-relaxed">
+              Nothing else needed for this level — hit continue when you're ready.
+            </div>
+          );
+        }
+        return (
+          <div className="space-y-5">
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Current / estimated grade">
+                <input
+                  className={inp()}
+                  placeholder="e.g. Grade 4 (if known)"
+                  value={form.currentGrade}
+                  onChange={(e) => set("currentGrade")(e.target.value)}
+                />
+              </Field>
+              <Field label="Target grade">
+                <input
+                  className={inp()}
+                  placeholder="e.g. Grade 7"
+                  value={form.targetGrade}
+                  onChange={(e) => set("targetGrade")(e.target.value)}
+                />
+              </Field>
+            </div>
+            <Field
+              label="Exam board"
+              required
+              error={hasErr("examBoard")}
+              errorMsg="Please select an exam board"
+            >
+              <div className="flex flex-wrap gap-2 pt-0.5">
+                {EXAM_BOARD_OPTIONS.map((b) => (
+                  <Pill
+                    key={b}
+                    active={form.examBoard === b}
+                    onClick={() => set("examBoard")(b)}
+                  >
+                    {b}
+                  </Pill>
+                ))}
+              </div>
+            </Field>
+          </div>
+        );
+      }
+
+      // ─ Step: Anything else ─────────────────────────────────────────────────
+      case "notes":
+        return (
+          <div className="space-y-5">
+            <Field label="Anything else we should know?">
+              <textarea
+                rows={4}
+                className={cn(inp(), "h-auto py-3 resize-none")}
+                placeholder="e.g. topics they struggle with, an upcoming exam, confidence issues, a resit situation, learning goals…"
+                value={form.notes}
+                onChange={(e) => set("notes")(e.target.value)}
+              />
+            </Field>
+          </div>
+        );
+
+      // ─ Step: Contact details ───────────────────────────────────────────────
+      case "contact":
+        return (
+          <div className="space-y-5">
+            <Field
+              label={isSelf ? "Your full name" : "Parent / guardian full name"}
+              required
+              error={hasErr("contactName")}
+            >
+              <input
+                className={inp(hasErr("contactName"))}
                 placeholder="e.g. Sarah Ahmed"
-                value={form.parentName}
-                onChange={(e) => set("parentName")(e.target.value)}
+                value={form.contactName}
+                onChange={(e) => set("contactName")(e.target.value)}
               />
             </Field>
             <Field
               label="Email address"
               required
-              error={hasErr("parentEmail")}
+              error={hasErr("contactEmail")}
               errorMsg="Please enter a valid email address"
             >
               <input
                 type="email"
-                className={inp(hasErr("parentEmail"))}
+                className={inp(hasErr("contactEmail"))}
                 placeholder="e.g. sarah@example.com"
-                value={form.parentEmail}
-                onChange={(e) => set("parentEmail")(e.target.value)}
+                value={form.contactEmail}
+                onChange={(e) => set("contactEmail")(e.target.value)}
               />
             </Field>
             <Field
               label="Phone number"
               required
-              error={hasErr("parentPhone")}
+              error={hasErr("contactPhone")}
             >
               <input
                 type="tel"
-                className={inp(hasErr("parentPhone"))}
+                className={inp(hasErr("contactPhone"))}
                 placeholder="e.g. 07700 900123"
-                value={form.parentPhone}
-                onChange={(e) => set("parentPhone")(e.target.value)}
+                value={form.contactPhone}
+                onChange={(e) => set("contactPhone")(e.target.value)}
               />
             </Field>
             <Field
@@ -491,270 +643,13 @@ export const GetStartedModal = () => {
           </div>
         );
 
-      // ─ Step: Student details ───────────────────────────────────────────────
-      case "studentDetails": {
-        const isStudent = form.userType === "student";
-        const years = YEAR_GROUPS[form.studentLevel] ?? [];
-        return (
-          <div className="space-y-5">
-            <Field
-              label={isStudent ? "Your full name" : "Student's full name"}
-              required
-              error={hasErr("studentName")}
-            >
-              <input
-                className={inp(hasErr("studentName"))}
-                placeholder="e.g. Omar Khan"
-                value={form.studentName}
-                onChange={(e) => set("studentName")(e.target.value)}
-              />
-            </Field>
-            {isStudent && (
-              <>
-                <Field
-                  label="Your email address"
-                  required
-                  error={hasErr("studentEmail")}
-                  errorMsg="Please enter a valid email address"
-                >
-                  <input
-                    type="email"
-                    className={inp(hasErr("studentEmail"))}
-                    placeholder="e.g. omar@example.com"
-                    value={form.studentEmail}
-                    onChange={(e) => set("studentEmail")(e.target.value)}
-                  />
-                </Field>
-                <Field
-                  label="Your phone number"
-                  required
-                  error={hasErr("studentPhone")}
-                >
-                  <input
-                    type="tel"
-                    className={inp(hasErr("studentPhone"))}
-                    placeholder="e.g. 07700 900456"
-                    value={form.studentPhone}
-                    onChange={(e) => set("studentPhone")(e.target.value)}
-                  />
-                </Field>
-              </>
-            )}
-            <Field
-              label="Programme level"
-              required
-              error={hasErr("studentLevel")}
-              errorMsg="Please select a level"
-            >
-              <div className="flex flex-wrap gap-2 pt-0.5">
-                {(["KS2", "KS3", "GCSE"] as Package[]).map((lvl) => (
-                  <Pill
-                    key={lvl}
-                    active={form.studentLevel === lvl}
-                    onClick={() => {
-                      setForm((p) => ({
-                        ...p,
-                        studentLevel: lvl,
-                        yearGroup: "",
-                      }));
-                      setErrors((e) =>
-                        e.filter((x) => x !== "studentLevel")
-                      );
-                    }}
-                  >
-                    {lvl}
-                    {lvl === "KS2" && " · Yrs 5–6"}
-                    {lvl === "KS3" && " · Yrs 7–9"}
-                    {lvl === "GCSE" && " · Yrs 10–11"}
-                  </Pill>
-                ))}
-              </div>
-            </Field>
-            {form.studentLevel && (
-              <Field
-                label="Session type"
-                required
-                error={hasErr("sessionType")}
-                errorMsg="Please choose group or 1-on-1"
-              >
-                <div className="grid grid-cols-2 gap-2 pt-0.5">
-                  {(["group", "1on1"] as SessionType[]).map((type) => {
-                    const tier = getTier(form.studentLevel);
-                    const monthlyPrice = tier && (type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice);
-                    const sessionsPerMonth = tier && (type === "group" ? tier.group.sessionsPerMonth : tier.oneToOne.sessionsPerMonth);
-                    return (
-                      <button
-                        key={type}
-                        type="button"
-                        onClick={() => {
-                          setForm((p) => ({ ...p, sessionType: type }));
-                          setErrors((e) => e.filter((x) => x !== "sessionType"));
-                        }}
-                        className={cn(
-                          "flex flex-col items-start gap-0.5 rounded-2xl border p-3.5 text-left transition-all",
-                          form.sessionType === type
-                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
-                            : "border-border bg-background-soft hover:border-ink/25"
-                        )}
-                      >
-                        <span className="text-sm font-semibold text-ink">
-                          {sessionLabel(type)}
-                        </span>
-                        {tier && (
-                          <span className="text-xs text-ink-soft">
-                            £{monthlyPrice}/month · {sessionsPerMonth} sessions
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </Field>
-            )}
-            {form.studentLevel && (
-              <Field
-                label="Year group"
-                required
-                error={hasErr("yearGroup")}
-                errorMsg="Please select a year group"
-              >
-                <select
-                  className={inp(hasErr("yearGroup"))}
-                  value={form.yearGroup}
-                  onChange={(e) => set("yearGroup")(e.target.value)}
-                >
-                  <option value="">Select year group…</option>
-                  {years.map((y) => (
-                    <option key={y} value={y}>
-                      {y}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-            )}
-          </div>
-        );
-      }
-
-      // ─ Step: Learning needs ────────────────────────────────────────────────
-      case "learning":
-        return (
-          <div className="space-y-5">
-            <Field
-              label="What help is needed?"
-              required
-              error={hasErr("helpNeeded")}
-            >
-              <textarea
-                rows={3}
-                className={cn(
-                  inp(hasErr("helpNeeded")),
-                  "h-auto py-3 resize-none"
-                )}
-                placeholder="e.g. Struggling with algebra and needs to build confidence before GCSE exams…"
-                value={form.helpNeeded}
-                onChange={(e) => set("helpNeeded")(e.target.value)}
-              />
-            </Field>
-            <div className="grid grid-cols-2 gap-3">
-              <Field label="Current grade / level">
-                <input
-                  className={inp()}
-                  placeholder="e.g. Grade 4"
-                  value={form.currentGrade}
-                  onChange={(e) => set("currentGrade")(e.target.value)}
-                />
-              </Field>
-              <Field label="Target grade">
-                <input
-                  className={inp()}
-                  placeholder="e.g. Grade 7"
-                  value={form.targetGrade}
-                  onChange={(e) => set("targetGrade")(e.target.value)}
-                />
-              </Field>
-            </div>
-            <Field label="Any other notes">
-              <textarea
-                rows={2}
-                className={cn(inp(), "h-auto py-3 resize-none")}
-                placeholder="Anything else we should know…"
-                value={form.notes}
-                onChange={(e) => set("notes")(e.target.value)}
-              />
-            </Field>
-          </div>
-        );
-
-      // ─ Step: Timings ──────────────────────────────────────────────────────
-      case "timings": {
-        if (form.sessionType === "1on1") {
-          return (
-            <div className="space-y-5">
-              <div className="flex items-start gap-2.5 rounded-2xl bg-accent-soft border border-accent/20 px-4 py-3">
-                <span className="text-base mt-0.5">🗓️</span>
-                <p className="text-sm text-ink leading-relaxed">
-                  1-on-1 sessions are scheduled around your family's own availability rather than a fixed
-                  timetable. We'll agree a weekly time together once your enquiry is confirmed.
-                </p>
-              </div>
-            </div>
-          );
-        }
-
-        const getTimingsForLevel = (level: string) => {
-          if (level === "GCSE") {
-            return {
-              "GCSE - Higher": TIMINGS_DATA["GCSE-H"],
-              "GCSE - Foundation": TIMINGS_DATA["GCSE-F"],
-            };
-          }
-          return { [level]: TIMINGS_DATA[level as keyof typeof TIMINGS_DATA] || [] };
-        };
-
-        const timingsToShow = getTimingsForLevel(form.studentLevel);
-
-        return (
-          <div className="space-y-5">
-            <div className="flex items-start gap-2.5 rounded-2xl bg-amber-50 border border-amber-200 px-4 py-3">
-              <span className="text-base mt-0.5">⚠️</span>
-              <p className="text-sm text-ink leading-relaxed">
-                Please only continue if you can commit to the full weekly schedule shown below.
-              </p>
-            </div>
-            {Object.entries(timingsToShow).map(([title, sessions]) => (
-              <div key={title} className="space-y-3">
-                <h3 className="text-[11px] font-black uppercase tracking-[0.14em] text-ink-soft">
-                  {title}
-                </h3>
-                <div className="space-y-2">
-                  {sessions && sessions.length > 0 ? (
-                    sessions.map((session, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center gap-2 p-3 rounded-xl border border-border-soft bg-background-soft"
-                      >
-                        <div className="w-2 h-2 rounded-full bg-accent" />
-                        <span className="text-sm font-medium text-ink">
-                          {session.day}: {session.time}
-                        </span>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-xs text-ink-soft">No sessions available</p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        );
-      }
-
       // ─ Step: Review ────────────────────────────────────────────────────────
       case "review": {
-        const pIdx = flow.indexOf("parentDetails");
-        const sIdx = flow.indexOf("studentDetails");
-        const lIdx = flow.indexOf("learning");
+        const studentIdx = FLOW.indexOf("studentDetails");
+        const supportIdx = FLOW.indexOf("support");
+        const levelIdx = FLOW.indexOf("level");
+        const notesIdx = FLOW.indexOf("notes");
+        const contactIdx = FLOW.indexOf("contact");
 
         type ReviewSection = {
           title: string;
@@ -769,64 +664,48 @@ export const GetStartedModal = () => {
             rows: [
               [
                 "Enquiry from",
-                form.userType === "parent"
-                  ? "Parent / Guardian"
-                  : "Student",
+                form.userType === "parent" ? "Parent / Guardian" : "Enquiring for myself",
               ],
             ],
           },
           {
-            title:
-              form.userType === "student"
-                ? "Parent / Guardian details"
-                : "Your details",
-            stepIdx: pIdx,
-            rows: [
-              ["Name", form.parentName],
-              ["Email", form.parentEmail],
-              ["Phone", form.parentPhone],
-              ["Contact via", form.preferredContact],
-            ],
-          },
-          {
-            title:
-              form.userType === "student"
-                ? "Your details"
-                : "Student details",
-            stepIdx: sIdx,
+            title: isSelf ? "Your details" : "Student details",
+            stepIdx: studentIdx,
             rows: [
               ["Name", form.studentName],
-              ...(form.userType === "student"
-                ? ([
-                    ["Email", form.studentEmail],
-                    ["Phone", form.studentPhone],
-                  ] as [string, string][])
-                : []),
-              ["Level", form.studentLevel],
-              ["Session type", form.sessionType ? sessionLabel(form.sessionType) : ""],
               ["Year group", form.yearGroup],
             ],
           },
           {
-            title: "Learning needs",
-            stepIdx: lIdx,
+            title: "Support needed",
+            stepIdx: supportIdx,
             rows: [
-              ["Help needed", form.helpNeeded],
-              ...(form.currentGrade
-                ? (([["Current grade", form.currentGrade]] as [
-                    string,
-                    string,
-                  ][]))
-                : []),
-              ...(form.targetGrade
-                ? (([["Target grade", form.targetGrade]] as [
-                    string,
-                    string,
-                  ][]))
-                : []),
-              ...(form.notes
-                ? (([["Notes", form.notes]] as [string, string][]))
-                : []),
+              ["Support", form.supportType],
+              ["Session type", form.sessionType ? sessionLabel(form.sessionType) : ""],
+            ],
+          },
+          {
+            title: "Current level",
+            stepIdx: levelIdx,
+            rows: [
+              ...(form.currentGrade ? ([["Current grade", form.currentGrade]] as [string, string][]) : []),
+              ...(form.targetGrade ? ([["Target grade", form.targetGrade]] as [string, string][]) : []),
+              ...(form.examBoard ? ([["Exam board", form.examBoard]] as [string, string][]) : []),
+            ],
+          },
+          {
+            title: "Anything else",
+            stepIdx: notesIdx,
+            rows: [["Notes", form.notes]],
+          },
+          {
+            title: isSelf ? "Contact details" : "Parent / guardian contact",
+            stepIdx: contactIdx,
+            rows: [
+              ["Name", form.contactName],
+              ["Email", form.contactEmail],
+              ["Phone", form.contactPhone],
+              ["Contact via", form.preferredContact],
             ],
           },
         ];
@@ -876,11 +755,7 @@ export const GetStartedModal = () => {
 
   // ── Success screen ─────────────────────────────────────────────────────────
   if (submitted) {
-    const firstName = (
-      form.userType === "parent" ? form.parentName : form.studentName
-    )
-      .trim()
-      .split(" ")[0];
+    const firstName = form.contactName.trim().split(" ")[0] || form.studentName.trim().split(" ")[0];
     return (
       <DialogPrimitive.Root open={open} onOpenChange={(v) => !v && handleClose()}>
         <DialogPrimitive.Portal>
@@ -909,23 +784,12 @@ export const GetStartedModal = () => {
               </div>
               <div>
                 <h2 className="text-2xl font-semibold text-ink">
-                  Thanks{firstName ? `, ${firstName}` : ""}!
+                  Thank you{firstName ? `, ${firstName}` : ""} — we've received your enquiry.
                 </h2>
                 <p className="text-ink-soft leading-relaxed max-w-sm text-sm mt-2">
-                  Your enquiry has been received. We’ll review it and confirm your child’s placement within 24 hours.
+                  A member of BrightLearn Tutoring will review the details and contact you to discuss
+                  tuition, current availability and the next steps.
                 </p>
-              </div>
-              <div className="w-full rounded-2xl border border-border-soft bg-background-soft/70 px-5 py-4 text-left space-y-3">
-                <p className="text-[10px] font-black uppercase tracking-[0.14em] text-ink-soft">What happens next</p>
-                {[
-                  "You'll receive a confirmation email with your allocated session time and group details.",
-                  "Your child can usually begin their first lesson the following week.",
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <span className="mt-0.5 w-5 h-5 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 text-[10px] font-bold text-accent">{i + 1}</span>
-                    <p className="text-xs text-ink-soft leading-relaxed">{step}</p>
-                  </div>
-                ))}
               </div>
               <button
                 onClick={handleClose}

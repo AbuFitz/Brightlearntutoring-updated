@@ -33,7 +33,7 @@ export const Hero = () => {
           <div className="lg:col-span-6 max-w-2xl animate-fade-up">
             {/* Top trust banner pill */}
             <div className="inline-flex items-center gap-2.5 bg-background-soft border border-border-soft rounded-full px-4 py-1.5 mb-6 shadow-soft">
-              <span className="text-sm text-ink-soft font-medium">Cancel any time - no contracts</span>
+              <span className="text-sm text-ink-soft font-medium">No subscriptions - no long-term contracts</span>
             </div>
 
             <h1 className="text-[2.5rem] sm:text-5xl lg:text-[4.25rem] xl:text-[4.75rem] leading-[1.02] tracking-[-0.025em] text-ink font-semibold">
@@ -41,12 +41,12 @@ export const Hero = () => {
             </h1>
 
             <p className="mt-6 text-lg text-ink-soft leading-relaxed max-w-xl">
-              Personalised Group of 5 tutoring for KS2, KS3 and GCSE students across the UK. Calm, structured lessons that build genuine confidence with numbers.
+              Personalised Group of 5 tutoring for KS2, KS3 and GCSE students following the English curriculum. Calm, structured lessons that build genuine confidence with numbers.
             </p>
 
             <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
               <Button variant="default" size="lg" className="group" onClick={openModal}>
-                Get started
+                Enquire about tuition
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
               <Button variant="outline" size="lg" onClick={handleViewPricing}>

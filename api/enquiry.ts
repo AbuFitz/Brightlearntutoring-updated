@@ -6,27 +6,24 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const ADMIN_EMAIL = "info@brightlearntutoring.co.uk";
 const FROM_ADDRESS = "BrightLearn <noreply@brightlearntutoring.co.uk>";
+const SITE_URL = "https://www.brightlearntutoring.co.uk";
 
 const LOGO_SVG = `<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#ffffff"/><path d="M6 22l7-7-7-7v14zm10-14v14l11-7-11-7z" fill="#111111"/></svg>`;
 
 interface EnquiryPayload {
   "Enquiry type": string;
-  "Parent name": string;
-  "Parent email": string;
-  "Parent phone": string;
-  "Preferred contact": string;
   "Student name": string;
-  "Student email"?: string;
-  "Student phone"?: string;
-  Programme: string;
   "Year group": string;
-  "Help needed": string;
+  "Support needed": string;
+  "Session type": string;
   "Current grade"?: string;
   "Target grade"?: string;
+  "Exam board"?: string;
   "Additional notes"?: string;
-  "Preferred days": string;
-  "Preferred times": string;
-  "Availability notes"?: string;
+  "Contact name": string;
+  "Contact email": string;
+  "Contact phone": string;
+  "Preferred contact": string;
 }
 
 function shell(body: string, preview: string): string {
@@ -45,7 +42,7 @@ function shell(body: string, preview: string): string {
           <td style="padding-right:12px;vertical-align:middle;">${LOGO_SVG}</td>
           <td style="vertical-align:middle;">
             <div style="color:#fff;font-size:15px;font-weight:700;line-height:1;letter-spacing:-0.01em;">BrightLearn</div>
-            <div style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:3px;">brightlearntutoring.co.uk</div>
+            <div style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:3px;">www.brightlearntutoring.co.uk</div>
           </td>
         </tr></table>
       </td></tr>
@@ -85,25 +82,9 @@ function sect(title: string, rows: string): string {
   </table>`;
 }
 
-function step(num: string, color: string, text: string, sub: string): string {
-  return `<tr style="border-top:${num === "1" ? "none" : "1px solid #f0ede6"};">
-    <td style="padding:14px 16px;">
-      <table cellpadding="0" cellspacing="0"><tr>
-        <td style="width:28px;vertical-align:top;padding-right:10px;">
-          <div style="width:24px;height:24px;background:${color.split("|")[0]};border-radius:50%;text-align:center;line-height:24px;font-size:11px;font-weight:800;color:${color.split("|")[1]};">${num}</div>
-        </td>
-        <td style="vertical-align:top;">
-          <div style="font-size:13px;font-weight:600;color:#1a1a1a;">${text}</div>
-          <div style="font-size:12px;color:#6b6560;margin-top:2px;">${sub}</div>
-        </td>
-      </tr></table>
-    </td>
-  </tr>`;
-}
-
 function buildAdminHtml(d: EnquiryPayload): string {
-  const replyEmail = d["Parent email"] !== "—" ? d["Parent email"] : d["Student email"] ?? "";
-  const replyName = d["Parent name"] !== "—" ? d["Parent name"].split(" ")[0] : d["Student name"].split(" ")[0];
+  const replyEmail = d["Contact email"] !== "—" ? d["Contact email"] : "";
+  const replyName = d["Contact name"] !== "—" ? d["Contact name"].split(" ")[0] : d["Student name"].split(" ")[0];
 
   const body = `
     <table cellpadding="0" cellspacing="0" style="margin-bottom:18px;"><tr>
@@ -113,29 +94,25 @@ function buildAdminHtml(d: EnquiryPayload): string {
     <p style="margin:0 0 24px;font-size:13px;color:#6b6560;line-height:1.65;">Submitted via the BrightLearn website. Please respond within <strong>1 working day</strong>.</p>
 
     ${sect("Enquiry type", row("Submitted by", d["Enquiry type"]))}
-    ${sect(d["Enquiry type"] === "Student" ? "Parent / Guardian" : "Contact details",
-      row("Name", d["Parent name"]) +
-      row("Email", `<a href="mailto:${d["Parent email"]}" style="color:#2563eb;text-decoration:none;">${d["Parent email"]}</a>`) +
-      row("Phone", `<a href="tel:${d["Parent phone"]}" style="color:#2563eb;text-decoration:none;">${d["Parent phone"]}</a>`) +
-      row("Preferred contact", d["Preferred contact"])
-    )}
     ${sect("Student details",
       row("Name", d["Student name"]) +
-      (d["Student email"] ? row("Email", d["Student email"]) : "") +
-      (d["Student phone"] ? row("Phone", d["Student phone"]) : "") +
-      row("Programme", d["Programme"]) +
       row("Year group", d["Year group"])
     )}
-    ${sect("Learning needs",
-      row("Help needed", d["Help needed"]) +
-      row("Current grade", d["Current grade"]) +
-      row("Target grade", d["Target grade"])+
-      row("Notes", d["Additional notes"])
+    ${sect("Support needed",
+      row("Support", d["Support needed"]) +
+      row("Session type", d["Session type"])
     )}
-    ${sect("Availability",
-      row("Days", d["Preferred days"]) +
-      row("Times", d["Preferred times"]) +
-      row("Notes", d["Availability notes"])
+    ${sect("Current level",
+      row("Current grade", d["Current grade"]) +
+      row("Target grade", d["Target grade"]) +
+      row("Exam board", d["Exam board"])
+    )}
+    ${sect("Anything else", row("Notes", d["Additional notes"]))}
+    ${sect("Contact details",
+      row("Name", d["Contact name"]) +
+      row("Email", `<a href="mailto:${d["Contact email"]}" style="color:#2563eb;text-decoration:none;">${d["Contact email"]}</a>`) +
+      row("Phone", `<a href="tel:${d["Contact phone"]}" style="color:#2563eb;text-decoration:none;">${d["Contact phone"]}</a>`) +
+      row("Preferred contact", d["Preferred contact"])
     )}
 
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f2;border-radius:12px;margin-top:8px;">
@@ -145,54 +122,42 @@ function buildAdminHtml(d: EnquiryPayload): string {
       </td></tr>
     </table>
   `;
-  return shell(body, "Sent automatically when a form was submitted on brightlearntutoring.co.uk");
+  return shell(body, "Sent automatically when a form was submitted on www.brightlearntutoring.co.uk");
 }
 
 function buildConfirmationHtml(d: EnquiryPayload): string {
-  const firstName = (d["Parent name"] !== "—" ? d["Parent name"] : d["Student name"]).trim().split(" ")[0];
+  const firstName = (d["Contact name"] !== "—" ? d["Contact name"] : d["Student name"]).trim().split(" ")[0];
 
   const body = `
     <table cellpadding="0" cellspacing="0" style="margin-bottom:18px;"><tr>
-      <td style="background:#dcfce7;color:#166534;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 12px;border-radius:100px;">Enquiry confirmed</td>
+      <td style="background:#dcfce7;color:#166534;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 12px;border-radius:100px;">Enquiry received</td>
     </tr></table>
-    <h1 style="margin:0 0 6px;font-size:20px;font-weight:700;color:#1a1a1a;line-height:1.25;letter-spacing:-0.02em;">Thanks, ${firstName} — we've received your enquiry</h1>
-    <p style="margin:0 0 24px;font-size:13px;color:#6b6560;line-height:1.65;">We'll be in touch within <strong>24 hours</strong>. Here is a copy of the information you submitted.</p>
+    <h1 style="margin:0 0 6px;font-size:20px;font-weight:700;color:#1a1a1a;line-height:1.25;letter-spacing:-0.02em;">Thank you, ${firstName} — we've received your enquiry</h1>
+    <p style="margin:0 0 24px;font-size:13px;color:#6b6560;line-height:1.65;">A member of BrightLearn Tutoring will review the details below and contact you to discuss tuition, current availability and the next steps.</p>
 
     ${sect("Enquiry type", row("Submitted by", d["Enquiry type"]))}
-    ${sect(d["Enquiry type"] === "Student" ? "Parent / Guardian" : "Contact details",
-      row("Name", d["Parent name"]) +
-      row("Email", d["Parent email"]) +
-      row("Phone", d["Parent phone"]) +
-      row("Preferred contact", d["Preferred contact"])
-    )}
     ${sect("Student details",
       row("Name", d["Student name"]) +
-      (d["Student email"] ? row("Email", d["Student email"]) : "") +
-      (d["Student phone"] ? row("Phone", d["Student phone"]) : "") +
-      row("Programme", d["Programme"]) +
       row("Year group", d["Year group"])
     )}
-    ${sect("Learning needs",
-      row("Help needed", d["Help needed"]) +
+    ${sect("Support needed",
+      row("Support", d["Support needed"]) +
+      row("Session type", d["Session type"])
+    )}
+    ${sect("Current level",
       row("Current grade", d["Current grade"]) +
-      row("Target grade", d["Target grade"])+
-      row("Notes", d["Additional notes"])
+      row("Target grade", d["Target grade"]) +
+      row("Exam board", d["Exam board"])
     )}
-    ${sect("Availability",
-      row("Days", d["Preferred days"]) +
-      row("Times", d["Preferred times"]) +
-      row("Notes", d["Availability notes"])
+    ${sect("Anything else", row("Notes", d["Additional notes"]))}
+    ${sect("Contact details",
+      row("Name", d["Contact name"]) +
+      row("Email", d["Contact email"]) +
+      row("Phone", d["Contact phone"]) +
+      row("Preferred contact", d["Preferred contact"])
     )}
 
-    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e6e3db;border-radius:10px;overflow:hidden;margin-top:8px;">
-      <tr><td style="background:#f7f6f2;padding:8px 16px;border-bottom:1px solid #e6e3db;">
-        <span style="font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#9b9488;">What happens next</span>
-      </td></tr>
-      ${step("1", "#dbeafe|#1d4ed8", "You'll receive a confirmation email with your allocated session time and group details.", "")}
-      ${step("2", "#dcfce7|#166534", "Your child can usually begin their first lesson the following week.", "")}
-    </table>
-
-    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f2;border-radius:12px;margin-top:14px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f2;border-radius:12px;margin-top:8px;">
       <tr><td style="padding:20px 24px;text-align:center;">
         <p style="margin:0 0 14px;font-size:13px;color:#6b6560;">If you need to add anything else, just reply to this email and we'll help.</p>
         <table cellpadding="0" cellspacing="0" role="presentation" style="margin:0 auto;"><tr>
@@ -200,13 +165,13 @@ function buildConfirmationHtml(d: EnquiryPayload): string {
             <a href="mailto:${ADMIN_EMAIL}" style="display:inline-block;background:#111111;color:#ffffff;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;text-decoration:none;">Reply by email</a>
           </td>
           <td>
-            <a href="https://brightlearntutoring.co.uk" style="display:inline-block;background:#ffffff;color:#111111;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;border:1px solid #e6e3db;text-decoration:none;">Visit website</a>
+            <a href="${SITE_URL}" style="display:inline-block;background:#ffffff;color:#111111;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;border:1px solid #e6e3db;text-decoration:none;">Visit website</a>
           </td>
         </tr></table>
       </td></tr>
     </table>
   `;
-  return shell(body, "We've received your BrightLearn enquiry and will be in touch within 24 hours.");
+  return shell(body, "We've received your BrightLearn enquiry and will be in touch to discuss next steps.");
 }
 
 export default async function handler(req: Request): Promise<Response> {
@@ -221,10 +186,8 @@ export default async function handler(req: Request): Promise<Response> {
     return new Response("Invalid JSON", { status: 400 });
   }
 
-  const contactEmail =
-    data["Parent email"] !== "—" ? data["Parent email"] : (data["Student email"] ?? null);
-  const fromName =
-    data["Parent name"] !== "—" ? data["Parent name"] : data["Student name"];
+  const contactEmail = data["Contact email"] && data["Contact email"] !== "—" ? data["Contact email"] : null;
+  const fromName = data["Contact name"] !== "—" ? data["Contact name"] : data["Student name"];
 
   try {
     // Admin notification

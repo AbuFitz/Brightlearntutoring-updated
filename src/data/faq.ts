@@ -18,15 +18,20 @@ export const faqCategories: FaqCategory[] = [
       {
         q: "How do I get started?",
         a: "Fill in our short enquiry form with your child's year group and what they need help with. There's no card details required — we'll get back to you to confirm session times and next steps.",
-        link: { label: "Get started now", to: "/enquire" },
+        link: { label: "Enquire now", to: "/enquire" },
       },
       {
         q: "Do you offer a trial or first lesson?",
-        a: "1-on-1 tuition can be booked as a single lesson with no ongoing commitment, which is a good way to try tutoring before deciding on a monthly plan. Group places run on a monthly basis.",
+        a: "1-on-1 tuition can be booked as a single lesson with no ongoing commitment, which is a good way to try tutoring before deciding on a 4-lesson package. Small-group places run as 4-lesson packages, subject to suitable group availability.",
       },
       {
         q: "What age groups and subjects do you tutor?",
-        a: "We tutor maths only, for KS2 (SATs preparation, Years 5–6), KS3 (Years 7–9) and GCSE (Foundation and Higher tier, Years 10–11).",
+        a: "We tutor maths only, for KS2 (SATs preparation, Years 5–6), KS3 (Years 7–9) and GCSE (Foundation, Higher and resit support, Years 10–11 and beyond) — all following the English curriculum.",
+      },
+      {
+        q: "Do you help with GCSE Maths resits?",
+        a: "Yes. GCSE Maths resit tutoring is one of our core programmes, for students retaking the exam in school, sixth form or college. Sessions focus on exactly where marks were lost last time rather than repeating the full syllabus.",
+        link: { label: "See our GCSE resit programme", to: "/gcse-maths-resit-tuition" },
       },
     ],
   },
@@ -35,16 +40,16 @@ export const faqCategories: FaqCategory[] = [
     faqs: [
       {
         q: "How much does tutoring cost?",
-        a: "Small-group tuition (maximum 5 students) is £40/month for KS2 (4 sessions), £90/month for KS3 (8 sessions) and £100/month for GCSE (8 sessions). 1-on-1 tuition starts from £25 per lesson, or £80–£120/month depending on level.",
+        a: "Small-group tuition (maximum 5 students, 4 x 60-minute lessons) is £40 for KS2, £50 for KS3 and £60 for GCSE. 1-on-1 tuition starts from £25 per lesson, or £80–£120 for a 4-lesson package depending on level.",
         link: { label: "See all pricing options", to: "/enquire" },
       },
       {
         q: "What's the difference between group and 1-on-1 pricing?",
-        a: "Group sessions run on a fixed monthly plan with a set timetable, shared between up to 5 students. 1-on-1 sessions can be booked as a single lesson or a monthly plan, and are scheduled flexibly around your own availability.",
+        a: "Group sessions run as a fixed 4-lesson package shared between up to 5 students, subject to suitable group availability. 1-on-1 sessions can be booked as a single lesson or a 4-lesson package, and are scheduled flexibly around your own availability.",
       },
       {
         q: "Are there any contracts or long-term commitments?",
-        a: "No. All plans are monthly, and you can cancel at any time with no long-term contract.",
+        a: "No. Each package is a one-off booking of 4 lessons (or a single 1-on-1 lesson) — there's no subscription and nothing rolls over automatically.",
       },
       {
         q: "Do I need to enter card details to enquire?",
@@ -57,7 +62,7 @@ export const faqCategories: FaqCategory[] = [
     faqs: [
       {
         q: "How are sessions delivered?",
-        a: "All sessions are currently delivered live online via video call. KS2 group sessions run 1 hour, and KS3/GCSE group sessions run 1.5 hours. 1-on-1 sessions run 1 hour.",
+        a: "All sessions are currently delivered live online via video call. Every standard lesson — group or 1-on-1, at any level — runs for 60 minutes.",
       },
       {
         q: "How big are group sessions?",
@@ -65,7 +70,7 @@ export const faqCategories: FaqCategory[] = [
       },
       {
         q: "What exam boards do you cover?",
-        a: "We cover all major exam boards used across England, Wales and Northern Ireland, including AQA, Edexcel (Pearson), OCR and WJEC/Eduqas.",
+        a: "We tutor to the English curriculum and cover both AQA and Pearson Edexcel — the two exam boards most GCSE students in England sit.",
       },
       {
         q: "Is the tutor DBS checked?",
@@ -79,7 +84,7 @@ export const faqCategories: FaqCategory[] = [
     faqs: [
       {
         q: "Do you offer 1-on-1 tutoring?",
-        a: "Yes. Alongside small-group sessions, we offer 1-on-1 tutoring from £25 per lesson, or £80/month for KS2, £100/month for KS3 and £120/month for GCSE (4 lessons a month).",
+        a: "Yes. Alongside small-group sessions, we offer 1-on-1 tutoring from £25 per lesson, or £80 for KS2, £100 for KS3 and £120 for GCSE, each for a 4-lesson package.",
       },
       {
         q: "Can I book a single 1-on-1 lesson without a monthly commitment?",
@@ -133,7 +138,7 @@ export const faqCategories: FaqCategory[] = [
     faqs: [
       {
         q: "Can I cancel at any time?",
-        a: "Yes. There are no contracts or long-term commitments — you can cancel your tutoring plan at any time.",
+        a: "Yes. Every package is a one-off booking with no ongoing subscription, so there's nothing to cancel beyond simply not booking a further package.",
       },
       {
         q: "What's your cancellation policy for individual sessions?",
@@ -142,7 +147,7 @@ export const faqCategories: FaqCategory[] = [
       },
       {
         q: "When is payment due?",
-        a: "Payment is due at the start of each monthly billing period, or per lesson for 1-on-1 sessions booked individually. Payment instructions are provided once your sessions are confirmed.",
+        a: "Payment is due when each package is booked, or per lesson for 1-on-1 sessions booked individually. Payment instructions are provided once your sessions are confirmed.",
       },
     ],
   },
@@ -151,7 +156,7 @@ export const faqCategories: FaqCategory[] = [
 export const homeFaqs: Faq[] = [
   {
     q: "How much does online maths tutoring cost?",
-    a: "BrightLearn tutoring starts from £40/month for KS2, £90/month for KS3, and £100/month for GCSE. KS2 includes 4 sessions per month, and KS3/GCSE include 8 sessions per month, with no contracts.",
+    a: "BrightLearn small-group tutoring starts from £40 for KS2, £50 for KS3, and £60 for GCSE — each a package of 4 x 60-minute lessons, with no long-term contract.",
   },
   {
     q: "Is the tutor DBS checked?",
@@ -159,19 +164,19 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "What exam boards do you cover for GCSE maths?",
-    a: "We cover all major exam boards used in England, Wales and Northern Ireland, including AQA, Edexcel (Pearson), OCR and WJEC/Eduqas.",
+    a: "We tutor to the English curriculum and cover both AQA and Pearson Edexcel — the two exam boards most GCSE students in England sit.",
   },
   {
     q: "Can I cancel at any time?",
-    a: "Yes. There are no contracts or long-term commitments. You can cancel your tutoring plan at any time.",
+    a: "Yes. Every package is a one-off booking with no ongoing subscription, so there's nothing to cancel beyond simply not booking a further package.",
   },
   {
     q: "How are the sessions delivered?",
-    a: "All sessions are delivered live online via video call. Group sessions are small — a maximum of 5 students — with KS2 sessions running 1 hour and KS3/GCSE sessions 1.5 hours.",
+    a: "All sessions are delivered live online via video call. Group sessions are small — a maximum of 5 students — and every standard lesson, at any level, runs for 60 minutes.",
   },
   {
     q: "Do you offer 1-on-1 tutoring?",
-    a: "Yes. Alongside our small-group sessions, we offer 1-on-1 tutoring from £25 per lesson, or £80/month for KS2, £100/month for KS3 and £120/month for GCSE (4 lessons a month). 1-on-1 sessions are scheduled around your own availability rather than a fixed timetable.",
+    a: "Yes. Alongside our small-group sessions, we offer 1-on-1 tutoring from £25 per lesson, or £80 for KS2, £100 for KS3 and £120 for GCSE, each for a 4-lesson package. 1-on-1 sessions are scheduled around your own availability rather than a fixed timetable.",
   },
   {
     q: "Are you only for families in North London?",

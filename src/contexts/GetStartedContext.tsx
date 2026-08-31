@@ -7,7 +7,8 @@ interface GetStartedContextType {
   open: boolean;
   preselectedPackage: Package;
   preselectedSessionType: SessionType;
-  openModal: (pkg?: Package, sessionType?: SessionType) => void;
+  preselectedSupportType: string;
+  openModal: (pkg?: Package, sessionType?: SessionType, supportType?: string) => void;
   closeModal: () => void;
 }
 
@@ -15,6 +16,7 @@ const GetStartedContext = createContext<GetStartedContextType>({
   open: false,
   preselectedPackage: "",
   preselectedSessionType: "group",
+  preselectedSupportType: "",
   openModal: () => {},
   closeModal: () => {},
 });
@@ -23,10 +25,12 @@ export const GetStartedProvider = ({ children }: { children: React.ReactNode }) 
   const [open, setOpen] = useState(false);
   const [preselectedPackage, setPreselectedPackage] = useState<Package>("");
   const [preselectedSessionType, setPreselectedSessionType] = useState<SessionType>("group");
+  const [preselectedSupportType, setPreselectedSupportType] = useState<string>("");
 
-  const openModal = (pkg: Package = "", sessionType: SessionType = "group") => {
+  const openModal = (pkg: Package = "", sessionType: SessionType = "group", supportType: string = "") => {
     setPreselectedPackage(pkg);
     setPreselectedSessionType(sessionType);
+    setPreselectedSupportType(supportType);
     setOpen(true);
   };
 
@@ -36,7 +40,7 @@ export const GetStartedProvider = ({ children }: { children: React.ReactNode }) 
 
   return (
     <GetStartedContext.Provider
-      value={{ open, preselectedPackage, preselectedSessionType, openModal, closeModal }}
+      value={{ open, preselectedPackage, preselectedSessionType, preselectedSupportType, openModal, closeModal }}
     >
       {children}
     </GetStartedContext.Provider>

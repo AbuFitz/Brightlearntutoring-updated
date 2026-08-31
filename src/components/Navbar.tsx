@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, UserCircle2 } from "lucide-react";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { PricingModal } from "@/components/PricingModal";
+
+const PORTAL_URL = "https://lessons.brightlearntutoring.co.uk";
 
 const navLinks = [
   { label: "Programmes", href: "#services" },
@@ -62,8 +64,15 @@ export const Navbar = () => {
 
             {/* Right side */}
             <div className="flex items-center gap-2">
+              <a
+                href={PORTAL_URL}
+                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 text-sm text-ink-soft hover:text-ink transition-colors font-medium"
+              >
+                <UserCircle2 className="w-4 h-4" />
+                Portal Login
+              </a>
               <Button variant="default" size="sm" className="hidden sm:inline-flex" onClick={openModal}>
-                Get started
+                Enquire now
               </Button>
 
               {/* Mobile pricing pill */}
@@ -105,6 +114,14 @@ export const Navbar = () => {
                 >
                   Pricing
                 </button>
+                <a
+                  href={PORTAL_URL}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 text-ink hover:bg-secondary rounded-xl transition-colors"
+                >
+                  <UserCircle2 className="w-4 h-4 text-ink-soft" />
+                  Learning Portal Login
+                </a>
                 <div className="flex gap-2 mt-3 px-2">
                   <Button
                     variant="default"
@@ -112,7 +129,7 @@ export const Navbar = () => {
                     className="flex-1"
                     onClick={() => { setOpen(false); openModal(); }}
                   >
-                    Get started
+                    Enquire about tuition
                   </Button>
                 </div>
               </div>

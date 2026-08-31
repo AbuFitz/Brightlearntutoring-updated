@@ -33,15 +33,15 @@ export const FinalCTA = () => {
           <div className="relative max-w-3xl mx-auto">
             <span className="text-xs uppercase tracking-[0.25em] text-background/60 font-semibold">Begin today</span>
             <h2 className="mt-4 text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
-              Give your child the maths confidence they <span className="font-display italic font-normal text-accent">deserve.</span>
+              Ready to help your child feel more confident in <span className="font-display italic font-normal text-accent">maths?</span>
             </h2>
             <p className="text-background/75 mt-6 text-lg max-w-xl mx-auto leading-relaxed">
-              Ready to build real confidence in maths? Get in touch today - no card details required.
+              Tell us what support you're looking for and we'll get back to you to discuss the next steps.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
               <Button variant="accent" size="xl" className="group" onClick={openModal}>
-                Get started
+                Enquire about tuition
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
               <Button

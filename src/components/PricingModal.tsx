@@ -2,15 +2,13 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ArrowRight, X } from "lucide-react";
 import { useState } from "react";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
-import { pricingTiers, MAX_GROUP_SIZE, SessionType } from "@/data/pricing";
+import { pricingTiers, MAX_GROUP_SIZE, SessionType, fmtPrice } from "@/data/pricing";
 import { cn } from "@/lib/utils";
 
 interface PricingModalProps {
   open: boolean;
   onClose: () => void;
 }
-
-const fmtPrice = (n: number) => (Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`);
 
 export const PricingModal = ({ open, onClose }: PricingModalProps) => {
   const { openModal } = useGetStarted();
@@ -99,12 +97,12 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
                     <div className="flex items-center gap-3 shrink-0">
                       <div className="text-right">
                         <div className="text-lg font-bold text-ink leading-none">£{price}</div>
-                        <div className="text-[10px] text-ink-soft mt-0.5">/month</div>
+                        <div className="text-[10px] text-ink-soft mt-0.5">4 lessons</div>
                       </div>
                       <button
                         type="button"
                         onClick={() => handleGetStarted(t.name)}
-                        aria-label={`Get started with ${t.name} ${sessionType === "group" ? "group" : "1-on-1"} tuition`}
+                        aria-label={`Enquire about ${t.name} ${sessionType === "group" ? "group" : "1-on-1"} tuition`}
                         className="w-9 h-9 rounded-full bg-ink text-background flex items-center justify-center hover:bg-ink-soft transition-all active:scale-[0.96] shrink-0"
                       >
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -117,11 +115,11 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
 
             <p className="text-xs text-ink-soft mt-3 text-center">
               {sessionType === "group"
-                ? `Maximum ${MAX_GROUP_SIZE} students per group.`
-                : `Prefer to pay as you go? Single lessons from £${pricingTiers[0].oneToOne.singleLessonPrice} — no monthly commitment.`}
+                ? `Maximum ${MAX_GROUP_SIZE} students per group. Small-group places are subject to suitable group availability.`
+                : `Prefer to pay as you go? Single lessons from £${pricingTiers[0].oneToOne.singleLessonPrice} — no package needed.`}
             </p>
             <p className="text-center text-xs text-ink-soft mt-4 pt-4 border-t border-border-soft">
-              Cancel any time · No contracts · No card details required
+              No long-term contract · 60 minutes per lesson
             </p>
             <div className="md:hidden" style={{ height: "env(safe-area-inset-bottom, 0px)" }} />
           </div>

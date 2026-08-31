@@ -8,13 +8,11 @@ import { GetStartedModal } from "@/components/GetStartedModal";
 import { PricingModal } from "@/components/PricingModal";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { findLocation, locations } from "@/data/locations";
-import { pricingTiers } from "@/data/pricing";
+import { pricingTiers, fmtPrice } from "@/data/pricing";
 import { useSEO } from "@/hooks/useSEO";
 import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
 
-const SITE_URL = "https://brightlearntutoring.co.uk";
-
-const fmtPrice = (n: number) => (Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`);
+const SITE_URL = "https://www.brightlearntutoring.co.uk";
 
 const LocationPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -25,7 +23,7 @@ const LocationPage = () => {
   useSEO(
     location
       ? {
-          title: `Online Maths Tutor in ${location.city} | KS2, KS3 & GCSE — BrightLearn Tutoring`,
+          title: `Online Maths Tutor ${location.city} | KS2-GCSE | BrightLearn`,
           description: location.metaDescription,
           path: `/online-maths-tutor/${location.slug}`,
         }
@@ -108,7 +106,7 @@ const LocationPage = () => {
           <p className="mt-6 text-lg text-ink-soft leading-relaxed max-w-2xl">{location.intro}</p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <Button variant="default" size="lg" className="group" onClick={() => openModal()}>
-              Get started
+              Enquire about tuition
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </Button>
             <Button variant="outline" size="lg" onClick={() => setPricingOpen(true)}>
@@ -165,22 +163,25 @@ const LocationPage = () => {
                 <div className="text-sm font-semibold text-ink-soft">{t.name} Maths</div>
                 <div className="mt-1.5 flex items-baseline gap-1">
                   <span className="text-2xl font-semibold text-ink">£{t.group.price}</span>
-                  <span className="text-xs text-ink-soft">/month</span>
+                  <span className="text-xs text-ink-soft">group · 4 lessons</span>
                 </div>
                 <div className="mt-1.5 inline-flex items-center rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-semibold text-accent">
-                  {fmtPrice(t.group.price / t.group.sessionsPerMonth)}/lesson · {t.group.sessionsPerMonth} sessions
+                  {fmtPrice(t.group.price / t.group.sessionsPerMonth)}/lesson · 60 minutes each
                 </div>
                 <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-accent">
-                  Get started
+                  Register interest
                   <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                 </div>
               </button>
             ))}
           </div>
+          <p className="text-xs text-ink-soft mt-3">
+            Small-group places are subject to suitable group availability.
+          </p>
           <button
             type="button"
             onClick={() => setPricingOpen(true)}
-            className="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-accent hover:underline"
+            className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-accent hover:underline"
           >
             1-on-1 tuition also available — see all pricing options
             <ArrowRight className="w-3.5 h-3.5" />
@@ -252,14 +253,14 @@ const LocationPage = () => {
             <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
             <div className="relative">
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
-                Start tutoring in {location.city}{" "}
-                <span className="font-display italic font-normal text-accent">today.</span>
+                Ready to help your child feel more confident in maths?{" "}
+                <span className="font-display italic font-normal text-accent">Let's talk.</span>
               </h2>
               <p className="mt-4 text-background/75 max-w-xl mx-auto">
-                No card details required. Cancel any time.
+                Tell us what support you're looking for and we'll get back to you to discuss the next steps.
               </p>
               <Button variant="accent" size="xl" className="mt-8 group" onClick={() => openModal()}>
-                Get started
+                Enquire about tuition
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
             </div>

@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Instagram, Youtube, Facebook, Mail, MapPin, Link } from "lucide-react";
+import { Instagram, Youtube, Facebook, Mail, MapPin, Link, UserCircle2 } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { WhatsAppModal } from "@/components/WhatsAppModal";
 import { InPersonModal } from "@/components/InPersonModal";
 import { locations } from "@/data/locations";
+
+const PORTAL_URL = "https://lessons.brightlearntutoring.co.uk";
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -20,18 +22,19 @@ const linkGroups: {
     title: "Programmes",
     links: [
       { label: "KS2 Maths & SATs Prep", href: "/ks2-maths-confidence-sats-preparation" },
-      { label: "Year 7–9 Maths", href: "/year-7-9-maths-support" },
+      { label: "Year 7–9 / KS3 Maths", href: "/year-7-9-maths-support" },
       { label: "GCSE Maths Foundation", href: "/gcse-maths-foundation-tutor" },
       { label: "GCSE Maths Higher", href: "/gcse-maths-higher-tutor" },
+      { label: "GCSE Maths Resit", href: "/gcse-maths-resit-tuition" },
+      { label: "1-to-1 Online Tutoring", href: "/online-one-to-one-maths-tutoring" },
+      { label: "Small-Group GCSE Revision", href: "/small-group-gcse-maths-revision" },
     ],
   },
   {
-    title: "Guides",
+    title: "Resources",
     links: [
-      { label: "GCSE Maths Resit", href: "/gcse-maths-resit-tuition" },
-      { label: "1-on-1 Online Tutoring", href: "/online-one-to-one-maths-tutoring" },
-      { label: "Small-Group GCSE Revision", href: "/small-group-gcse-maths-revision" },
       { label: "FAQ", href: "/faq" },
+      { label: "Learning Portal", href: PORTAL_URL, external: true },
     ],
   },
   {
@@ -79,7 +82,7 @@ export const Footer = () => {
               <span className="font-semibold text-ink text-lg tracking-tight">BrightLearn Tutoring</span>
             </div>
             <p className="text-ink-soft text-[15px] leading-relaxed max-w-md">
-              Premium online maths tutoring for KS2, KS3 and GCSE students across the UK. Built on clarity, confidence and consistency.
+              Online maths tutoring for KS2, KS3 and GCSE students following the English curriculum. Built on clarity, confidence and consistency.
             </p>
 
             {subscribed ? (

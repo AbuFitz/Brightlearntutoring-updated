@@ -2,10 +2,8 @@ import { useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ArrowRight, Check, BookOpen, Clock, CalendarDays, GraduationCap, Star } from "lucide-react";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
-import { getTier, sessionLabel, SessionType } from "@/data/pricing";
+import { getTier, sessionLabel, SessionType, fmtPrice } from "@/data/pricing";
 import { cn } from "@/lib/utils";
-
-const fmtPrice = (n: number) => (Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`);
 
 export interface Programme {
   name: Package;
@@ -98,7 +96,7 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                       {tier && (
                         <>
                           <div className="text-xs text-ink-soft mt-0.5">
-                            £{type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice}/month
+                            £{type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice} · 4 lessons
                           </div>
                           <div className="text-xs font-semibold text-accent mt-0.5">
                             {fmtPrice(
@@ -117,10 +115,10 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                 {plan && (
                   <div className="flex flex-wrap gap-2">
                     {[
-                      { icon: Clock, text: `${plan.sessionLength} per session` },
-                      { icon: CalendarDays, text: `${plan.sessionsPerMonth} sessions / month` },
+                      { icon: Clock, text: `${plan.sessionLength} per lesson` },
+                      { icon: CalendarDays, text: `${plan.sessionsPerMonth} lessons per package` },
                       { icon: BookOpen, text: "Custom learning plan" },
-                      { icon: GraduationCap, text: "UK curriculum aligned" },
+                      { icon: GraduationCap, text: "English curriculum aligned" },
                     ].map(({ icon: Icon, text }) => (
                       <div key={text} className="flex items-center gap-1.5 bg-background-soft border border-border-soft rounded-full px-3 py-1.5">
                         <Icon className="w-3.5 h-3.5 text-accent shrink-0" />
@@ -172,7 +170,9 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
 
                 {/* Fine print */}
                 <p className="text-xs text-ink-soft text-center py-1">
-                  Cancel any time · No contracts · No card details required to enquire
+                  {sessionType === "group"
+                    ? "No long-term contract · Small-group places subject to suitable group availability"
+                    : "No long-term contract · 60 minutes per lesson"}
                 </p>
               </div>
 
@@ -188,7 +188,7 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                   onClick={handleGetStarted}
                   className="flex-1 h-12 rounded-full bg-ink text-background text-sm font-semibold hover:bg-ink-soft flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                 >
-                  Enquire about {programme.name}
+                  {sessionType === "group" ? "Register interest" : `Enquire about ${programme.name}`}
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

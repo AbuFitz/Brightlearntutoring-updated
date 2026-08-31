@@ -4,7 +4,7 @@ import { ShieldCheck, Users, GraduationCap, Sparkles } from "lucide-react";
 const items = [
   { icon: ShieldCheck, label: "DBS-checked tutor", sub: "Verified and fully vetted" },
   { icon: Users, label: "KS2 · KS3 · GCSE", sub: "All stages of school maths" },
-  { icon: GraduationCap, label: "Aligned to UK curriculum", sub: "AQA · Edexcel · OCR · WJEC" },
+  { icon: GraduationCap, label: "English curriculum aligned", sub: "AQA · Pearson Edexcel" },
   { icon: Sparkles, label: "Growing on TikTok", sub: "Free lessons loved by students" },
 ];
 
