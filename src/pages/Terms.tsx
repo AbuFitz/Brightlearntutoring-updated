@@ -5,7 +5,7 @@ import { SimpleHeader } from "@/components/SimpleHeader";
 
 const Terms = () => {
   useSEO({
-    title: "Terms & Conditions — BrightLearn Tutoring",
+    title: "Terms & Conditions | BrightLearn Tutoring",
     description:
       "The terms and conditions covering BrightLearn Tutoring's online KS2, KS3 and GCSE maths tutoring services, fees, cancellations and safeguarding commitments.",
     path: "/terms",
@@ -43,30 +43,35 @@ const Terms = () => {
           <section>
             <h2 className="text-lg font-semibold text-ink mb-3">2. Services</h2>
             <p>
-              BrightLearn Tutoring provides online small-group maths tutoring for KS2, KS3 and GCSE students. All
-              sessions are delivered online via a video platform. Session schedules and topics are agreed between
-              the tutor and the parent/guardian.
+              BrightLearn Tutoring provides online small-group and 1-to-1 maths tutoring for KS2, KS3 and GCSE
+              students (Foundation, Higher and resit) following the English curriculum. All sessions are
+              delivered online via a video platform. Session schedules and topics are agreed between the tutor
+              and the parent/guardian.
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-ink mb-3">3. Fees and payment</h2>
-            <p className="font-semibold text-ink text-sm">Small group tuition (maximum 5 students per group, monthly only)</p>
+            <p className="font-semibold text-ink text-sm">Small-group tuition (maximum 5 students per group, package of 4 x 60-minute lessons)</p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li>KS2 Maths — £40 per month (4 sessions)</li>
-              <li>KS3 Maths — £90 per month (8 sessions)</li>
-              <li>GCSE Maths — £100 per month (8 sessions)</li>
+              <li>KS2 Maths — £40 for 4 lessons</li>
+              <li>KS3 Maths — £50 for 4 lessons</li>
+              <li>GCSE Maths — £60 for 4 lessons</li>
             </ul>
-            <p className="font-semibold text-ink text-sm mt-4">1-to-1 tuition (single lesson or monthly — 4 sessions)</p>
+            <p className="text-sm mt-2">
+              Small-group places are subject to suitable group availability.
+            </p>
+            <p className="font-semibold text-ink text-sm mt-4">1-to-1 tuition (single 60-minute lesson, or a package of 4)</p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li>KS2 Maths — £25 per lesson, or £80 per month</li>
-              <li>KS3 Maths — £30 per lesson, or £100 per month</li>
-              <li>GCSE Maths — £35 per lesson, or £120 per month</li>
+              <li>KS2 Maths — £25 per lesson, or £80 for 4 lessons</li>
+              <li>KS3 Maths — £30 per lesson, or £100 for 4 lessons</li>
+              <li>GCSE Maths — £35 per lesson, or £120 for 4 lessons</li>
             </ul>
             <p className="mt-3">
-              Payment is due at the start of each monthly billing period, or per lesson for 1-to-1 sessions booked
-              individually. No card details are required at the point of enquiry. Payment instructions will be
-              provided upon confirmation.
+              Payment is due when a package is booked, or per lesson for 1-to-1 sessions booked individually. No
+              card details are required at the point of enquiry. Payment instructions will be provided upon
+              confirmation. There is no subscription and no long-term contract — each package is a one-off
+              booking.
             </p>
           </section>
 

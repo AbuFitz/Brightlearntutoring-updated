@@ -9,7 +9,7 @@ interface SEOOptions {
   ogDescription?: string;
 }
 
-const SITE_URL = "https://brightlearntutoring.co.uk";
+const SITE_URL = "https://www.brightlearntutoring.co.uk";
 
 function setMetaByName(name: string, content: string) {
   let el = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);

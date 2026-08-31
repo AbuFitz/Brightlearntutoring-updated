@@ -21,19 +21,45 @@ import thumb2 from "@/assets/tiktok-thumb-2.webp";
 import thumb3 from "@/assets/tiktok-thumb-3.webp";
 import riyanas from "@/assets/riyanas.webp";
 
-const SITE_URL = "https://brightlearntutoring.co.uk";
+const SITE_URL = "https://www.brightlearntutoring.co.uk";
+
+const JSON_LD_WEBSITE = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "BrightLearn Tutoring",
+  "url": SITE_URL,
+};
+
+const JSON_LD_ORGANIZATION = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "@id": `${SITE_URL}/#organization`,
+  "name": "BrightLearn Tutoring",
+  "legalName": "BrightLearn Tutoring Ltd",
+  "url": SITE_URL,
+  "logo": `${SITE_URL}/favicon.png`,
+  "email": "info@brightlearntutoring.co.uk",
+  "description": "Online maths tutoring for KS2, KS3 and GCSE students following the English curriculum, including Foundation, Higher and resit support.",
+  "sameAs": [
+    "https://www.tiktok.com/@brightlearntutoring",
+    "https://www.instagram.com/brightlearn_tutoring/",
+    "https://www.youtube.com/channel/UCwLfSed7TDecNnVqY5RjuFQ",
+    "https://www.facebook.com/p/BrightLearn-Tutoring-61592769766314/",
+    "https://linktr.ee/BrightLearnTutoring"
+  ]
+};
 
 const JSON_LD_LOCAL_BUSINESS = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "@id": "https://brightlearntutoring.co.uk/#business",
+  "@id": "https://www.brightlearntutoring.co.uk/#business",
   "name": "BrightLearn Tutoring",
   "alternateName": ["BrightLearn Tutoring UK", "BrightLearn Maths Tutoring"],
   "legalName": "BrightLearn Tutoring Ltd",
-  "description": "Online group and 1-on-1 maths tutoring based in North London (Enfield, Edmonton, Tottenham and Haringey), delivered live across England, Wales and Northern Ireland. DBS-checked tutor with personalised lesson plans.",
-  "url": "https://brightlearntutoring.co.uk",
-  "logo": "https://brightlearntutoring.co.uk/favicon.png",
-  "image": "https://brightlearntutoring.co.uk/og-image.png",
+  "description": "Online group and 1-on-1 maths tutoring for students following the English curriculum, based in North London (Enfield, Edmonton, Tottenham and Haringey). KS2, KS3 and GCSE Foundation, Higher and resit support. DBS-checked tutor with personalised lesson plans.",
+  "url": "https://www.brightlearntutoring.co.uk",
+  "logo": "https://www.brightlearntutoring.co.uk/favicon.png",
+  "image": "https://www.brightlearntutoring.co.uk/og-image.png",
   "email": "info@brightlearntutoring.co.uk",
   "telephone": "+447577702613",
   "areaServed": [
@@ -42,8 +68,7 @@ const JSON_LD_LOCAL_BUSINESS = {
     { "@type": "Place", "name": "Tottenham" },
     { "@type": "Place", "name": "Haringey" },
     { "@type": "AdministrativeArea", "name": "England" },
-    { "@type": "AdministrativeArea", "name": "Wales" },
-    { "@type": "AdministrativeArea", "name": "Northern Ireland" }
+    { "@type": "Country", "name": "United Kingdom" }
   ],
   "serviceType": "Online Maths Tutoring",
   "priceRange": "££",
@@ -54,18 +79,16 @@ const JSON_LD_LOCAL_BUSINESS = {
       {
         "@type": "Offer",
         "name": `${t.name} Maths Tutoring — Small Group`,
-        "description": `Online group maths tutoring for ${t.name} students, maximum 5 per group. ${t.group.sessionsPerMonth} × ${t.group.sessionLength} sessions per month.`,
+        "description": `Online group maths tutoring for ${t.name} students, maximum 5 per group. A package of ${t.group.sessionsPerMonth} × ${t.group.sessionLength} lessons.`,
         "price": String(t.group.price),
-        "priceCurrency": "GBP",
-        "priceSpecification": { "@type": "UnitPriceSpecification", "price": String(t.group.price), "priceCurrency": "GBP", "unitText": "month" }
+        "priceCurrency": "GBP"
       },
       {
         "@type": "Offer",
         "name": `${t.name} Maths Tutoring — 1-on-1`,
-        "description": `Online 1-on-1 maths tutoring for ${t.name} students. £${t.oneToOne.singleLessonPrice} per lesson, or ${t.oneToOne.sessionsPerMonth} × ${t.oneToOne.sessionLength} sessions per month.`,
+        "description": `Online 1-on-1 maths tutoring for ${t.name} students. £${t.oneToOne.singleLessonPrice} per lesson, or a package of ${t.oneToOne.sessionsPerMonth} × ${t.oneToOne.sessionLength} lessons.`,
         "price": String(t.oneToOne.monthlyPrice),
-        "priceCurrency": "GBP",
-        "priceSpecification": { "@type": "UnitPriceSpecification", "price": String(t.oneToOne.monthlyPrice), "priceCurrency": "GBP", "unitText": "month" }
+        "priceCurrency": "GBP"
       }
     ])
   },
@@ -88,9 +111,9 @@ const buildFaqSchema = () => ({
 });
 
 const COURSE_DESCRIPTIONS: Record<string, string> = {
-  KS2: "Live online maths tutoring for Year 5–6 students. Covers times tables, fractions, mental maths, problem solving and SATs preparation.",
-  KS3: "Live online maths tutoring for Year 7–9 students. Covers algebra, geometry, ratio and proportion, building towards GCSE.",
-  GCSE: "Live online GCSE maths tutoring for Year 10–11. Aligned to AQA, Edexcel, OCR and WJEC/Eduqas, with past paper practice and exam technique.",
+  KS2: "Live online maths tutoring for Year 5–6 students following the English curriculum. Covers times tables, fractions, mental maths, problem solving and SATs preparation.",
+  KS3: "Live online maths tutoring for Year 7–9 students following the English curriculum. Covers algebra, geometry, ratio and proportion, building towards GCSE.",
+  GCSE: "Live online GCSE maths tutoring for Year 10–11 and resit students. Aligned to AQA and Pearson Edexcel, covering Foundation, Higher and resit support with past paper practice and exam technique.",
 };
 
 const buildCourseSchemas = () =>
@@ -106,7 +129,6 @@ const buildCourseSchemas = () =>
         "@type": "Offer",
         "price": String(t.group.price),
         "priceCurrency": "GBP",
-        "category": "Subscription",
         "url": `${SITE_URL}/enquire`,
       },
     },
@@ -121,7 +143,6 @@ const buildCourseSchemas = () =>
         "@type": "Offer",
         "price": String(t.oneToOne.monthlyPrice),
         "priceCurrency": "GBP",
-        "category": "Subscription",
         "url": `${SITE_URL}/enquire`,
       },
     },
@@ -171,7 +192,7 @@ const JSON_LD_TUTOR = {
   "jobTitle": "Maths Tutor",
   "worksFor": { "@type": "Organization", "name": "BrightLearn Tutoring", "url": SITE_URL },
   "image": `${SITE_URL}${riyanas}`,
-  "knowsAbout": ["KS2 Maths", "KS3 Maths", "GCSE Maths", "AQA", "Edexcel", "OCR", "WJEC"],
+  "knowsAbout": ["KS2 Maths", "KS3 Maths", "GCSE Maths", "GCSE Maths Resits", "AQA", "Pearson Edexcel"],
 };
 
 const Index = () => {
@@ -187,6 +208,8 @@ const Index = () => {
     existingScripts.forEach(s => s.remove());
 
     [
+      JSON_LD_WEBSITE,
+      JSON_LD_ORGANIZATION,
       JSON_LD_LOCAL_BUSINESS,
       buildFaqSchema(),
       JSON_LD_TUTOR,
@@ -235,21 +258,21 @@ const Index = () => {
   useSEO(
     isEnquireRoute
       ? {
-          title: "Enquire Now — Book a Free Maths Tutoring Consultation | BrightLearn Tutoring",
+          title: "Enquire About Tuition | BrightLearn Tutoring",
           description:
-            "Start your child's maths tutoring journey today. Tell us about your KS2, KS3 or GCSE student and we'll match them with a live, DBS-checked small-group session — no card details required.",
+            "Tell us about your KS2, KS3 or GCSE student and what support they're looking for, and we'll get back to you to discuss tuition and next steps.",
           path: "/enquire",
         }
       : {
-          title: "BrightLearn Tutoring | Online Maths Tutor for KS2, KS3 & GCSE — England, Wales & NI",
+          title: "Online Maths Tutor | KS2, KS3 & GCSE | BrightLearn",
           description:
-            "Expert online group maths tutoring for KS2, KS3 and GCSE students, available across England, Wales and Northern Ireland. DBS-checked tutor. Personalised lessons. Cancel any time. Enquire today.",
+            "Online maths tutoring for KS2, KS3 and GCSE students following the English curriculum, including Foundation, Higher and resit support. DBS-checked tutor. Enquire today.",
           path: "/",
         }
   );
 
   return (
-    <main className="min-h-screen bg-background text-foreground" aria-label="BrightLearn Tutoring — Nationwide Online Maths Tutor UK">
+    <main className="min-h-screen bg-background text-foreground" aria-label="BrightLearn Tutoring — Online Maths Tutor for KS2, KS3 and GCSE">
       <Navbar />
       <Hero />
       <Trust />

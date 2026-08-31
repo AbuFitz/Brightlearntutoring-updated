@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE_URL = "https://brightlearntutoring.co.uk";
+const SITE_URL = "https://www.brightlearntutoring.co.uk";
 
 interface Crumb {
   name: string;

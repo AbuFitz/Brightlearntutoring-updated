@@ -10,6 +10,8 @@ export interface TopicInfo {
   slug: string;
   /** Short label used in nav/footer links */
   navLabel: string;
+  /** SEO <title> — kept short, unique and search-intent focused. */
+  metaTitle: string;
   eyebrow: string;
   h1: string;
   h1Accent: string;
@@ -25,6 +27,8 @@ export interface TopicInfo {
   /** Which pricing tier(s) this topic maps to */
   relevantTiers: Exclude<Package, "">[];
   defaultSessionType: SessionType;
+  /** Pre-selects the matching answer on the enquiry form's "what support" step, where unambiguous. */
+  defaultSupportType?: string;
   faqs: TopicFaq[];
   relatedSlugs: string[];
 }
@@ -33,11 +37,12 @@ export const topics: TopicInfo[] = [
   {
     slug: "ks2-maths-confidence-sats-preparation",
     navLabel: "KS2 Maths & SATs Prep",
+    metaTitle: "Online KS2 Maths Tutor & SATs Prep | BrightLearn",
     eyebrow: "KS2 · Ages 7–11",
     h1: "KS2 maths confidence",
     h1Accent: "and SATs preparation.",
     metaDescription:
-      "Build real KS2 maths confidence and get SATs-ready with small-group or 1-on-1 online tutoring. Structured, encouraging lessons for Year 5–6 students, from £40/month.",
+      "Build real KS2 maths confidence and get SATs-ready with small-group or 1-on-1 online tutoring. Structured, encouraging 60-minute lessons for Year 5–6 students, from £40 for 4 lessons.",
     tagline: "For parents whose child has gone quiet about maths, or is anxious about SATs.",
     painPoints: [
       "\"They used to enjoy maths, now they say they're bad at it\"",
@@ -62,6 +67,7 @@ export const topics: TopicInfo[] = [
     ],
     relevantTiers: ["KS2"],
     defaultSessionType: "group",
+    defaultSupportType: "SATs Preparation",
     faqs: [
       {
         q: "My child says they're \"just bad at maths\" — can tutoring actually help with confidence, not just grades?",
@@ -73,7 +79,7 @@ export const topics: TopicInfo[] = [
       },
       {
         q: "Is KS2 tutoring 1-on-1 or group?",
-        a: "Both are available. Most families choose small-group (maximum 5 students, £40/month for 4 sessions) for the social, confidence-building environment, and switch to 1-on-1 (from £25 per lesson) if their child needs more individual attention on specific gaps.",
+        a: "Both are available. Most families choose small-group (maximum 5 students, £40 for a 4-lesson package) for the social, confidence-building environment, and switch to 1-on-1 (from £25 per lesson) if their child needs more individual attention on specific gaps.",
       },
     ],
     relatedSlugs: ["year-7-9-maths-support", "online-one-to-one-maths-tutoring"],
@@ -81,11 +87,12 @@ export const topics: TopicInfo[] = [
   {
     slug: "year-7-9-maths-support",
     navLabel: "Year 7–9 Maths Support",
+    metaTitle: "Online KS3 Maths Tutor | Years 7-9 | BrightLearn",
     eyebrow: "KS3 · Ages 11–14",
     h1: "Year 7–9 maths support",
     h1Accent: "that builds towards GCSE.",
     metaDescription:
-      "Targeted KS3 maths tutoring for Year 7, 8 and 9 students — closing gaps in algebra, ratio and geometry before they turn into GCSE problems. Small-group or 1-on-1, from £90/month.",
+      "Targeted KS3 maths tutoring for Year 7, 8 and 9 students — closing gaps in algebra, ratio and geometry before they turn into GCSE problems. Small-group or 1-on-1, from £50 for 4 lessons.",
     tagline: "For parents who can see the gap widening before GCSE even starts.",
     painPoints: [
       "\"They coasted through Year 7 and now Year 9 maths feels like a different language\"",
@@ -110,6 +117,7 @@ export const topics: TopicInfo[] = [
     ],
     relevantTiers: ["KS3"],
     defaultSessionType: "group",
+    defaultSupportType: "KS3 Maths",
     faqs: [
       {
         q: "How do I know if my child needs KS3 tutoring or if they're just finding it hard like everyone else?",
@@ -121,7 +129,7 @@ export const topics: TopicInfo[] = [
       },
       {
         q: "What exam boards does this prepare them for at GCSE?",
-        a: "KS3 maths builds the foundation for all major GCSE boards — AQA, Edexcel and OCR — so nothing here is board-specific yet. Once your child starts their GCSE course we tailor sessions to their exact board.",
+        a: "KS3 maths builds the foundation for both major GCSE boards — AQA and Pearson Edexcel — so nothing here is board-specific yet. Once your child starts their GCSE course we tailor sessions to their exact board.",
       },
     ],
     relatedSlugs: ["gcse-maths-foundation-tutor", "gcse-maths-higher-tutor"],
@@ -129,11 +137,12 @@ export const topics: TopicInfo[] = [
   {
     slug: "gcse-maths-foundation-tutor",
     navLabel: "GCSE Maths Foundation",
+    metaTitle: "GCSE Foundation Maths Tutor Online | BrightLearn",
     eyebrow: "GCSE · Foundation Tier",
     h1: "GCSE Maths Foundation",
     h1Accent: "tutoring that builds real grades.",
     metaDescription:
-      "Online GCSE Maths Foundation tuition covering AQA, Edexcel and OCR — built to secure a genuine, confident grade 4 or 5, not just cram past papers. Small-group or 1-on-1.",
+      "Online GCSE Maths Foundation tuition covering AQA and Pearson Edexcel — built to secure a genuine, confident grade 4 or 5, not just cram past papers. Small-group or 1-on-1.",
     tagline: "For parents whose child is on Foundation tier and needs it to actually click.",
     painPoints: [
       "\"They're on Foundation and I don't know if that's the right call or how to help\"",
@@ -142,7 +151,7 @@ export const topics: TopicInfo[] = [
     ],
     intro: [
       "Foundation tier GCSE maths caps at a grade 5, but that doesn't mean it's a lesser exam to prepare for — a confident, well-taught Foundation grade opens doors that a scraped-through attempt doesn't. Our Foundation sessions focus on genuinely understanding the core topics, not just memorising past-paper answers.",
-      "We work across AQA, Edexcel and OCR, matching lessons to your child's actual exam board and the topics they'll be tested on, with regular past paper practice under timed conditions as the exam gets closer.",
+      "We work across AQA and Pearson Edexcel, matching lessons to your child's actual exam board and the topics they'll be tested on, with regular past paper practice under timed conditions as the exam gets closer.",
     ],
     whoFor: [
       "Students sitting GCSE Maths Foundation tier",
@@ -158,6 +167,7 @@ export const topics: TopicInfo[] = [
     ],
     relevantTiers: ["GCSE"],
     defaultSessionType: "group",
+    defaultSupportType: "GCSE Maths Foundation",
     faqs: [
       {
         q: "How do we know if Foundation or Higher tier is right for my child?",
@@ -165,7 +175,7 @@ export const topics: TopicInfo[] = [
       },
       {
         q: "What exam boards do you cover for GCSE Foundation?",
-        a: "AQA, Edexcel (Pearson) and OCR — the three most common boards used across England. Let us know your child's board when you enquire and we'll tailor sessions accordingly.",
+        a: "AQA and Pearson Edexcel — the two exam boards we cover. Let us know your child's board when you enquire and we'll tailor sessions accordingly.",
       },
       {
         q: "How close to the exam should we start?",
@@ -177,11 +187,12 @@ export const topics: TopicInfo[] = [
   {
     slug: "gcse-maths-higher-tutor",
     navLabel: "GCSE Maths Higher",
+    metaTitle: "GCSE Higher Maths Tutor Online | BrightLearn",
     eyebrow: "GCSE · Higher Tier",
     h1: "GCSE Maths Higher",
     h1Accent: "tuition for a genuine top grade.",
     metaDescription:
-      "Online GCSE Maths Higher tuition covering AQA, Edexcel and OCR — targeted at grades 6–9, with past paper practice and exam technique. Small-group or 1-on-1 from £100/month.",
+      "Online GCSE Maths Higher tuition covering AQA and Pearson Edexcel — targeted at grades 6–9, with past paper practice and exam technique. Small-group or 1-on-1 from £60 for 4 lessons.",
     tagline: "For parents whose child is capable of a top grade but needs it pushed further.",
     painPoints: [
       "\"They're capable of a 7, 8 or 9 but school alone isn't getting them there\"",
@@ -190,7 +201,7 @@ export const topics: TopicInfo[] = [
     ],
     intro: [
       "Higher tier GCSE maths rewards depth, not just coverage — students who can genuinely reason through a problem, not just recognise a pattern from a past paper. Our Higher tier sessions push into that depth, working on the harder algebra, trigonometry and problem-solving questions that separate a grade 6 from a grade 8 or 9.",
-      "We work across AQA, Edexcel and OCR, with a strong focus on exam technique — because a huge number of marks lost at Higher tier come from misreading a question or rushing working, not from not knowing the maths.",
+      "We work across AQA and Pearson Edexcel, with a strong focus on exam technique — because a huge number of marks lost at Higher tier come from misreading a question or rushing working, not from not knowing the maths.",
     ],
     whoFor: [
       "Students sitting GCSE Maths Higher tier",
@@ -206,6 +217,7 @@ export const topics: TopicInfo[] = [
     ],
     relevantTiers: ["GCSE"],
     defaultSessionType: "group",
+    defaultSupportType: "GCSE Maths Higher",
     faqs: [
       {
         q: "My child understands the topics but still loses marks — can tutoring help with that?",
@@ -225,6 +237,7 @@ export const topics: TopicInfo[] = [
   {
     slug: "gcse-maths-resit-tuition",
     navLabel: "GCSE Maths Resit",
+    metaTitle: "GCSE Maths Resit Tutor Online | BrightLearn",
     eyebrow: "GCSE Resit",
     h1: "GCSE Maths resit tuition",
     h1Accent: "without repeating the same lessons.",
@@ -254,6 +267,7 @@ export const topics: TopicInfo[] = [
     ],
     relevantTiers: ["GCSE"],
     defaultSessionType: "1on1",
+    defaultSupportType: "GCSE Maths Resit",
     faqs: [
       {
         q: "Will resit tutoring just repeat everything we already did at school?",
@@ -273,11 +287,12 @@ export const topics: TopicInfo[] = [
   {
     slug: "online-one-to-one-maths-tutoring",
     navLabel: "Online 1-on-1 Tutoring",
+    metaTitle: "1-to-1 Online Maths Tutoring | BrightLearn",
     eyebrow: "1-on-1 · KS2, KS3 & GCSE",
     h1: "Online one-to-one",
     h1Accent: "maths tutoring.",
     metaDescription:
-      "Fully personalised 1-on-1 online maths tutoring for KS2, KS3 and GCSE students. Single lessons from £25, or monthly plans from £80/month. Flexible scheduling.",
+      "Fully personalised 1-on-1 online maths tutoring for KS2, KS3 and GCSE students. Single lessons from £25, or 4-lesson packages from £80. Flexible scheduling.",
     tagline: "For families who want fully individual attention, not a shared timetable.",
     painPoints: [
       "\"They need more individual attention than a group can give\"",
@@ -297,7 +312,7 @@ export const topics: TopicInfo[] = [
       "A fully personalised plan built around your child's specific gaps",
       "KS2 SATs preparation, KS3 fundamentals, or GCSE Foundation/Higher",
       "Flexible scheduling around your family's availability",
-      "Single lessons from £25, or monthly plans from £80/month",
+      "Single lessons from £25, or 4-lesson packages from £80",
       "Parent progress reports after every block of sessions",
     ],
     relevantTiers: ["KS2", "KS3", "GCSE"],
@@ -321,11 +336,12 @@ export const topics: TopicInfo[] = [
   {
     slug: "small-group-gcse-maths-revision",
     navLabel: "Small-Group GCSE Revision",
+    metaTitle: "Small Group GCSE Maths Revision | BrightLearn",
     eyebrow: "GCSE · Small Group",
     h1: "Small-group GCSE",
     h1Accent: "maths revision.",
     metaDescription:
-      "Small-group GCSE Maths revision sessions, maximum 5 students, covering AQA, Edexcel and OCR with past paper practice and mock exam support. From £100/month.",
+      "Small-group GCSE Maths revision sessions, maximum 5 students, covering AQA and Pearson Edexcel with past paper practice. From £60 for 4 lessons.",
     tagline: "For students who focus better — and learn from each other — in a small group.",
     painPoints: [
       "\"1-on-1 feels intense — they'd rather learn alongside other students\"",
@@ -342,7 +358,7 @@ export const topics: TopicInfo[] = [
       "Families who want a genuinely small group, not a large revision class",
     ],
     whatWeCover: [
-      "Core GCSE topics across AQA, Edexcel and OCR",
+      "Core GCSE topics across AQA and Pearson Edexcel",
       "Foundation and Higher tier content, grouped by level",
       "Regular past paper sessions under timed conditions",
       "Mock exam support in the run-up to exams",
@@ -361,7 +377,7 @@ export const topics: TopicInfo[] = [
       },
       {
         q: "What's included in a small-group GCSE plan?",
-        a: "£100/month covers 8 sessions of 1.5 hours, including a custom learning plan, parent reports, past paper sessions and mock exam support as exams approach.",
+        a: "£60 covers a 4-lesson package of 60-minute sessions, including a custom learning plan, parent reports and past paper practice as exams approach.",
       },
     ],
     relatedSlugs: ["gcse-maths-foundation-tutor", "gcse-maths-higher-tutor", "gcse-maths-resit-tuition"],

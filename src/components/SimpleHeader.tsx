@@ -10,7 +10,7 @@ interface SimpleHeaderProps {
 /**
  * Lightweight header for non-homepage routes (legal pages, location pages).
  * Deliberately avoids the full Navbar: its anchor links (#services etc.) and
- * "Get started" button only work because GetStartedModal is mounted on Index —
+ * "Enquire now" button only work because GetStartedModal is mounted on Index —
  * on any other route they'd silently do nothing.
  */
 export const SimpleHeader = ({ backLabel = "Back to home", backTo = "/", showCta = false }: SimpleHeaderProps) => (
@@ -27,7 +27,7 @@ export const SimpleHeader = ({ backLabel = "Back to home", backTo = "/", showCta
       <div className="flex items-center gap-4">
         {showCta && (
           <Button asChild size="sm" className="hidden sm:inline-flex">
-            <Link to="/enquire">Get started</Link>
+            <Link to="/enquire">Enquire now</Link>
           </Button>
         )}
         <Link to={backTo} className="text-sm text-ink-soft hover:text-ink transition-colors whitespace-nowrap">
