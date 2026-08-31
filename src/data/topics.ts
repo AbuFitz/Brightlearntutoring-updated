@@ -301,7 +301,7 @@ export const topics: TopicInfo[] = [
     ],
     intro: [
       "Some students learn best with someone's full attention — no waiting their turn, no pace set by the rest of a group, and lessons that can go exactly where they're needed that week. That's what 1-on-1 tutoring is built for.",
-      "1-on-1 sessions are scheduled around your own availability rather than a fixed group timetable, and you can start with a single lesson to see if it's the right fit before committing to a monthly plan.",
+      "1-on-1 sessions are scheduled around your own availability rather than a fixed group timetable, and you can start with a single lesson to see if it's the right fit before committing to a 4-lesson package.",
     ],
     whoFor: [
       "Students who need more individual attention than group sessions give",
@@ -319,12 +319,12 @@ export const topics: TopicInfo[] = [
     defaultSessionType: "1on1",
     faqs: [
       {
-        q: "Can we book a single 1-on-1 lesson without committing to a monthly plan?",
-        a: "Yes. Single lessons are available from £25 (KS2), £30 (KS3) or £35 (GCSE), so you can try tutoring before committing to a monthly plan.",
+        q: "Can we book a single 1-on-1 lesson without committing to a 4-lesson package?",
+        a: "Yes. Single lessons are available from £25 (KS2), £30 (KS3) or £35 (GCSE), so you can try tutoring before committing to a package.",
       },
       {
         q: "How is 1-on-1 pricing different from group pricing?",
-        a: "Group sessions run on a fixed monthly plan with a set timetable (maximum 5 students). 1-on-1 sessions can be booked as a single lesson or a monthly plan of 4 sessions, and are scheduled flexibly around your own availability rather than a fixed group slot.",
+        a: "Group sessions run as a fixed 4-lesson package with a set timetable (maximum 5 students), subject to suitable group availability. 1-on-1 sessions can be booked as a single lesson or a 4-lesson package, and are scheduled flexibly around your own availability rather than a fixed group slot.",
       },
       {
         q: "Is 1-on-1 available for all age groups?",

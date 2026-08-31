@@ -116,9 +116,9 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-lg font-semibold text-ink mb-3">8. Third-party services</h2>
             <p>
-              We use FormSubmit to process contact form submissions. Your enquiry data is transmitted securely.
-              We may also link to third-party platforms (TikTok, Instagram, YouTube) — those platforms operate
-              under their own privacy policies.
+              We use Resend to process and deliver enquiry form submissions by email. Your enquiry data is
+              transmitted securely. We may also link to third-party platforms (TikTok, Instagram, Facebook,
+              LinkedIn, YouTube) — those platforms operate under their own privacy policies.
             </p>
           </section>
 
