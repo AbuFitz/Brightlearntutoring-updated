@@ -22,7 +22,11 @@ export const faqCategories: FaqCategory[] = [
       },
       {
         q: "Do you offer a trial or first lesson?",
-        a: "1-on-1 tuition can be booked as a single lesson with no ongoing commitment, which is a good way to try tutoring before deciding on a 4-lesson package. Small-group places run as 4-lesson packages, subject to suitable group availability.",
+        a: "Yes — every new student starts with a free introductory session, so we can understand their current level and how best to help before anything is booked or paid for. After that, 1-on-1 tuition can be booked as a single lesson with no ongoing commitment, or small-group places as 4-lesson packages, subject to suitable group availability.",
+      },
+      {
+        q: "What happens in the free introductory session?",
+        a: "It's a relaxed, no-pressure session used to get to know your child, understand what they find difficult, and go through some questions to see their current strengths and gaps. Afterwards, we'll recommend the right level and session type for them.",
       },
       {
         q: "What age groups and subjects do you tutor?",
@@ -76,6 +80,10 @@ export const faqCategories: FaqCategory[] = [
         q: "Is the tutor DBS checked?",
         a: "Yes. Our tutor holds a current Enhanced DBS check and is fully verified to work with children.",
         link: { label: "Read our safeguarding policy", to: "/safeguarding" },
+      },
+      {
+        q: "What does my child need for an online lesson?",
+        a: "Just a pen, paper and a calculator, plus a quiet space with a stable internet connection. Cameras stay on throughout the lesson unless agreed otherwise, and phones are best kept out of the room to avoid distractions.",
       },
     ],
   },
@@ -154,6 +162,10 @@ export const faqCategories: FaqCategory[] = [
 ];
 
 export const homeFaqs: Faq[] = [
+  {
+    q: "Do you offer a trial or first lesson?",
+    a: "Yes — every new student starts with a free introductory session, so we can understand their current level and how best to help before anything is booked or paid for.",
+  },
   {
     q: "How much does online maths tutoring cost?",
     a: "BrightLearn small-group tutoring starts from £40 for KS2, £50 for KS3, and £60 for GCSE — each a package of 4 x 60-minute lessons, with no long-term contract.",
