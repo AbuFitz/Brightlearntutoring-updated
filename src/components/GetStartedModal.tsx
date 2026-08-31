@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
-import { SessionType, sessionLabel, getTier, fmtPrice } from "@/data/pricing";
+import { SessionType, sessionLabel, getTier } from "@/data/pricing";
 import {
   ArrowLeft,
   ArrowRight,
@@ -516,10 +516,8 @@ export const GetStartedModal = () => {
         return (
           <div className="space-y-2.5">
             {(["group", "1on1"] as SessionType[]).map((type) => {
+              const plan = tier && (type === "group" ? tier.group : tier.oneToOne);
               const price = tier && (type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice);
-              const perLesson = tier
-                ? fmtPrice((type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice) / 4)
-                : null;
               const Icon = type === "group" ? Users : UserCheck;
               const active = form.sessionType === type;
               return (
@@ -551,10 +549,15 @@ export const GetStartedModal = () => {
                       {type === "group" ? "Maximum 5 students, same weekly time" : "Scheduled around your availability"}
                     </div>
                   </div>
-                  {tier && (
+                  {tier && plan && (
                     <div className="text-right shrink-0">
-                      <div className="text-sm font-bold text-ink leading-none">£{price}</div>
-                      <div className="text-[10px] text-ink-soft mt-1">{perLesson}/lesson · 4 lessons</div>
+                      <div className="text-sm font-bold text-ink leading-none">
+                        £{price}
+                        <span className="text-[10px] font-normal text-ink-soft">/mo</span>
+                      </div>
+                      <div className="text-[10px] text-ink-soft mt-1">
+                        {plan.sessionsPerMonth} lessons · {plan.sessionLength}
+                      </div>
                     </div>
                   )}
                   {active && <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />}

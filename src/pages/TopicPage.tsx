@@ -195,14 +195,14 @@ const TopicPage = () => {
                 <div className="mt-2 flex items-baseline gap-3">
                   <div>
                     <span className="text-2xl font-semibold text-ink">£{t.group.price}</span>
-                    <span className="text-xs text-ink-soft">group · 4 lessons</span>
+                    <span className="text-xs text-ink-soft">/month · group</span>
                   </div>
                 </div>
                 <div className="mt-1.5 inline-flex items-center rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-semibold text-accent">
-                  {fmtPrice(t.group.price / t.group.sessionsPerMonth)}/lesson · 60 minutes each
+                  {t.group.sessionsPerMonth} lessons · {t.group.sessionLength} each
                 </div>
                 <div className="mt-1 text-xs text-ink-soft">
-                  or from £{t.oneToOne.singleLessonPrice}/lesson 1-on-1
+                  or from {fmtPrice(t.oneToOne.singleLessonPrice)}/lesson 1-on-1
                 </div>
                 <button
                   type="button"

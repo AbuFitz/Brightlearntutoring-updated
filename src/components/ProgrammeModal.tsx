@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ArrowRight, Check, BookOpen, Clock, CalendarDays, GraduationCap, Star } from "lucide-react";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
-import { getTier, sessionLabel, SessionType, fmtPrice } from "@/data/pricing";
+import { getTier, sessionLabel, SessionType } from "@/data/pricing";
 import { cn } from "@/lib/utils";
 
 export interface Programme {
@@ -80,35 +80,35 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
 
                 {/* Session type toggle */}
                 <div className="grid grid-cols-2 gap-2">
-                  {(["group", "1on1"] as SessionType[]).map((type) => (
-                    <button
-                      key={type}
-                      type="button"
-                      onClick={() => setSessionType(type)}
-                      className={cn(
-                        "rounded-2xl border p-3 text-left transition-all",
-                        sessionType === type
-                          ? "border-accent bg-accent/5 ring-2 ring-accent/20"
-                          : "border-border-soft bg-background-soft hover:border-ink/25"
-                      )}
-                    >
-                      <div className="text-sm font-semibold text-ink">{sessionLabel(type)}</div>
-                      {tier && (
-                        <>
-                          <div className="text-xs text-ink-soft mt-0.5">
-                            £{type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice} · 4 lessons
-                          </div>
-                          <div className="text-xs font-semibold text-accent mt-0.5">
-                            {fmtPrice(
-                              (type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice) /
-                                (type === "group" ? tier.group.sessionsPerMonth : tier.oneToOne.sessionsPerMonth)
-                            )}
-                            /lesson
-                          </div>
-                        </>
-                      )}
-                    </button>
-                  ))}
+                  {(["group", "1on1"] as SessionType[]).map((type) => {
+                    const cardPlan = tier && (type === "group" ? tier.group : tier.oneToOne);
+                    const cardPrice = type === "group" ? tier?.group.price : tier?.oneToOne.monthlyPrice;
+                    return (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => setSessionType(type)}
+                        className={cn(
+                          "rounded-2xl border p-3 text-left transition-all",
+                          sessionType === type
+                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                            : "border-border-soft bg-background-soft hover:border-ink/25"
+                        )}
+                      >
+                        <div className="text-sm font-semibold text-ink">{sessionLabel(type)}</div>
+                        {cardPlan && (
+                          <>
+                            <div className="text-xs text-ink-soft mt-0.5">
+                              £{cardPrice}<span className="text-ink-soft/70">/month</span>
+                            </div>
+                            <div className="text-xs font-semibold text-accent mt-0.5">
+                              {cardPlan.sessionsPerMonth} lessons · {cardPlan.sessionLength} each
+                            </div>
+                          </>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
 
                 {/* Info pills row */}
@@ -116,7 +116,7 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                   <div className="flex flex-wrap gap-2">
                     {[
                       { icon: Clock, text: `${plan.sessionLength} per lesson` },
-                      { icon: CalendarDays, text: `${plan.sessionsPerMonth} lessons per package` },
+                      { icon: CalendarDays, text: `${plan.sessionsPerMonth} lessons a month` },
                       { icon: BookOpen, text: "Custom learning plan" },
                       { icon: GraduationCap, text: "English curriculum aligned" },
                     ].map(({ icon: Icon, text }) => (
@@ -172,7 +172,7 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                 <p className="text-xs text-ink-soft text-center py-1">
                   {sessionType === "group"
                     ? "No long-term contract · Small-group places subject to suitable group availability"
-                    : "No long-term contract · 60 minutes per lesson"}
+                    : `No long-term contract · ${plan?.sessionLength} per lesson`}
                 </p>
               </div>
 

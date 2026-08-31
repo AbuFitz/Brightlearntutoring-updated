@@ -163,10 +163,10 @@ const LocationPage = () => {
                 <div className="text-sm font-semibold text-ink-soft">{t.name} Maths</div>
                 <div className="mt-1.5 flex items-baseline gap-1">
                   <span className="text-2xl font-semibold text-ink">£{t.group.price}</span>
-                  <span className="text-xs text-ink-soft">group · 4 lessons</span>
+                  <span className="text-xs text-ink-soft">/month · group</span>
                 </div>
                 <div className="mt-1.5 inline-flex items-center rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-semibold text-accent">
-                  {fmtPrice(t.group.price / t.group.sessionsPerMonth)}/lesson · 60 minutes each
+                  {t.group.sessionsPerMonth} lessons · {t.group.sessionLength} each
                 </div>
                 <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-accent">
                   Register interest

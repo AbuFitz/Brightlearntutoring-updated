@@ -52,26 +52,26 @@ const Terms = () => {
 
           <section>
             <h2 className="text-lg font-semibold text-ink mb-3">3. Fees and payment</h2>
-            <p className="font-semibold text-ink text-sm">Small-group tuition (maximum 5 students per group, package of 4 x 60-minute lessons)</p>
+            <p className="font-semibold text-ink text-sm">Small-group tuition (maximum 5 students per group)</p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li>KS2 Maths — £40 for 4 lessons</li>
-              <li>KS3 Maths — £50 for 4 lessons</li>
-              <li>GCSE Maths — £60 for 4 lessons</li>
+              <li>KS2 Maths — £40/month (4 x 1-hour lessons)</li>
+              <li>KS3 Maths — £90/month (8 x 1.5-hour lessons)</li>
+              <li>GCSE Maths — £100/month (8 x 1.5-hour lessons)</li>
             </ul>
             <p className="text-sm mt-2">
               Small-group places are subject to suitable group availability.
             </p>
-            <p className="font-semibold text-ink text-sm mt-4">1-to-1 tuition (single 60-minute lesson, or a package of 4)</p>
+            <p className="font-semibold text-ink text-sm mt-4">1-to-1 tuition (pay as you go, or a monthly plan)</p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li>KS2 Maths — £25 per lesson, or £80 for 4 lessons</li>
-              <li>KS3 Maths — £30 per lesson, or £100 for 4 lessons</li>
-              <li>GCSE Maths — £35 per lesson, or £120 for 4 lessons</li>
+              <li>KS2 Maths — £15 per lesson, or £60/month (4 x 1-hour lessons)</li>
+              <li>KS3 Maths — £15 per lesson, or £120/month (8 x 1.5-hour lessons)</li>
+              <li>GCSE Maths — £17.50 per lesson, or £140/month (8 x 1.5-hour lessons)</li>
             </ul>
             <p className="mt-3">
-              Payment is due when a package is booked, or per lesson for 1-to-1 sessions booked individually. No
-              card details are required at the point of enquiry. Payment instructions will be provided upon
-              confirmation. There is no subscription and no long-term contract — each package is a one-off
-              booking.
+              Payment is due monthly for group and 1-to-1 plans, or per lesson for 1-to-1 sessions booked
+              individually. No card details are required at the point of enquiry. Payment instructions will be
+              provided upon confirmation. There is no long-term contract — tuition runs month to month and can
+              be stopped at any time by simply not booking the following month.
             </p>
           </section>
 
