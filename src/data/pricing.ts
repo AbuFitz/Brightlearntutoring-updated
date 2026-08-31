@@ -2,16 +2,10 @@ import type { Package } from "@/contexts/GetStartedContext";
 
 export type SessionType = "group" | "1on1";
 
-/** Every standard lesson is 60 minutes — group and 1-on-1 alike. */
-export const LESSON_LENGTH = "60 minutes";
-
-/** Group and 1-on-1 packages both run as 4-lesson blocks — not a monthly subscription. */
-export const PACKAGE_LESSON_COUNT = 4;
-
 export const MAX_GROUP_SIZE = 5;
 
 export interface GroupPlan {
-  /** Total price for the 4-lesson package. */
+  /** Total monthly price for the package. */
   price: number;
   sessionLength: string;
   sessionsPerMonth: number;
@@ -21,7 +15,7 @@ export interface GroupPlan {
 export interface OneToOnePlan {
   /** Pay-as-you-go price for a single lesson. */
   singleLessonPrice: number;
-  /** Total price for the 4-lesson package. */
+  /** Total monthly price for the package. */
   monthlyPrice: number;
   sessionLength: string;
   sessionsPerMonth: number;
@@ -41,10 +35,11 @@ export interface TierPricing {
  * site (homepage, pricing modal, programme details, forms, structured
  * data) reads from here — nowhere else should hardcode a £ amount.
  *
- * All lessons are 60 minutes. Packages are 4 lessons, sold as a flat
- * one-off price — not a recurring subscription, so avoid "/month" in
- * any display copy. GCSE pricing covers Foundation, Higher and resit
- * tutoring alike; there are no separate tier prices.
+ * Pricing is monthly, not a flat one-off package — only the monthly
+ * total should be shown in the UI (not a per-lesson breakdown, to avoid
+ * confusion). Session length and lesson count per month vary by level.
+ * GCSE pricing covers Foundation, Higher and resit tutoring alike;
+ * there are no separate tier prices.
  */
 export const pricingTiers: TierPricing[] = [
   {
@@ -53,27 +48,27 @@ export const pricingTiers: TierPricing[] = [
     desc: "Fun, structured maths support building strong foundations for SATs.",
     group: {
       price: 40,
-      sessionLength: LESSON_LENGTH,
+      sessionLength: "1 hour",
       sessionsPerMonth: 4,
       features: [
-        "Group of 5, 60-minute lessons",
-        "4 lessons per package",
+        "Group of 5, 1-hour lessons",
+        "4 lessons a month",
         "Custom learning plan",
         "Parent report",
-        "Progress review after every package",
+        "Monthly progress review",
       ],
     },
     oneToOne: {
-      singleLessonPrice: 25,
-      monthlyPrice: 80,
-      sessionLength: LESSON_LENGTH,
+      singleLessonPrice: 15,
+      monthlyPrice: 60,
+      sessionLength: "1 hour",
       sessionsPerMonth: 4,
       features: [
-        "1-on-1, 60-minute lessons",
-        "4 lessons per package",
+        "1-on-1, 1-hour lessons",
+        "4 lessons a month",
         "Fully personalised plan",
         "Parent report",
-        "Progress review after every package",
+        "Monthly progress review",
       ],
     },
   },
@@ -82,28 +77,28 @@ export const pricingTiers: TierPricing[] = [
     ageTag: "Ages 11–14",
     desc: "Targeted support covering core topics, building towards GCSE.",
     group: {
-      price: 50,
-      sessionLength: LESSON_LENGTH,
-      sessionsPerMonth: 4,
+      price: 90,
+      sessionLength: "1.5 hours",
+      sessionsPerMonth: 8,
       features: [
-        "Group of 5, 60-minute lessons",
-        "4 lessons per package",
+        "Group of 5, 1.5-hour lessons",
+        "8 lessons a month",
         "Custom learning plan",
         "Parent report",
-        "Progress review after every package",
+        "Monthly progress review",
       ],
     },
     oneToOne: {
-      singleLessonPrice: 30,
-      monthlyPrice: 100,
-      sessionLength: LESSON_LENGTH,
-      sessionsPerMonth: 4,
+      singleLessonPrice: 15,
+      monthlyPrice: 120,
+      sessionLength: "1.5 hours",
+      sessionsPerMonth: 8,
       features: [
-        "1-on-1, 60-minute lessons",
-        "4 lessons per package",
+        "1-on-1, 1.5-hour lessons",
+        "8 lessons a month",
         "Fully personalised plan",
         "Parent report",
-        "Progress review after every package",
+        "Monthly progress review",
       ],
     },
   },
@@ -112,25 +107,25 @@ export const pricingTiers: TierPricing[] = [
     ageTag: "Ages 14–16",
     desc: "Personalised revision strategies for Foundation, Higher and resits — designed to improve grades and confidence.",
     group: {
-      price: 60,
-      sessionLength: LESSON_LENGTH,
-      sessionsPerMonth: 4,
+      price: 100,
+      sessionLength: "1.5 hours",
+      sessionsPerMonth: 8,
       features: [
-        "Group of 5, 60-minute lessons",
-        "4 lessons per package",
+        "Group of 5, 1.5-hour lessons",
+        "8 lessons a month",
         "Custom learning plan",
         "Parent report",
         "Past paper practice",
       ],
     },
     oneToOne: {
-      singleLessonPrice: 35,
-      monthlyPrice: 120,
-      sessionLength: LESSON_LENGTH,
-      sessionsPerMonth: 4,
+      singleLessonPrice: 17.5,
+      monthlyPrice: 140,
+      sessionLength: "1.5 hours",
+      sessionsPerMonth: 8,
       features: [
-        "1-on-1, 60-minute lessons",
-        "4 lessons per package",
+        "1-on-1, 1.5-hour lessons",
+        "8 lessons a month",
         "Fully personalised plan",
         "Parent report",
         "Past paper practice",

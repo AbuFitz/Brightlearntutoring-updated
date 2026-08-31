@@ -80,24 +80,22 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
               {pricingTiers.map((t) => {
                 const sessions = sessionType === "group" ? t.group.sessionsPerMonth : t.oneToOne.sessionsPerMonth;
                 const price = sessionType === "group" ? t.group.price : t.oneToOne.monthlyPrice;
-                const perLesson = fmtPrice(price / sessions);
+                const sessionLength = sessionType === "group" ? t.group.sessionLength : t.oneToOne.sessionLength;
 
                 return (
                   <div key={t.name} className="flex items-center justify-between gap-3 px-4 py-3.5">
                     <div className="min-w-0">
                       <div className="text-sm font-semibold text-ink">{t.name}</div>
-                      <div className="text-xs mt-0.5">
-                        <span className="text-ink-soft">{sessions} lessons · </span>
-                        <span className="font-semibold text-accent">
-                          {sessionType === "1on1" ? "from " : ""}
-                          {perLesson}/lesson
-                        </span>
+                      <div className="text-xs mt-0.5 text-ink-soft">
+                        {sessions} lessons · {sessionLength} each
                       </div>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">
                       <div className="text-right">
-                        <div className="text-lg font-bold text-ink leading-none">£{price}</div>
-                        <div className="text-[10px] text-ink-soft mt-0.5">4 lessons</div>
+                        <div className="text-lg font-bold text-ink leading-none">
+                          £{price}
+                          <span className="text-[10px] font-normal text-ink-soft">/mo</span>
+                        </div>
                       </div>
                       <button
                         type="button"
@@ -116,10 +114,10 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
             <p className="text-xs text-ink-soft mt-3 text-center">
               {sessionType === "group"
                 ? `Maximum ${MAX_GROUP_SIZE} students per group. Small-group places are subject to suitable group availability.`
-                : `Prefer to pay as you go? Single lessons from £${pricingTiers[0].oneToOne.singleLessonPrice} — no package needed.`}
+                : `Prefer to pay as you go? Single lessons from ${fmtPrice(pricingTiers[0].oneToOne.singleLessonPrice)} — no package needed.`}
             </p>
             <p className="text-center text-xs text-ink-soft mt-4 pt-4 border-t border-border-soft">
-              No long-term contract · 60 minutes per lesson
+              No long-term contract · Cancel any time
             </p>
             <div className="md:hidden" style={{ height: "env(safe-area-inset-bottom, 0px)" }} />
           </div>

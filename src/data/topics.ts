@@ -42,7 +42,7 @@ export const topics: TopicInfo[] = [
     h1: "KS2 maths confidence",
     h1Accent: "and SATs preparation.",
     metaDescription:
-      "Build real KS2 maths confidence and get SATs-ready with small-group or 1-on-1 online tutoring. Structured, encouraging 60-minute lessons for Year 5–6 students, from £40 for 4 lessons.",
+      "Build real KS2 maths confidence and get SATs-ready with small-group or 1-on-1 online tutoring. Structured, encouraging 1-hour lessons for Year 5–6 students, from £40/month.",
     tagline: "For parents whose child has gone quiet about maths, or is anxious about SATs.",
     painPoints: [
       "\"They used to enjoy maths, now they say they're bad at it\"",
@@ -79,7 +79,7 @@ export const topics: TopicInfo[] = [
       },
       {
         q: "Is KS2 tutoring 1-on-1 or group?",
-        a: "Both are available. Most families choose small-group (maximum 5 students, £40 for a 4-lesson package) for the social, confidence-building environment, and switch to 1-on-1 (from £25 per lesson) if their child needs more individual attention on specific gaps.",
+        a: "Both are available. Most families choose small-group (maximum 5 students, £40/month) for the social, confidence-building environment, and switch to 1-on-1 (from £15 per lesson) if their child needs more individual attention on specific gaps.",
       },
     ],
     relatedSlugs: ["year-7-9-maths-support", "online-one-to-one-maths-tutoring"],
@@ -92,7 +92,7 @@ export const topics: TopicInfo[] = [
     h1: "Year 7–9 maths support",
     h1Accent: "that builds towards GCSE.",
     metaDescription:
-      "Targeted KS3 maths tutoring for Year 7, 8 and 9 students — closing gaps in algebra, ratio and geometry before they turn into GCSE problems. Small-group or 1-on-1, from £50 for 4 lessons.",
+      "Targeted KS3 maths tutoring for Year 7, 8 and 9 students — closing gaps in algebra, ratio and geometry before they turn into GCSE problems. Small-group or 1-on-1, from £90/month.",
     tagline: "For parents who can see the gap widening before GCSE even starts.",
     painPoints: [
       "\"They coasted through Year 7 and now Year 9 maths feels like a different language\"",
@@ -192,7 +192,7 @@ export const topics: TopicInfo[] = [
     h1: "GCSE Maths Higher",
     h1Accent: "tuition for a genuine top grade.",
     metaDescription:
-      "Online GCSE Maths Higher tuition covering AQA and Pearson Edexcel — targeted at grades 6–9, with past paper practice and exam technique. Small-group or 1-on-1 from £60 for 4 lessons.",
+      "Online GCSE Maths Higher tuition covering AQA and Pearson Edexcel — targeted at grades 6–9, with past paper practice and exam technique. Small-group or 1-on-1 from £100/month.",
     tagline: "For parents whose child is capable of a top grade but needs it pushed further.",
     painPoints: [
       "\"They're capable of a 7, 8 or 9 but school alone isn't getting them there\"",
@@ -292,7 +292,7 @@ export const topics: TopicInfo[] = [
     h1: "Online one-to-one",
     h1Accent: "maths tutoring.",
     metaDescription:
-      "Fully personalised 1-on-1 online maths tutoring for KS2, KS3 and GCSE students. Single lessons from £25, or 4-lesson packages from £80. Flexible scheduling.",
+      "Fully personalised 1-on-1 online maths tutoring for KS2, KS3 and GCSE students. Single lessons from £15, or monthly plans from £60. Flexible scheduling.",
     tagline: "For families who want fully individual attention, not a shared timetable.",
     painPoints: [
       "\"They need more individual attention than a group can give\"",
@@ -301,7 +301,7 @@ export const topics: TopicInfo[] = [
     ],
     intro: [
       "Some students learn best with someone's full attention — no waiting their turn, no pace set by the rest of a group, and lessons that can go exactly where they're needed that week. That's what 1-on-1 tutoring is built for.",
-      "1-on-1 sessions are scheduled around your own availability rather than a fixed group timetable, and you can start with a single lesson to see if it's the right fit before committing to a 4-lesson package.",
+      "1-on-1 sessions are scheduled around your own availability rather than a fixed group timetable, and you can start with a single lesson to see if it's the right fit before committing to a monthly plan.",
     ],
     whoFor: [
       "Students who need more individual attention than group sessions give",
@@ -312,19 +312,19 @@ export const topics: TopicInfo[] = [
       "A fully personalised plan built around your child's specific gaps",
       "KS2 SATs preparation, KS3 fundamentals, or GCSE Foundation/Higher",
       "Flexible scheduling around your family's availability",
-      "Single lessons from £25, or 4-lesson packages from £80",
+      "Single lessons from £15, or monthly plans from £60",
       "Parent progress reports after every block of sessions",
     ],
     relevantTiers: ["KS2", "KS3", "GCSE"],
     defaultSessionType: "1on1",
     faqs: [
       {
-        q: "Can we book a single 1-on-1 lesson without committing to a 4-lesson package?",
-        a: "Yes. Single lessons are available from £25 (KS2), £30 (KS3) or £35 (GCSE), so you can try tutoring before committing to a package.",
+        q: "Can we book a single 1-on-1 lesson without committing to a monthly plan?",
+        a: "Yes. Single lessons are available from £15 (KS2 and KS3) or £17.50 (GCSE), so you can try tutoring before committing to a monthly plan.",
       },
       {
         q: "How is 1-on-1 pricing different from group pricing?",
-        a: "Group sessions run as a fixed 4-lesson package with a set timetable (maximum 5 students), subject to suitable group availability. 1-on-1 sessions can be booked as a single lesson or a 4-lesson package, and are scheduled flexibly around your own availability rather than a fixed group slot.",
+        a: "Group sessions run as a fixed monthly plan with a set timetable (maximum 5 students), subject to suitable group availability. 1-on-1 sessions can be booked as a single lesson or a monthly plan, and are scheduled flexibly around your own availability rather than a fixed group slot.",
       },
       {
         q: "Is 1-on-1 available for all age groups?",
@@ -341,7 +341,7 @@ export const topics: TopicInfo[] = [
     h1: "Small-group GCSE",
     h1Accent: "maths revision.",
     metaDescription:
-      "Small-group GCSE Maths revision sessions, maximum 5 students, covering AQA and Pearson Edexcel with past paper practice. From £60 for 4 lessons.",
+      "Small-group GCSE Maths revision sessions, maximum 5 students, covering AQA and Pearson Edexcel with past paper practice. From £100/month.",
     tagline: "For students who focus better — and learn from each other — in a small group.",
     painPoints: [
       "\"1-on-1 feels intense — they'd rather learn alongside other students\"",
@@ -377,7 +377,7 @@ export const topics: TopicInfo[] = [
       },
       {
         q: "What's included in a small-group GCSE plan?",
-        a: "£60 covers a 4-lesson package of 60-minute sessions, including a custom learning plan, parent reports and past paper practice as exams approach.",
+        a: "£100/month covers 8 x 1.5-hour sessions, including a custom learning plan, parent reports and past paper practice as exams approach.",
       },
     ],
     relatedSlugs: ["gcse-maths-foundation-tutor", "gcse-maths-higher-tutor", "gcse-maths-resit-tuition"],

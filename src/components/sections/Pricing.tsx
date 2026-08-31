@@ -3,7 +3,7 @@ import { useReveal } from "@/hooks/useReveal";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight } from "lucide-react";
 import { useGetStarted } from "@/contexts/GetStartedContext";
-import { pricingTiers, TierPricing, fmtPrice } from "@/data/pricing";
+import { pricingTiers, TierPricing } from "@/data/pricing";
 import { PricingModal } from "@/components/PricingModal";
 
 export const Pricing = () => {
@@ -19,7 +19,7 @@ export const Pricing = () => {
             Honest pricing. <span className="font-display italic font-normal text-accent">Real value.</span>
           </h2>
           <p className="text-ink-soft mt-5 text-lg leading-relaxed">
-            No subscriptions, no long-term contracts - just expert tutoring at a fair, transparent price.
+            No long-term contract - pay monthly, cancel any time, at a fair, transparent price.
           </p>
         </div>
 
@@ -73,14 +73,14 @@ const PriceCard = ({ t, delay, featured }: { t: TierPricing; delay: number; feat
         <div className="mt-6 flex items-baseline gap-1">
           <span className={`text-base ${featured ? "text-background/70" : "text-ink-soft"}`}>£</span>
           <span className={`text-6xl font-semibold tracking-tight ${featured ? "text-background" : "text-ink"}`}>{t.group.price}</span>
-          <span className={`text-sm ${featured ? "text-background/70" : "text-ink-soft"}`}>for 4 lessons</span>
+          <span className={`text-sm ${featured ? "text-background/70" : "text-ink-soft"}`}>/month</span>
         </div>
         <div
           className={`mt-2 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${
             featured ? "bg-background/10 text-accent" : "bg-accent-soft text-accent"
           }`}
         >
-          {fmtPrice(t.group.price / t.group.sessionsPerMonth)}/lesson · 60 minutes each
+          {t.group.sessionsPerMonth} lessons · {t.group.sessionLength} each
         </div>
 
         <Button
