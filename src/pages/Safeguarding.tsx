@@ -42,9 +42,9 @@ const Safeguarding = () => {
           <section>
             <h2 className="text-lg font-semibold text-ink mb-3">2. DBS checks</h2>
             <p>
-              All tutors working with BrightLearn Tutoring hold a current Enhanced Disclosure and Barring
-              Service (DBS) check, issued through the UK Disclosure and Barring Service. This covers work with
-              children and is renewed in accordance with current guidance.
+              Our tutor holds a current Enhanced Disclosure and Barring Service (DBS) check, issued through the
+              UK Disclosure and Barring Service. This covers work with children and is renewed in accordance
+              with current guidance.
             </p>
           </section>
 

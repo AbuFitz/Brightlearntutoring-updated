@@ -847,7 +847,8 @@ export const GetStartedModal = () => {
                 </h2>
                 <p className="text-ink-soft leading-relaxed max-w-sm text-sm mt-2">
                   A member of BrightLearn Tutoring will review the details and contact you to discuss
-                  tuition, current availability and the next steps.
+                  tuition, current availability and the next steps — including arranging a free
+                  introductory session.
                 </p>
               </div>
               <button
