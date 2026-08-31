@@ -49,9 +49,7 @@ const YEAR_GROUP_OPTIONS = [
   "Year 9",
   "Year 10",
   "Year 11",
-  "Year 12 / Year 13",
-  "College or Sixth Form",
-  "Adult learner",
+  "Resit (Sixth Form, College or Adult)",
 ];
 
 const SUPPORT_OPTIONS: { value: string; sub: string }[] = [

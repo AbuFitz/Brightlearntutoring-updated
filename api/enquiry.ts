@@ -133,7 +133,7 @@ function buildConfirmationHtml(d: EnquiryPayload): string {
       <td style="background:#dcfce7;color:#166534;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 12px;border-radius:100px;">Enquiry received</td>
     </tr></table>
     <h1 style="margin:0 0 6px;font-size:20px;font-weight:700;color:#1a1a1a;line-height:1.25;letter-spacing:-0.02em;">Thank you, ${firstName} — we've received your enquiry</h1>
-    <p style="margin:0 0 24px;font-size:13px;color:#6b6560;line-height:1.65;">A member of BrightLearn Tutoring will review the details below and contact you to discuss tuition, current availability and the next steps.</p>
+    <p style="margin:0 0 24px;font-size:13px;color:#6b6560;line-height:1.65;">A member of BrightLearn Tutoring will review the details below and contact you to discuss tuition, current availability and the next steps — including arranging a free introductory session.</p>
 
     ${sect("Enquiry type", row("Submitted by", d["Enquiry type"]))}
     ${sect("Student details",
