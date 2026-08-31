@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
-import { SessionType, sessionLabel, getTier } from "@/data/pricing";
+import { SessionType, sessionLabel, getTier, fmtPrice } from "@/data/pricing";
 import {
   ArrowLeft,
   ArrowRight,
@@ -9,6 +9,8 @@ import {
   GraduationCap,
   Pencil,
   UserRound,
+  Users,
+  UserCheck,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -20,15 +22,17 @@ type StepId =
   | "userType"
   | "studentDetails"
   | "support"
+  | "sessionType"
   | "level"
   | "notes"
   | "contact"
   | "review";
 
-const FLOW: StepId[] = [
+const BASE_FLOW: StepId[] = [
   "userType",
   "studentDetails",
   "support",
+  "sessionType",
   "level",
   "notes",
   "contact",
@@ -50,15 +54,15 @@ const YEAR_GROUP_OPTIONS = [
   "Adult learner",
 ];
 
-const SUPPORT_OPTIONS = [
-  "KS2 Maths",
-  "SATs Preparation",
-  "KS3 Maths",
-  "GCSE Maths Foundation",
-  "GCSE Maths Higher",
-  "GCSE Maths Resit",
-  "Not sure",
-] as const;
+const SUPPORT_OPTIONS: { value: string; sub: string }[] = [
+  { value: "KS2 Maths", sub: "Core primary maths, Years 5–6" },
+  { value: "SATs Preparation", sub: "Focused prep for KS2 SATs" },
+  { value: "KS3 Maths", sub: "Building foundations, Years 7–9" },
+  { value: "GCSE Maths Foundation", sub: "Grades 1–5" },
+  { value: "GCSE Maths Higher", sub: "Grades 4–9" },
+  { value: "GCSE Maths Resit", sub: "Retaking the exam" },
+  { value: "Not sure", sub: "We'll help you work it out" },
+];
 
 const EXAM_BOARD_OPTIONS = ["AQA", "Pearson Edexcel", "Not sure"];
 
@@ -119,7 +123,9 @@ const validateStep = (step: StepId, form: FormData): string[] => {
       break;
     case "support":
       if (!form.supportType) e.push("supportType");
-      if (form.supportType && !form.sessionType) e.push("sessionType");
+      break;
+    case "sessionType":
+      if (!form.sessionType) e.push("sessionType");
       break;
     case "level":
       if (isGcseSupport(form.supportType) && !form.examBoard) e.push("examBoard");
@@ -212,6 +218,36 @@ const Pill = ({
   </button>
 );
 
+/** Compact selectable card used for support-type and session-type choices — one clear decision per row. */
+const ChoiceCard = ({
+  active,
+  onClick,
+  label,
+  sub,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: React.ReactNode;
+  sub?: React.ReactNode;
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={cn(
+      "group relative flex items-start justify-between gap-3 rounded-2xl border p-4 text-left transition-all",
+      active
+        ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+        : "border-border-soft bg-background-soft hover:border-ink/25"
+    )}
+  >
+    <div className="min-w-0">
+      <div className="text-sm font-semibold text-ink leading-snug">{label}</div>
+      {sub && <div className="text-xs text-ink-soft mt-0.5 leading-snug">{sub}</div>}
+    </div>
+    {active && <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />}
+  </button>
+);
+
 // ── Main component ─────────────────────────────────────────────────────────
 
 export const GetStartedModal = () => {
@@ -223,8 +259,15 @@ export const GetStartedModal = () => {
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
-  const currentStep = FLOW[stepIndex];
-  const totalSteps = FLOW.length;
+  // "Current level" only applies to GCSE — skipped entirely for everyone else,
+  // so the step count and numbering always reflect what a given user actually sees.
+  const flow = useMemo(
+    () => (isGcseSupport(form.supportType) ? BASE_FLOW : BASE_FLOW.filter((s) => s !== "level")),
+    [form.supportType]
+  );
+
+  const currentStep = flow[stepIndex];
+  const totalSteps = flow.length;
 
   // Sync pre-selected package when modal opens
   useEffect(() => {
@@ -314,6 +357,7 @@ export const GetStartedModal = () => {
     userType: "Who is this enquiry for?",
     studentDetails: isSelf ? "Your details" : "Student details",
     support: "What support are you looking for?",
+    sessionType: "How would you like to learn?",
     level: "Current level",
     notes: "Anything else we should know?",
     contact: isSelf ? "Your contact details" : "Parent / guardian contact details",
@@ -324,9 +368,10 @@ export const GetStartedModal = () => {
     userType: "This helps us direct your enquiry to the right place.",
     studentDetails: isSelf ? "Tell us a little about yourself." : "Tell us about the student we'll be working with.",
     support: "Choose whichever matches best — you can always tell us more later.",
+    sessionType: "Small-group places are subject to suitable group availability.",
     level: isGcseSupport(form.supportType)
       ? "Optional details that help us prepare — skip anything you're not sure of."
-      : "Nothing else needed here for this level.",
+      : "",
     notes: "Optional — anything that helps us understand the situation.",
     contact: "We'll use these details to get in touch and discuss next steps.",
     review: "Check everything looks right before sending.",
@@ -405,7 +450,7 @@ export const GetStartedModal = () => {
       // ─ Step: Student details ───────────────────────────────────────────────
       case "studentDetails":
         return (
-          <div className="space-y-5">
+          <div className="grid sm:grid-cols-2 gap-5">
             <Field
               label={isSelf ? "Your first name" : "Student's first name"}
               required
@@ -413,7 +458,7 @@ export const GetStartedModal = () => {
             >
               <input
                 className={inp(hasErr("studentName"))}
-                placeholder={isSelf ? "e.g. Omar" : "e.g. Omar"}
+                placeholder="e.g. Omar"
                 value={form.studentName}
                 onChange={(e) => set("studentName")(e.target.value)}
               />
@@ -441,87 +486,93 @@ export const GetStartedModal = () => {
         );
 
       // ─ Step: Support needed ────────────────────────────────────────────────
-      case "support": {
+      case "support":
+        return (
+          <div className="space-y-2.5">
+            <div className="grid sm:grid-cols-2 gap-2.5">
+              {SUPPORT_OPTIONS.map((opt) => (
+                <ChoiceCard
+                  key={opt.value}
+                  active={form.supportType === opt.value}
+                  label={opt.value}
+                  sub={opt.sub}
+                  onClick={() => {
+                    setForm((p) => ({ ...p, supportType: opt.value }));
+                    setErrors((e) => e.filter((x) => x !== "supportType"));
+                  }}
+                />
+              ))}
+            </div>
+            {hasErr("supportType") && (
+              <p className="text-xs text-red-500">Please choose an option.</p>
+            )}
+          </div>
+        );
+
+      // ─ Step: Session type ──────────────────────────────────────────────────
+      case "sessionType": {
         const level = supportToLevel(form.supportType);
         const tier = level ? getTier(level) : undefined;
         return (
-          <div className="space-y-5">
-            <Field
-              label="What support are you looking for?"
-              required
-              error={hasErr("supportType")}
-            >
-              <div className="flex flex-wrap gap-2">
-                {SUPPORT_OPTIONS.map((opt) => (
-                  <Pill
-                    key={opt}
-                    active={form.supportType === opt}
-                    onClick={() => {
-                      setForm((p) => ({ ...p, supportType: opt }));
-                      setErrors((e) => e.filter((x) => x !== "supportType"));
-                    }}
+          <div className="space-y-2.5">
+            {(["group", "1on1"] as SessionType[]).map((type) => {
+              const price = tier && (type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice);
+              const perLesson = tier
+                ? fmtPrice((type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice) / 4)
+                : null;
+              const Icon = type === "group" ? Users : UserCheck;
+              const active = form.sessionType === type;
+              return (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => {
+                    setForm((p) => ({ ...p, sessionType: type }));
+                    setErrors((e) => e.filter((x) => x !== "sessionType"));
+                  }}
+                  className={cn(
+                    "w-full flex items-center gap-3.5 rounded-2xl border p-4 text-left transition-all",
+                    active
+                      ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                      : "border-border-soft bg-background-soft hover:border-ink/25"
+                  )}
+                >
+                  <div
+                    className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors",
+                      active ? "bg-accent text-white" : "bg-accent-soft text-accent"
+                    )}
                   >
-                    {opt}
-                  </Pill>
-                ))}
-              </div>
-            </Field>
-
-            {form.supportType && form.supportType !== "Not sure" && (
-              <Field
-                label="How would you like to learn?"
-                required
-                error={hasErr("sessionType")}
-                errorMsg="Please choose group or 1-on-1"
-              >
-                <div className="grid grid-cols-2 gap-2 pt-0.5">
-                  {(["group", "1on1"] as SessionType[]).map((type) => {
-                    const price = tier && (type === "group" ? tier.group.price : tier.oneToOne.monthlyPrice);
-                    return (
-                      <button
-                        key={type}
-                        type="button"
-                        onClick={() => {
-                          setForm((p) => ({ ...p, sessionType: type }));
-                          setErrors((e) => e.filter((x) => x !== "sessionType"));
-                        }}
-                        className={cn(
-                          "flex flex-col items-start gap-0.5 rounded-2xl border p-3.5 text-left transition-all",
-                          form.sessionType === type
-                            ? "border-accent bg-accent/5 ring-2 ring-accent/20"
-                            : "border-border bg-background-soft hover:border-ink/25"
-                        )}
-                      >
-                        <span className="text-sm font-semibold text-ink">
-                          {sessionLabel(type)}
-                        </span>
-                        {tier && (
-                          <span className="text-xs text-ink-soft">
-                            £{price} · 4 lessons, 60 min each
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </Field>
+                    <Icon className="w-4 h-4" strokeWidth={2} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-semibold text-ink">{sessionLabel(type)}</div>
+                    <div className="text-xs text-ink-soft mt-0.5">
+                      {type === "group" ? "Maximum 5 students, same weekly time" : "Scheduled around your availability"}
+                    </div>
+                  </div>
+                  {tier && (
+                    <div className="text-right shrink-0">
+                      <div className="text-sm font-bold text-ink leading-none">£{price}</div>
+                      <div className="text-[10px] text-ink-soft mt-1">{perLesson}/lesson · 4 lessons</div>
+                    </div>
+                  )}
+                  {active && <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />}
+                </button>
+              );
+            })}
+            {hasErr("sessionType") && (
+              <p className="text-xs text-red-500">Please choose group or 1-on-1.</p>
             )}
           </div>
         );
       }
 
       // ─ Step: Current level ─────────────────────────────────────────────────
-      case "level": {
-        if (!isGcseSupport(form.supportType)) {
-          return (
-            <div className="rounded-2xl bg-background-soft border border-border-soft p-5 text-sm text-ink-soft leading-relaxed">
-              Nothing else needed for this level — hit continue when you're ready.
-            </div>
-          );
-        }
+      case "level":
         return (
           <div className="space-y-5">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid sm:grid-cols-2 gap-5">
               <Field label="Current / estimated grade">
                 <input
                   className={inp()}
@@ -559,7 +610,6 @@ export const GetStartedModal = () => {
             </Field>
           </div>
         );
-      }
 
       // ─ Step: Anything else ─────────────────────────────────────────────────
       case "notes":
@@ -567,7 +617,7 @@ export const GetStartedModal = () => {
           <div className="space-y-5">
             <Field label="Anything else we should know?">
               <textarea
-                rows={4}
+                rows={5}
                 className={cn(inp(), "h-auto py-3 resize-none")}
                 placeholder="e.g. topics they struggle with, an upcoming exam, confidence issues, a resit situation, learning goals…"
                 value={form.notes}
@@ -593,33 +643,35 @@ export const GetStartedModal = () => {
                 onChange={(e) => set("contactName")(e.target.value)}
               />
             </Field>
-            <Field
-              label="Email address"
-              required
-              error={hasErr("contactEmail")}
-              errorMsg="Please enter a valid email address"
-            >
-              <input
-                type="email"
-                className={inp(hasErr("contactEmail"))}
-                placeholder="e.g. sarah@example.com"
-                value={form.contactEmail}
-                onChange={(e) => set("contactEmail")(e.target.value)}
-              />
-            </Field>
-            <Field
-              label="Phone number"
-              required
-              error={hasErr("contactPhone")}
-            >
-              <input
-                type="tel"
-                className={inp(hasErr("contactPhone"))}
-                placeholder="e.g. 07700 900123"
-                value={form.contactPhone}
-                onChange={(e) => set("contactPhone")(e.target.value)}
-              />
-            </Field>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field
+                label="Email address"
+                required
+                error={hasErr("contactEmail")}
+                errorMsg="Please enter a valid email address"
+              >
+                <input
+                  type="email"
+                  className={inp(hasErr("contactEmail"))}
+                  placeholder="e.g. sarah@example.com"
+                  value={form.contactEmail}
+                  onChange={(e) => set("contactEmail")(e.target.value)}
+                />
+              </Field>
+              <Field
+                label="Phone number"
+                required
+                error={hasErr("contactPhone")}
+              >
+                <input
+                  type="tel"
+                  className={inp(hasErr("contactPhone"))}
+                  placeholder="e.g. 07700 900123"
+                  value={form.contactPhone}
+                  onChange={(e) => set("contactPhone")(e.target.value)}
+                />
+              </Field>
+            </div>
             <Field
               label="Preferred contact method"
               required
@@ -645,11 +697,12 @@ export const GetStartedModal = () => {
 
       // ─ Step: Review ────────────────────────────────────────────────────────
       case "review": {
-        const studentIdx = FLOW.indexOf("studentDetails");
-        const supportIdx = FLOW.indexOf("support");
-        const levelIdx = FLOW.indexOf("level");
-        const notesIdx = FLOW.indexOf("notes");
-        const contactIdx = FLOW.indexOf("contact");
+        const studentIdx = flow.indexOf("studentDetails");
+        const supportIdx = flow.indexOf("support");
+        const sessionTypeIdx = flow.indexOf("sessionType");
+        const levelIdx = flow.indexOf("level");
+        const notesIdx = flow.indexOf("notes");
+        const contactIdx = flow.indexOf("contact");
 
         type ReviewSection = {
           title: string;
@@ -679,20 +732,26 @@ export const GetStartedModal = () => {
           {
             title: "Support needed",
             stepIdx: supportIdx,
-            rows: [
-              ["Support", form.supportType],
-              ["Session type", form.sessionType ? sessionLabel(form.sessionType) : ""],
-            ],
+            rows: [["Support", form.supportType]],
           },
           {
-            title: "Current level",
-            stepIdx: levelIdx,
-            rows: [
-              ...(form.currentGrade ? ([["Current grade", form.currentGrade]] as [string, string][]) : []),
-              ...(form.targetGrade ? ([["Target grade", form.targetGrade]] as [string, string][]) : []),
-              ...(form.examBoard ? ([["Exam board", form.examBoard]] as [string, string][]) : []),
-            ],
+            title: "How they'll learn",
+            stepIdx: sessionTypeIdx,
+            rows: [["Session type", form.sessionType ? sessionLabel(form.sessionType) : ""]],
           },
+          ...(levelIdx !== -1
+            ? [
+                {
+                  title: "Current level",
+                  stepIdx: levelIdx,
+                  rows: [
+                    ...(form.currentGrade ? ([["Current grade", form.currentGrade]] as [string, string][]) : []),
+                    ...(form.targetGrade ? ([["Target grade", form.targetGrade]] as [string, string][]) : []),
+                    ...(form.examBoard ? ([["Exam board", form.examBoard]] as [string, string][]) : []),
+                  ],
+                },
+              ]
+            : []),
           {
             title: "Anything else",
             stepIdx: notesIdx,
@@ -834,9 +893,11 @@ export const GetStartedModal = () => {
               <DialogPrimitive.Title className="text-[1.6rem] md:text-[1.75rem] font-semibold text-ink tracking-tight leading-tight">
                 {stepTitles[currentStep]}
               </DialogPrimitive.Title>
-              <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">
-                {stepSubtitles[currentStep]}
-              </p>
+              {stepSubtitles[currentStep] && (
+                <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">
+                  {stepSubtitles[currentStep]}
+                </p>
+              )}
             </div>
             <button
               onClick={handleClose}

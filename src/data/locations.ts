@@ -1,4 +1,4 @@
-export type Nation = "England" | "Wales" | "Northern Ireland";
+export type Nation = "England";
 
 export interface LocationFaq {
   q: string;

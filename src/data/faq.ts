@@ -87,7 +87,7 @@ export const faqCategories: FaqCategory[] = [
         a: "Yes. Alongside small-group sessions, we offer 1-on-1 tutoring from £25 per lesson, or £80 for KS2, £100 for KS3 and £120 for GCSE, each for a 4-lesson package.",
       },
       {
-        q: "Can I book a single 1-on-1 lesson without a monthly commitment?",
+        q: "Can I book a single 1-on-1 lesson without committing to a package?",
         a: "Yes — 1-on-1 lessons can be booked individually, which is a good option if you want to try tutoring first or only need occasional, targeted support (for example ahead of a resit or a specific test).",
       },
       {
