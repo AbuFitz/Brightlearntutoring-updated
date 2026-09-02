@@ -282,7 +282,7 @@ const Index = () => {
       <Services />
       <Values />
       <div className="hidden md:block"><HowItWorks /></div>
-      <div className="hidden lg:block"><Pricing /></div>
+      <Pricing />
       <TikTokFeed />
       <FAQ />
       <FinalCTA />

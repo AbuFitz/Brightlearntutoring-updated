@@ -1,23 +1,14 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, ShieldCheck } from "lucide-react";
 import tutorFemale from "@/assets/tutor-portrait.webp";
 import riyanas from "@/assets/riyanas.webp";
 import { useGetStarted } from "@/contexts/GetStartedContext";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { PricingModal } from "@/components/PricingModal";
 
 export const Hero = () => {
   const { openModal } = useGetStarted();
-  const isMobile = useIsMobile();
-  const [pricingOpen, setPricingOpen] = useState(false);
 
   const handleViewPricing = () => {
-    if (isMobile) {
-      setPricingOpen(true);
-    } else {
-      document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
-    }
+    document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
   };
   return (
     <section className="relative pt-24 lg:pt-36 pb-12 lg:pb-28 overflow-hidden bg-background">
@@ -148,7 +139,6 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-      <PricingModal open={pricingOpen} onClose={() => setPricingOpen(false)} />
     </section>
   );
 };
