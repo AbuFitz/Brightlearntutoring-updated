@@ -110,8 +110,8 @@ const ServiceCard = ({ s, delay, onExplore }: { s: typeof services[number]; dela
           <img
             src={s.img}
             alt={`${s.name} illustrated character`}
-            width={896}
-            height={1024}
+            width={593}
+            height={593}
             loading="lazy"
             className={`absolute left-1/2 -translate-x-1/2 bottom-0 h-[110%] w-auto object-contain ${s.anim} group-hover:scale-105 transition-transform duration-500`}
           />
