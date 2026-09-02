@@ -115,7 +115,7 @@ export const Footer = () => {
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-6">
             {linkGroups.map((g) => (
               <div key={g.title}>
-                <h4 className="text-sm font-semibold text-ink mb-4">{g.title}</h4>
+                <h3 className="text-sm font-semibold text-ink mb-4">{g.title}</h3>
                 <ul className="space-y-3">
                   {g.links.map((l) =>
                     l.external ? (

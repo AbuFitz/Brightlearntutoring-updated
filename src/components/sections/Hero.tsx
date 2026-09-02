@@ -87,10 +87,12 @@ export const Hero = () => {
                 <img
                   src={tutorFemale}
                   alt="A tablet showing worked maths examples - solving equations, straight-line graphs and Pythagoras' theorem - next to a notebook of key formulae, for BrightLearn's KS2, KS3 and GCSE group tutoring"
-                  width={1642}
-                  height={958}
+                  width={1134}
+                  height={661}
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="eager"
+                  // @ts-expect-error React 18 doesn't type fetchpriority yet; lowercase is the correct DOM attribute name.
+                  fetchpriority="high"
                 />
 
                 {/* Top-right subject chip */}

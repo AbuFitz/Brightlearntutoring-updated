@@ -45,21 +45,21 @@ const desktopTopics: Topic[] = [
 
 const mobileExtraTopics: Topic[] = [
   {
-    title: "BrightLearn Maths",
+    title: "BrightLearn Maths Tip 1",
     desc: "More free maths tips from BrightLearn Tutoring.",
     url: "https://www.tiktok.com/@brightlearntutoring/video/7629026072146824470",
     thumb: null,
     gradient: "from-slate-800 to-blue-900",
   },
   {
-    title: "BrightLearn Maths",
+    title: "BrightLearn Maths Tip 2",
     desc: "More free maths tips from BrightLearn Tutoring.",
     url: "https://www.tiktok.com/@brightlearntutoring/video/7628477148734426390",
     thumb: null,
     gradient: "from-slate-800 to-emerald-900",
   },
   {
-    title: "BrightLearn Maths",
+    title: "BrightLearn Maths Tip 3",
     desc: "More free maths tips from BrightLearn Tutoring.",
     url: "https://www.tiktok.com/@brightlearntutoring/video/7628357985139461378",
     thumb: null,
