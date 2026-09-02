@@ -30,8 +30,9 @@ export const Pricing = () => {
         </div>
 
         <div className="text-center mt-10 space-y-4">
-          <p className="text-sm text-ink-soft">
-            Small-group places are subject to suitable group availability. No long-term contract.
+          <p className="text-sm text-ink-soft max-w-xl mx-auto">
+            KS2 lessons run weekly (4 a month); KS3 and GCSE run twice a week (8 a month). Small-group places
+            are subject to suitable group availability. No long-term contract.
           </p>
           <button
             type="button"

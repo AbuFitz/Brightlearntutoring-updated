@@ -42,7 +42,7 @@ export const topics: TopicInfo[] = [
     h1: "KS2 maths confidence",
     h1Accent: "and SATs preparation.",
     metaDescription:
-      "Build real KS2 maths confidence and get SATs-ready with small-group or 1-on-1 online tutoring. Structured, encouraging 1-hour lessons for Year 5–6 students, from £40/month.",
+      "Build real KS2 maths confidence and get SATs-ready with small-group or 1-on-1 online tutoring for Year 5–6 students, from £40/month.",
     tagline: "For parents whose child has gone quiet about maths, or is anxious about SATs.",
     painPoints: [
       "\"They used to enjoy maths, now they say they're bad at it\"",
@@ -92,7 +92,7 @@ export const topics: TopicInfo[] = [
     h1: "Year 7–9 maths support",
     h1Accent: "that builds towards GCSE.",
     metaDescription:
-      "Targeted KS3 maths tutoring for Year 7, 8 and 9 students — closing gaps in algebra, ratio and geometry before they turn into GCSE problems. Small-group or 1-on-1, from £90/month.",
+      "Targeted KS3 maths tutoring for Years 7–9 — closing gaps in algebra, ratio and geometry before GCSE. Small-group or 1-on-1, from £90/month.",
     tagline: "For parents who can see the gap widening before GCSE even starts.",
     painPoints: [
       "\"They coasted through Year 7 and now Year 9 maths feels like a different language\"",
@@ -142,7 +142,7 @@ export const topics: TopicInfo[] = [
     h1: "GCSE Maths Foundation",
     h1Accent: "tutoring that builds real grades.",
     metaDescription:
-      "Online GCSE Maths Foundation tuition covering AQA and Pearson Edexcel — built to secure a genuine, confident grade 4 or 5, not just cram past papers. Small-group or 1-on-1.",
+      "Online GCSE Maths Foundation tuition covering AQA and Pearson Edexcel — built to secure a genuine, confident grade 4 or 5. Small-group or 1-on-1 tutoring.",
     tagline: "For parents whose child is on Foundation tier and needs it to actually click.",
     painPoints: [
       "\"They're on Foundation and I don't know if that's the right call or how to help\"",
@@ -192,7 +192,7 @@ export const topics: TopicInfo[] = [
     h1: "GCSE Maths Higher",
     h1Accent: "tuition for a genuine top grade.",
     metaDescription:
-      "Online GCSE Maths Higher tuition covering AQA and Pearson Edexcel — targeted at grades 6–9, with past paper practice and exam technique. Small-group or 1-on-1 from £100/month.",
+      "Online GCSE Maths Higher tuition covering AQA and Pearson Edexcel — targeted at grades 6–9, with past paper practice. Small-group or 1-on-1 from £100/month.",
     tagline: "For parents whose child is capable of a top grade but needs it pushed further.",
     painPoints: [
       "\"They're capable of a 7, 8 or 9 but school alone isn't getting them there\"",
@@ -242,7 +242,7 @@ export const topics: TopicInfo[] = [
     h1: "GCSE Maths resit tuition",
     h1Accent: "without repeating the same lessons.",
     metaDescription:
-      "Focused GCSE Maths resit tuition for students retaking the exam — targeting exactly what went wrong last time, not repeating a full year of lessons. Small-group or 1-on-1.",
+      "Focused GCSE Maths resit tuition for students retaking the exam — targeting exactly what went wrong last time. Small-group or 1-on-1 tutoring.",
     tagline: "For students (and often sixth-form or college students) retaking GCSE Maths.",
     painPoints: [
       "\"They already sat through a full year of this once — going through it all again isn't going to work\"",

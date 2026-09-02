@@ -148,7 +148,7 @@ export const guides: GuideInfo[] = [
     slug: "gcse-maths-foundation-vs-higher",
     category: "GCSE",
     navLabel: "GCSE Maths Foundation vs Higher",
-    metaTitle: "GCSE Maths Foundation vs Higher — The Difference | BrightLearn",
+    metaTitle: "GCSE Maths Foundation vs Higher | BrightLearn",
     metaDescription:
       "The real differences between GCSE Maths Foundation and Higher tier — grade ranges, content, and how to work out which is right for your child.",
     h1: "GCSE Maths Foundation",

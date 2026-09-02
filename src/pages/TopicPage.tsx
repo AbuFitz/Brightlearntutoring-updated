@@ -9,6 +9,7 @@ import { PricingModal } from "@/components/PricingModal";
 import NotFound from "@/pages/NotFound";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { findTopic, topics } from "@/data/topics";
+import { guides } from "@/data/guides";
 import { pricingTiers, fmtPrice } from "@/data/pricing";
 import { useSEO } from "@/hooks/useSEO";
 import { useBreadcrumbSchema } from "@/hooks/useBreadcrumbSchema";
@@ -92,6 +93,7 @@ const TopicPage = () => {
 
   const tiers = pricingTiers.filter((t) => topic.relevantTiers.includes(t.name));
   const related = topics.filter((t) => topic.relatedSlugs.includes(t.slug));
+  const relatedGuides = guides.filter((g) => g.relatedProgrammeSlug === topic.slug);
   const ctaLabel = topic.defaultSessionType === "group" ? "Register interest" : "Enquire about tuition";
 
   return (
@@ -251,6 +253,33 @@ const TopicPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Related guides */}
+      {relatedGuides.length > 0 && (
+        <section className="py-14 lg:py-20 bg-background border-t border-border-soft">
+          <div className="container max-w-3xl">
+            <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Free guides</span>
+            <h2 className="mt-3 text-2xl md:text-3xl text-ink font-semibold tracking-tight leading-[1.1]">
+              Read more before you enquire
+            </h2>
+            <div className="mt-6 grid sm:grid-cols-2 gap-4">
+              {relatedGuides.map((g) => (
+                <Link
+                  key={g.slug}
+                  to={`/guides/${g.slug}`}
+                  className="group block rounded-2xl border border-border-soft bg-background-soft p-5 hover:border-accent/40 hover:shadow-card hover:-translate-y-0.5 transition-all"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="font-semibold text-ink text-sm">{g.navLabel}</div>
+                    <ArrowUpRight className="w-4 h-4 text-ink-soft shrink-0 transition-transform group-hover:rotate-45 group-hover:text-accent" />
+                  </div>
+                  <div className="text-xs text-ink-soft mt-1.5 leading-relaxed">{g.tagline}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related topics */}
       {related.length > 0 && (
