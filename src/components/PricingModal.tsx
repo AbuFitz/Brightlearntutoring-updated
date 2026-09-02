@@ -1,8 +1,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ArrowRight, X } from "lucide-react";
-import { useState } from "react";
 import { useGetStarted, Package } from "@/contexts/GetStartedContext";
-import { pricingTiers, MAX_GROUP_SIZE, SessionType, fmtPrice } from "@/data/pricing";
+import { pricingTiers, MAX_GROUP_SIZE, SessionType, sessionLabel, fmtPrice } from "@/data/pricing";
 import { cn } from "@/lib/utils";
 
 interface PricingModalProps {
@@ -10,13 +9,19 @@ interface PricingModalProps {
   onClose: () => void;
 }
 
+/**
+ * Secondary "compare everything at once" surface. The homepage pricing
+ * section (with its own group/1-on-1 toggle) is the complete, primary
+ * pricing experience on every breakpoint — this modal's distinct job is
+ * showing all three stages and both formats side by side simultaneously,
+ * which a single on-page toggle can't do at once.
+ */
 export const PricingModal = ({ open, onClose }: PricingModalProps) => {
   const { openModal } = useGetStarted();
-  const [sessionType, setSessionType] = useState<SessionType>("group");
 
-  const handleGetStarted = (name: Package) => {
+  const handleGetStarted = (name: Package, type: SessionType) => {
     onClose();
-    setTimeout(() => openModal(name, sessionType), 200);
+    setTimeout(() => openModal(name, type), 200);
   };
 
   return (
@@ -27,15 +32,16 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
           aria-describedby="pricing-desc"
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 flex flex-col",
-            "bg-background rounded-t-[2rem] shadow-elevated h-[85dvh]",
+            "bg-background rounded-t-[2rem] shadow-elevated max-h-[85dvh]",
             "md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
-            "md:rounded-3xl md:w-full md:max-w-[440px] md:h-auto md:max-h-[85dvh]",
+            "md:rounded-3xl md:w-full md:max-w-[480px] md:max-h-[85dvh]",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+            "motion-reduce:duration-0",
             "duration-200"
           )}
         >
-          {/* Drag handle — mobile only */}
+          {/* Drag handle — mobile only, visual sheet convention (matches every other modal on the site) */}
           <div className="flex justify-center pt-3.5 md:hidden shrink-0">
             <div className="w-10 h-1 rounded-full bg-ink/10" />
           </div>
@@ -44,79 +50,65 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
           <div className="flex items-start justify-between gap-4 px-6 pt-5 pb-4 md:px-8 md:pt-7 shrink-0">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-soft mb-1.5">Pricing</p>
-              <DialogPrimitive.Title className="text-[1.6rem] md:text-[1.75rem] font-semibold text-ink tracking-tight leading-tight">
-                Simple,{" "}
-                <span className="font-display italic font-normal text-accent">transparent pricing.</span>
+              <DialogPrimitive.Title className="text-2xl md:text-[1.75rem] font-semibold text-ink tracking-tight leading-tight">
+                Every option,{" "}
+                <span className="font-display italic font-normal text-accent">side by side.</span>
               </DialogPrimitive.Title>
             </div>
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full border border-border-soft flex items-center justify-center text-ink-soft hover:text-ink hover:border-ink/30 transition-colors shrink-0"
+              aria-label="Close"
+              className="w-8 h-8 rounded-full border border-border-soft flex items-center justify-center text-ink-soft hover:text-ink hover:border-ink/30 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-6 pb-6 md:px-8 md:pb-8">
-            {/* Toggle */}
-            <div id="pricing-desc" className="grid grid-cols-2 gap-1.5 p-1.5 rounded-full bg-background-soft border border-border-soft">
-              {(["group", "1on1"] as SessionType[]).map((type) => (
-                <button
-                  key={type}
-                  type="button"
-                  onClick={() => setSessionType(type)}
-                  className={cn(
-                    "h-10 rounded-full text-sm font-semibold transition-all",
-                    sessionType === type ? "bg-ink text-background shadow-sm" : "text-ink-soft hover:text-ink"
-                  )}
-                >
-                  {type === "group" ? "Small group" : "1-on-1"}
-                </button>
-              ))}
-            </div>
-
-            {/* Pricing rows */}
-            <div className="mt-5 rounded-2xl border border-border-soft bg-background-soft divide-y divide-border-soft overflow-hidden">
-              {pricingTiers.map((t) => {
-                const sessions = sessionType === "group" ? t.group.sessionsPerMonth : t.oneToOne.sessionsPerMonth;
-                const price = sessionType === "group" ? t.group.price : t.oneToOne.monthlyPrice;
-                const sessionLength = sessionType === "group" ? t.group.sessionLength : t.oneToOne.sessionLength;
-
-                return (
-                  <div key={t.name} className="flex items-center justify-between gap-3 px-4 py-3.5">
-                    <div className="min-w-0">
-                      <div className="text-sm font-semibold text-ink">{t.name}</div>
-                      <div className="text-xs mt-0.5 text-ink-soft">
-                        {sessions} lessons · {sessionLength} each
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 shrink-0">
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-ink leading-none">
-                          £{price}
-                          <span className="text-[10px] font-normal text-ink-soft">/mo</span>
-                        </div>
-                      </div>
+          <div id="pricing-desc" className="flex-1 overflow-y-auto px-6 pb-6 md:px-8 md:pb-8 space-y-3">
+            {pricingTiers.map((t) => (
+              <div key={t.name} className="rounded-2xl border border-border-soft overflow-hidden">
+                <div className="px-4 py-2.5 bg-background-soft border-b border-border-soft flex items-center justify-between">
+                  <span className="text-sm font-semibold text-ink">{t.name}</span>
+                  <span className="text-xs text-ink-soft">{t.ageTag}</span>
+                </div>
+                <div className="grid grid-cols-2 divide-x divide-border-soft">
+                  {(["group", "1on1"] as SessionType[]).map((type) => {
+                    const plan = type === "group" ? t.group : t.oneToOne;
+                    const price = type === "group" ? t.group.price : t.oneToOne.monthlyPrice;
+                    return (
                       <button
+                        key={type}
                         type="button"
-                        onClick={() => handleGetStarted(t.name)}
-                        aria-label={`Enquire about ${t.name} ${sessionType === "group" ? "group" : "1-on-1"} tuition`}
-                        className="w-9 h-9 rounded-full bg-ink text-background flex items-center justify-center hover:bg-ink-soft transition-all active:scale-[0.96] shrink-0"
+                        onClick={() => handleGetStarted(t.name, type)}
+                        className="p-4 text-left hover:bg-background-soft transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                       >
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <div className="text-[11px] font-semibold text-ink-soft uppercase tracking-wide">
+                          {sessionLabel(type)}
+                        </div>
+                        <div className="mt-1.5 text-xl font-bold text-ink leading-none">
+                          £{price}
+                          <span className="text-xs font-normal text-ink-soft">/mo</span>
+                        </div>
+                        <div className="text-[11px] text-ink-soft mt-1.5">
+                          {plan.sessionsPerMonth} lessons · {plan.sessionLength}
+                        </div>
+                        <div className="mt-2.5 inline-flex items-center gap-1 text-xs font-semibold text-accent">
+                          Enquire
+                          <ArrowRight className="w-3 h-3" />
+                        </div>
                       </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
 
-            <p className="text-xs text-ink-soft mt-3 text-center">
-              {sessionType === "group"
-                ? `Maximum ${MAX_GROUP_SIZE} students per group. Small-group places are subject to suitable group availability.`
-                : `Prefer to pay as you go? Single lessons from ${fmtPrice(pricingTiers[0].oneToOne.singleLessonPrice)} — no package needed.`}
+            <p className="text-xs text-ink-soft text-center pt-1">
+              Small groups (maximum {MAX_GROUP_SIZE} students) are subject to suitable group availability.
+              Prefer to pay as you go? Single lessons from {fmtPrice(pricingTiers[0].oneToOne.singleLessonPrice)}{" "}
+              — no package needed.
             </p>
-            <p className="text-center text-xs text-ink-soft mt-4 pt-4 border-t border-border-soft">
+            <p className="text-center text-xs text-ink-soft pt-3 border-t border-border-soft">
               No long-term contract · Cancel any time
             </p>
             <div className="md:hidden" style={{ height: "env(safe-area-inset-bottom, 0px)" }} />
