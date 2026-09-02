@@ -44,7 +44,7 @@ export interface TierPricing {
 export const pricingTiers: TierPricing[] = [
   {
     name: "KS2",
-    ageTag: "Ages 7–11",
+    ageTag: "Ages 9–11",
     desc: "Fun, structured maths support building strong foundations for SATs.",
     group: {
       price: 40,

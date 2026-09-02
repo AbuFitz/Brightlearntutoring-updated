@@ -142,6 +142,25 @@ export const faqCategories: FaqCategory[] = [
     ],
   },
   {
+    title: "Understanding the curriculum",
+    faqs: [
+      {
+        q: "What's the difference between GCSE Maths Foundation and Higher tier?",
+        a: "Foundation tier covers grades 1–5 and focuses on core number, ratio, algebra, geometry and statistics content. Higher tier covers grades 4–9, includes most of Foundation's content plus more advanced material, and is generally faster-paced. Schools decide tier based on ongoing assessment.",
+        link: { label: "Read our Foundation vs Higher guide", to: "/guides/gcse-maths-foundation-vs-higher" },
+      },
+      {
+        q: "How do GCSE Maths resits work?",
+        a: "GCSE Maths is offered twice a year in England — the main Summer series and a November resit series for students who didn't reach a grade 4 the first time. A resit uses the same grading and the same genuine Foundation or Higher tier papers, marked to the same standard.",
+        link: { label: "Read our full resit guide", to: "/guides/gcse-maths-resit-guide" },
+      },
+      {
+        q: "When should my child start maths tutoring?",
+        a: "There's no single right time — some families start as soon as they notice a topic causing real difficulty, others begin a term or two ahead of SATs or GCSE exams for more structured preparation. Get in touch and we'll give you an honest read on what's realistic for your child's situation.",
+      },
+    ],
+  },
+  {
     title: "Cancellations & payment",
     faqs: [
       {
