@@ -25,6 +25,7 @@ const GuidePage = () => {
           title: guide.metaTitle,
           description: guide.metaDescription,
           path: `/guides/${guide.slug}`,
+          ogType: "article",
         }
       : { title: "Page not found", description: "", path: `/guides/${guideSlug ?? ""}`, noindex: true }
   );
@@ -73,7 +74,22 @@ const GuidePage = () => {
       return el;
     });
 
-    return () => scripts.forEach((s) => s.remove());
+    const articleMeta = [
+      { property: "article:published_time", content: TODAY },
+      { property: "article:modified_time", content: TODAY },
+      { property: "article:section", content: CATEGORY_LABELS[guide.category] },
+    ].map(({ property, content }) => {
+      const el = document.createElement("meta");
+      el.setAttribute("property", property);
+      el.setAttribute("content", content);
+      document.head.appendChild(el);
+      return el;
+    });
+
+    return () => {
+      scripts.forEach((s) => s.remove());
+      articleMeta.forEach((m) => m.remove());
+    };
   }, [guide]);
 
   useEffect(() => {

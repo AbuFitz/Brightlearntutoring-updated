@@ -32,7 +32,7 @@ export const locations: LocationInfo[] = [
     region: "London Borough of Enfield",
     tagline: "SATs, KS3 and GCSE maths tutoring for Enfield families",
     metaDescription:
-      "Affordable, personalised online maths tutoring for Enfield students — SATs & KS2 preparation, KS3 mathematics and GCSE Foundation & Higher tier, in small groups or 1-on-1.",
+      "Affordable, personalised online maths tutoring for Enfield students — SATs, KS2, KS3 and GCSE Foundation & Higher tier, in small groups or 1-on-1.",
     intro:
       "BrightLearn Tutoring is based right here in Enfield, running small-group and 1-on-1 online maths lessons for local primary and secondary students. Sessions are tailored to how each child actually learns, so a student gets the same personal attention as private tuition without the cost of an individual tutor.",
     localContext: {
@@ -61,7 +61,7 @@ export const locations: LocationInfo[] = [
     region: "London Borough of Enfield",
     tagline: "Small-group and 1-on-1 maths tutoring for Edmonton students",
     metaDescription:
-      "Personalised online maths tutoring for Edmonton students — SATs & KS2 preparation, KS3 mathematics and GCSE Foundation & Higher tier maths, small-group or 1-on-1.",
+      "Personalised online maths tutoring for Edmonton students — SATs, KS2, KS3 and GCSE Foundation & Higher tier maths, small-group or 1-on-1.",
     intro:
       "Families in Edmonton use BrightLearn for straightforward, affordable maths support — SATs preparation, KS3 fundamentals, and GCSE revision — delivered live online in small groups or 1-on-1, built around each student's own pace rather than a one-size-fits-all class.",
     localContext: {
@@ -90,7 +90,7 @@ export const locations: LocationInfo[] = [
     region: "London Borough of Haringey",
     tagline: "GCSE, KS3 and SATs maths tutoring for Tottenham families",
     metaDescription:
-      "Affordable online maths tutoring for Tottenham students — SATs & KS2 preparation, KS3 mathematics and GCSE Foundation & Higher tier, small-group or 1-on-1 sessions.",
+      "Affordable online maths tutoring for Tottenham students — SATs, KS2, KS3 and GCSE Foundation & Higher tier, small-group or 1-on-1 sessions.",
     intro:
       "BrightLearn Tutoring supports primary and secondary students across Tottenham with live online maths lessons — SATs and KS2 preparation, KS3 mathematics, and GCSE Foundation and Higher tier — in small groups or 1-on-1, at a price built for real families.",
     localContext: {
@@ -119,7 +119,7 @@ export const locations: LocationInfo[] = [
     region: "London Borough of Haringey",
     tagline: "Personalised online maths tutoring across Haringey",
     metaDescription:
-      "Affordable, personalised online maths tutoring for Haringey students — SATs & KS2 preparation, KS3 mathematics and GCSE Foundation & Higher tier, small-group or 1-on-1.",
+      "Affordable, personalised online maths tutoring for Haringey students — SATs, KS2, KS3 and GCSE Foundation & Higher tier, small-group or 1-on-1.",
     intro:
       "BrightLearn Tutoring works with primary and secondary students across Haringey — from Wood Green to Muswell Hill to Tottenham — offering small-group and 1-on-1 online maths lessons built around each student's own pace, covering SATs, KS3 and GCSE.",
     localContext: {

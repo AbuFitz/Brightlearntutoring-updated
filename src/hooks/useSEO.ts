@@ -7,6 +7,8 @@ interface SEOOptions {
   noindex?: boolean;
   ogTitle?: string;
   ogDescription?: string;
+  /** Open Graph object type — "website" for marketing/programme pages, "article" for guide content. */
+  ogType?: "website" | "article";
 }
 
 const SITE_URL = "https://www.brightlearntutoring.co.uk";
@@ -50,7 +52,7 @@ function setLink(rel: string, href: string, hreflang?: string) {
  * directive and Open Graph tags. index.html only ships defaults for "/",
  * so every other route needs this to avoid duplicate-meta SEO penalties.
  */
-export function useSEO({ title, description, path, noindex, ogTitle, ogDescription }: SEOOptions) {
+export function useSEO({ title, description, path, noindex, ogTitle, ogDescription, ogType }: SEOOptions) {
   useEffect(() => {
     const canonical = `${SITE_URL}${path}`;
     const prevTitle = document.title;
@@ -69,6 +71,7 @@ export function useSEO({ title, description, path, noindex, ogTitle, ogDescripti
     );
 
     setMetaByProperty("og:url", canonical);
+    setMetaByProperty("og:type", ogType ?? "website");
     setMetaByProperty("og:title", ogTitle ?? title);
     setMetaByProperty("og:description", ogDescription ?? description);
     setMetaByName("twitter:title", ogTitle ?? title);
@@ -77,5 +80,5 @@ export function useSEO({ title, description, path, noindex, ogTitle, ogDescripti
     return () => {
       document.title = prevTitle;
     };
-  }, [title, description, path, noindex, ogTitle, ogDescription]);
+  }, [title, description, path, noindex, ogTitle, ogDescription, ogType]);
 }
