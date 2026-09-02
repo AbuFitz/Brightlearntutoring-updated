@@ -52,6 +52,10 @@ export const locations: LocationInfo[] = [
         q: "What age groups do you cover?",
         a: "We tutor primary students preparing for SATs and KS2 maths, KS3 students building core mathematical fluency, and GCSE students working towards Foundation or Higher tier, across AQA and Pearson Edexcel.",
       },
+      {
+        q: "Do you offer GCSE maths tutoring in Enfield?",
+        a: "Yes — GCSE Maths Foundation and Higher tuition is one of our core programmes for Enfield families, whether your child needs steady support building up to their exams or focused resit preparation, all delivered live online.",
+      },
     ],
   },
   {
@@ -80,6 +84,10 @@ export const locations: LocationInfo[] = [
       {
         q: "Can I choose between group and 1-on-1 sessions?",
         a: "Yes. We offer both small-group and 1-on-1 tutoring, so you can pick whichever fits your child's needs and confidence level best.",
+      },
+      {
+        q: "Is there an affordable maths tutor near Edmonton?",
+        a: "Yes — our small-group sessions are built to be an affordable alternative to individual private tuition for Edmonton families, while keeping groups small enough (maximum 5 students) for real, personal attention.",
       },
     ],
   },
@@ -110,6 +118,10 @@ export const locations: LocationInfo[] = [
         q: "How is the tutoring personalised for each student?",
         a: "Every student gets a learning plan tailored to their own goals and learning style, whether that's building basic confidence, closing a specific gap, or pushing for a higher GCSE grade.",
       },
+      {
+        q: "Do you offer private 1-on-1 maths tutoring in Tottenham?",
+        a: "Yes — alongside small-group sessions, we offer fully private 1-on-1 maths tutoring for Tottenham students who want individual attention focused on their own pace and specific gaps.",
+      },
     ],
   },
   {
@@ -138,6 +150,10 @@ export const locations: LocationInfo[] = [
       {
         q: "What does a typical GCSE session cover?",
         a: "GCSE sessions combine topic teaching with real past paper practice under timed conditions, covering both Foundation and Higher tier across AQA and Pearson Edexcel.",
+      },
+      {
+        q: "Is there a maths tutor for GCSE resits near Haringey?",
+        a: "Yes — GCSE Maths resit tutoring is one of our core programmes for Haringey students retaking the exam in school, sixth form or college, with sessions focused on exactly where marks were lost last time rather than repeating the full syllabus.",
       },
     ],
   },
