@@ -39,7 +39,7 @@ export const guides: GuideInfo[] = [
     h1Accent: "what you actually need to know.",
     tagline: "For students and parents figuring out what a resit involves.",
     intro: [
-      "If your GCSE Maths result wasn't what you needed, a resit is a normal, well-trodden path — not a sign anything has gone badly wrong. Thousands of students retake GCSE Maths every year, many while studying A-levels, a BTEC, or an apprenticeship alongside it.",
+      "If your GCSE Maths result wasn't what you needed, a resit is simply the normal next step for a lot of students. Thousands retake GCSE Maths every year, many while studying A-levels, a BTEC, or an apprenticeship alongside it.",
       "This guide covers the practical basics: when you can sit the exam again, who is required to, and how the grading works — so you know exactly what you're dealing with before you start preparing.",
     ],
     sections: [
@@ -47,27 +47,27 @@ export const guides: GuideInfo[] = [
         heading: "When can you resit GCSE Maths?",
         body: [
           "GCSE Maths is offered in two exam series each year: the main Summer series (results in August) and a November resit series aimed specifically at students who didn't get a grade 4 the first time. Some students choose to wait and resit the following Summer instead, particularly if they want a full academic year to prepare.",
-          "Your school, sixth form or college will usually tell you which series you're entered for — this is worth confirming early, since November resits come round faster than most people expect.",
+          "Your school, sixth form or college will usually tell you which series you're entered for. Confirm this early: November resits come round faster than most people expect.",
         ],
       },
       {
         heading: "Who has to resit GCSE Maths?",
         body: [
           "In England, students who don't achieve at least a grade 4 in GCSE Maths by age 16 are generally required to keep studying towards it as a condition of their post-16 funding — whether that's at school, sixth form or college. This applies whether you're doing A-levels, a vocational course, or an apprenticeship.",
-          "It's worth checking your own situation with your school, sixth form or college directly, since exact requirements can vary depending on your course and circumstances.",
+          "Check your own situation with your school, sixth form or college directly, since exact requirements can vary depending on your course and circumstances.",
         ],
       },
       {
         heading: "How does resit grading work?",
         body: [
-          "A GCSE Maths resit uses exactly the same grading system as the first sitting — grades 1 to 9, with grade 4 counted as a standard pass and grade 5 as a strong pass. There's no separate, easier version of the exam for resit students; you're sitting genuine GCSE Foundation or Higher tier papers, marked to the same standard.",
-          "This is actually good news in one sense: everything you learn now is exactly what will be tested, with nothing extra or different because it's a resit.",
+          "A GCSE Maths resit uses exactly the same grading system as the first sitting: grades 1 to 9, with grade 4 counted as a standard pass and grade 5 as a strong pass. There's no separate, easier version of the exam for resit students; you're sitting genuine GCSE Foundation or Higher tier papers, marked to the same standard.",
+          "There's a silver lining in that: everything you learn now is exactly what will be tested, with nothing extra or different because it's a resit.",
         ],
       },
       {
         heading: "How to prepare for a resit properly",
         body: [
-          "The biggest mistake with resits is treating them like round two of the same lessons that didn't work the first time. What actually helps is starting from an honest look at where marks were lost last time, then focusing tightly on those specific gaps and on exam technique — rather than re-covering the whole syllabus from scratch.",
+          "The biggest mistake with resits is treating them like round two of the same lessons that didn't work the first time. What helps is starting from an honest look at where marks were lost last time, then focusing tightly on those specific gaps and on exam technique instead of re-covering the whole syllabus from scratch.",
           "Regular, focused practice with real past papers under timed conditions makes a bigger difference than long revision sessions covering everything at once.",
         ],
       },
@@ -108,14 +108,14 @@ export const guides: GuideInfo[] = [
       {
         heading: "What counts as \"failing\" GCSE Maths?",
         body: [
-          "GCSE grades run from 1 to 9. Grade 4 is treated as a \"standard pass\" and grade 5 as a \"strong pass\" — anything below grade 4 is generally what people mean by not passing. It's worth remembering this is a specific funding and progression threshold, not a judgement on someone's actual ability in maths.",
+          "GCSE grades run from 1 to 9. Grade 4 is treated as a \"standard pass\" and grade 5 as a \"strong pass\"; anything below grade 4 is generally what people mean by not passing. This is a specific funding and progression threshold. It doesn't reflect someone's actual ability in maths.",
         ],
       },
       {
         heading: "What it means for sixth form, college and apprenticeships",
         body: [
           "In England, students without a grade 4 in GCSE Maths by 16 are usually required to keep working towards it as part of their post-16 study, whatever course they're on. Most sixth forms and colleges build this in automatically alongside A-levels, BTECs or apprenticeships, so it rarely stops someone from starting the course they wanted.",
-          "Specific entry requirements can vary by course and institution, so it's always worth checking directly with the sixth form, college or employer in question.",
+          "Specific entry requirements can vary by course and institution, so check directly with the sixth form, college or employer in question.",
         ],
       },
       {
@@ -129,7 +129,7 @@ export const guides: GuideInfo[] = [
     faqs: [
       {
         q: "Does a low GCSE Maths grade affect university applications?",
-        a: "Most universities ask for at least a grade 4 in GCSE Maths (or an equivalent) alongside A-level or other results, so resitting is usually the most straightforward route if you're planning to apply. Requirements vary by course and institution, so it's worth checking directly.",
+        a: "Most universities ask for at least a grade 4 in GCSE Maths (or an equivalent) alongside A-level or other results, so resitting is usually the most straightforward route if you're planning to apply. Requirements vary by course and institution, so check directly with each one.",
       },
       {
         q: "How long does it realistically take to go from a low grade to a pass?",
@@ -137,7 +137,7 @@ export const guides: GuideInfo[] = [
       },
       {
         q: "Is it normal to feel discouraged after not passing?",
-        a: "Completely — and it's worth naming that rather than pushing past it. Most students who resit go on to pass, and starting again with a clear, focused plan (rather than dread about repeating the whole thing) makes a real difference to how it goes.",
+        a: "Completely, and naming that feeling matters more than pushing past it. Most students who resit go on to pass, and starting again with a clear, focused plan, rather than dread about repeating the whole thing, makes a real difference to how it goes.",
       },
     ],
     relatedGuideSlugs: ["gcse-maths-resit-guide", "gcse-maths-foundation-vs-higher"],
@@ -159,10 +159,10 @@ export const guides: GuideInfo[] = [
     ],
     sections: [
       {
-        heading: "What's actually different between the tiers",
+        heading: "The real differences between the tiers",
         body: [
-          "Foundation tier covers grades 1 to 5 and focuses on core number, ratio, algebra, geometry and statistics content, without the more advanced topics. Higher tier covers grades 4 to 9, includes everything in Foundation plus more advanced material (like more complex algebra, trigonometry and functions), and is generally a faster-paced, more demanding exam.",
-          "A common misconception is that Foundation is \"easier\" in a general sense — it's more accurate to say it covers a narrower band of content, capped at a grade 5, while Higher covers more ground with a higher ceiling but also a higher floor (a grade 3 on Higher tier is ungraded).",
+          "Foundation tier covers grades 1 to 5 and focuses on core number, ratio, algebra, geometry and statistics content, without the more advanced topics. Higher tier covers grades 4 to 9, includes most of Foundation's content plus additional advanced material (like more complex algebra, trigonometry and functions), and is generally a faster-paced, more demanding exam.",
+          "Foundation isn't simply \"easier\" in a general sense. It covers a narrower band of content, capped at a grade 5, while Higher covers more ground with a higher ceiling but also a higher floor (a grade 3 on Higher tier is ungraded).",
         ],
       },
       {
@@ -174,13 +174,13 @@ export const guides: GuideInfo[] = [
       {
         heading: "Can a student switch tiers?",
         body: [
-          "In most cases, yes — particularly earlier in Year 11, tier decisions can still be adjusted based on how a student is progressing. It becomes harder closer to exam entry deadlines, since exam boards need tier confirmed in advance, so it's worth raising the conversation with the school as soon as there's a question about it.",
+          "In most cases, yes, particularly earlier in Year 11, when tier decisions can still be adjusted based on how a student is progressing. It becomes harder closer to exam entry deadlines, since exam boards need tier confirmed in advance, so raise the conversation with the school as soon as there's a question about it.",
         ],
       },
       {
         heading: "Which tier is \"right\"?",
         body: [
-          "The honest answer is: whichever tier gives a realistic route to the best achievable grade for that particular student. A confident, well-prepared grade 5 on Foundation is a stronger outcome than a stretched, anxious attempt at Higher tier that ends in an ungraded result — and vice versa for a student who's comfortably working at Higher-tier standard.",
+          "The honest answer is: whichever tier gives a realistic route to the best achievable grade for that particular student. A confident, well-prepared grade 5 on Foundation is a stronger outcome than a stretched, anxious attempt at Higher tier that ends in an ungraded result. The reverse is just as true for a student who's comfortably working at Higher-tier standard.",
         ],
       },
     ],
@@ -211,25 +211,25 @@ export const guides: GuideInfo[] = [
       "Practical steps to move from a grade 3 to a grade 4 in GCSE Maths — where students usually lose marks, and how to close the gap.",
     h1: "How to move from",
     h1Accent: "Grade 3 to Grade 4 in GCSE Maths.",
-    tagline: "The pass boundary is closer than it looks — here's what actually helps.",
+    tagline: "The pass boundary is often closer than it feels. Here's what helps close it.",
     intro: [
-      "The jump from a grade 3 to a grade 4 is one of the most common goals in GCSE Maths, and it's usually a smaller gap than it feels like. A grade 3 typically means a student has a genuine grasp of a good chunk of the syllabus already — the difference is often a handful of specific topics and a bit of exam technique, not a lack of ability.",
+      "The jump from a grade 3 to a grade 4 is one of the most common goals in GCSE Maths, and it's usually a smaller gap than it feels like. A grade 3 typically means a student already has a solid grasp of a good chunk of the syllabus; the difference often comes down to a handful of specific topics and some exam technique, rather than a lack of ability.",
     ],
     sections: [
       {
         heading: "Why this particular jump matters",
         body: [
-          "Grade 4 is the \"standard pass\" boundary that most post-16 courses, colleges and employers look for. Because of that, it's often the single most consequential grade boundary in the entire GCSE Maths grade range — which is exactly why it's worth a focused, deliberate push rather than generic revision.",
+          "Grade 4 is the \"standard pass\" boundary that most post-16 courses, colleges and employers look for. Because of that, it's often the single most consequential grade boundary in the entire GCSE Maths grade range, which is exactly why a focused, deliberate push pays off more than generic revision.",
         ],
       },
       {
         heading: "Where students usually lose the marks",
         body: [
-          "At grade 3, the gap to grade 4 is rarely about not understanding maths broadly — it's usually a mix of specific weak topics (commonly ratio, percentages, and basic algebra manipulation), careless errors under exam pressure, and running out of time on longer questions. Identifying exactly which of these applies to a specific student changes what's worth spending time on.",
+          "At grade 3, the gap to grade 4 is rarely about not understanding maths broadly. It's usually a mix of specific weak topics (commonly ratio, percentages, and basic algebra manipulation), careless errors under exam pressure, and running out of time on longer questions. Identifying exactly which of these applies to a specific student changes what's worth spending time on.",
         ],
       },
       {
-        heading: "What actually helps close the gap",
+        heading: "Closing the gap",
         body: [
           "Targeted topic revision beats broad revision at this stage — working through past paper questions by topic, rather than full papers, makes it much easier to spot and fix specific weak areas. Alongside that, practising exam technique (reading questions carefully, showing working for method marks, managing time across a paper) recovers marks that have nothing to do with maths ability at all.",
           "A realistic timeline matters too: most students see meaningful movement with a few months of consistent, focused work — rushed, last-minute cramming tends to help far less than steady practice.",
@@ -263,9 +263,9 @@ export const guides: GuideInfo[] = [
       "Revision techniques for GCSE Maths that actually improve results — active recall, past papers, spaced practice, and common revision mistakes to avoid.",
     h1: "GCSE Maths revision techniques",
     h1Accent: "that actually work.",
-    tagline: "Not all revision is equally useful — here's what moves the needle.",
+    tagline: "Not all revision is equally useful — here's what genuinely improves results.",
     intro: [
-      "A lot of GCSE Maths revision time gets spent on methods that feel productive but don't move the needle much — re-reading notes, watching videos passively, or working through easy questions that are already understood. Here's what tends to actually improve results.",
+      "A lot of GCSE Maths revision time gets spent on methods that feel productive but don't achieve much — re-reading notes, watching videos passively, or working through easy questions that are already understood. Here's what tends to help instead.",
     ],
     sections: [
       {
@@ -322,7 +322,7 @@ export const guides: GuideInfo[] = [
     h1Accent: "revision timetable.",
     tagline: "A structure to adapt, not a rigid schedule to follow perfectly.",
     intro: [
-      "A revision timetable works best as a loose structure that keeps revision moving in the right direction — not a rigid schedule that causes stress the moment it's not followed exactly. Here's a practical way to build one for GCSE Maths.",
+      "The point of a revision timetable is to keep things moving in the right direction, not to hit every session exactly as planned. Here's a practical way to build one for GCSE Maths.",
     ],
     sections: [
       {
@@ -497,9 +497,9 @@ export const guides: GuideInfo[] = [
       "The Year 7–9 maths topics that matter most for a strong foundation and a smoother move into GCSE — algebra, ratio, geometry and more.",
     h1: "Important Year 7–9",
     h1Accent: "maths topics.",
-    tagline: "The KS3 topics that quietly shape how GCSE feels later.",
+    tagline: "The KS3 topics that shape how GCSE feels later.",
     intro: [
-      "Not every Year 7–9 maths topic carries equal weight for what comes later — some are genuinely foundational, reappearing constantly at GCSE, while others are more self-contained. Here are the ones worth prioritising if a student's time or confidence is limited.",
+      "Not every Year 7–9 maths topic carries equal weight for what comes later. Some are genuinely foundational, reappearing constantly at GCSE, while others are more self-contained — here's where to focus if a student's time or confidence is limited.",
     ],
     sections: [
       {
@@ -613,7 +613,7 @@ export const guides: GuideInfo[] = [
     h1Accent: "with KS2 maths.",
     tagline: "Small, consistent support at home makes a real difference.",
     intro: [
-      "You don't need to be confident with maths yourself to genuinely help a KS2 child with it — often the most useful thing a parent can do is build confidence and consistency, rather than reteach the exact method a school uses.",
+      "You don't need to be confident with maths yourself to help a KS2 child with it. Often the most useful thing a parent can do is build confidence and consistency, rather than reteach the exact method a school uses.",
     ],
     sections: [
       {
@@ -631,7 +631,7 @@ export const guides: GuideInfo[] = [
       {
         heading: "Making maths part of daily life",
         body: [
-          "Everyday moments — splitting a bill, doubling a recipe, working out change, reading a bus timetable — are genuine, low-pressure maths practice that don't feel like \"homework.\" This kind of informal exposure builds number sense in a way that worksheets alone don't.",
+          "Everyday moments — splitting a bill, doubling a recipe, working out change, reading a bus timetable — are low-pressure maths practice that doesn't feel like \"homework.\" This kind of informal exposure builds number sense in a way that worksheets alone don't.",
         ],
       },
       {
@@ -654,7 +654,7 @@ export const guides: GuideInfo[] = [
       },
       {
         q: "What if a parent isn't confident with maths themselves?",
-        a: "That's genuinely fine — the most valuable support is often encouragement, consistency, and creating low-pressure opportunities to practise, rather than personally being able to explain every method. Extra tutoring can fill in the maths-specific teaching where needed.",
+        a: "That's fine. The most valuable support is often encouragement, consistency, and creating low-pressure opportunities to practise, rather than personally being able to explain every method. Extra tutoring can fill in the maths-specific teaching where needed.",
       },
       {
         q: "Is it normal for KS2 maths confidence to dip around Year 4 or 5?",
@@ -672,5 +672,5 @@ export const findGuide = (slug: string) => guides.find((g) => g.slug === slug);
 export const CATEGORY_LABELS: Record<GuideCategory, string> = {
   GCSE: "GCSE Maths",
   KS3: "KS3 Maths (Years 7–9)",
-  KS2: "KS2 Maths (Years 3–6)",
+  KS2: "KS2 Maths (Years 5–6)",
 };

@@ -11,10 +11,10 @@ const services: (Programme & {
 })[] = [
   {
     name: "KS2",
-    tag: "Ages 7–11",
+    tag: "Ages 9–11",
     tagline: "Strong foundations and SATs confidence for primary students.",
     description: "Building number confidence, mental maths, and the foundations for SATs success - at a calm pace.",
-    whoFor: "Year 3–6 students who want to build genuine confidence with numbers, times tables, and problem solving - and feel prepared for SATs without the pressure.",
+    whoFor: "Year 5–6 students who want to build genuine confidence with numbers, times tables, and problem solving - and feel prepared for SATs without the pressure.",
     sessionStructure: "Each 1-hour session starts with a short warm-up activity, followed by a focused topic block, and ends with a quick recap to cement understanding. After every session, parents receive brief progress notes.",
     topics: ["Times tables", "Fractions & decimals", "Mental maths", "Problem solving", "SATs technique", "Number fluency"],
     outcomes: [

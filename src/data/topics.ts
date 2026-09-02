@@ -38,7 +38,7 @@ export const topics: TopicInfo[] = [
     slug: "ks2-maths-confidence-sats-preparation",
     navLabel: "KS2 Maths & SATs Prep",
     metaTitle: "Online KS2 Maths Tutor & SATs Prep | BrightLearn",
-    eyebrow: "KS2 · Ages 7–11",
+    eyebrow: "KS2 · Ages 9–11",
     h1: "KS2 maths confidence",
     h1Accent: "and SATs preparation.",
     metaDescription:
@@ -71,11 +71,11 @@ export const topics: TopicInfo[] = [
     faqs: [
       {
         q: "My child says they're \"just bad at maths\" — can tutoring actually help with confidence, not just grades?",
-        a: "Yes — this is exactly what our KS2 sessions are built around. We keep groups small (maximum 5 students) specifically so a tutor can notice where a child is quietly stuck and build them back up gradually, rather than just moving through a syllabus. Most of the SATs improvement follows once the confidence comes back.",
+        a: "Yes — this is exactly what our KS2 sessions are built around. We keep groups small (maximum 5 students) specifically so a tutor can notice where a child is stuck and build them back up gradually, rather than just moving through a syllabus. Most of the SATs improvement follows once the confidence comes back.",
       },
       {
         q: "When should we start SATs preparation?",
-        a: "Ideally by the start of Year 6, but it's rarely too late — steady, regular sessions in the months before SATs make a bigger difference than last-minute cramming. Get in touch and we'll tell you honestly what's realistic for your timeline.",
+        a: "Ideally by the start of Year 6, but it's rarely too late — steady, regular sessions in the months before SATs make a bigger difference than last-minute cramming. Get in touch and we'll give you a realistic sense of what's achievable in your timeline.",
       },
       {
         q: "Is KS2 tutoring 1-on-1 or group?",
@@ -100,7 +100,7 @@ export const topics: TopicInfo[] = [
       "\"School moves on to the next topic whether or not they've understood the last one\"",
     ],
     intro: [
-      "KS3 is where small gaps quietly become big ones. A shaky grasp of negative numbers or fractions in Year 7 makes algebra harder in Year 8, which makes GCSE topics harder still — but because none of it is exam-stakes yet, it's easy for a struggling student to fly under the radar until Year 10.",
+      "KS3 is where small gaps turn into big ones. A shaky grasp of negative numbers or fractions in Year 7 makes algebra harder in Year 8, which makes GCSE topics harder still. Because none of it is exam-stakes yet, it's easy for a struggling student to fly under the radar until Year 10.",
       "Our Year 7–9 sessions are built to catch that early: identifying exactly where the gaps are, working through them properly rather than rushing to the next topic, and building the algebra, ratio and geometry foundations that GCSE maths is built on.",
     ],
     whoFor: [
@@ -150,7 +150,7 @@ export const topics: TopicInfo[] = [
       "\"We want a solid pass, not just to scrape through\"",
     ],
     intro: [
-      "Foundation tier GCSE maths caps at a grade 5, but that doesn't mean it's a lesser exam to prepare for — a confident, well-taught Foundation grade opens doors that a scraped-through attempt doesn't. Our Foundation sessions focus on genuinely understanding the core topics, not just memorising past-paper answers.",
+      "Foundation tier GCSE maths caps at a grade 5, but it's no less worth preparing properly for. A confidently earned Foundation grade opens more doors than one scraped through at the last minute. Our Foundation sessions focus on genuinely understanding the core topics, not just memorising past-paper answers.",
       "We work across AQA and Pearson Edexcel, matching lessons to your child's actual exam board and the topics they'll be tested on, with regular past paper practice under timed conditions as the exam gets closer.",
     ],
     whoFor: [
@@ -179,7 +179,7 @@ export const topics: TopicInfo[] = [
       },
       {
         q: "How close to the exam should we start?",
-        a: "The earlier the better, but we work with students at every stage — from a full academic year out to focused last-months revision. Regular sessions over time generally beat late cramming, but we'll be honest about what's realistic for your timeframe.",
+        a: "The earlier the better, but we work with students at every stage — from a full academic year out to focused last-months revision. Regular sessions over time generally beat late cramming, and we'll always tell you plainly what's realistic for your timeframe.",
       },
     ],
     relatedSlugs: ["gcse-maths-higher-tutor", "gcse-maths-resit-tuition", "small-group-gcse-maths-revision"],
@@ -200,7 +200,7 @@ export const topics: TopicInfo[] = [
       "\"We need someone who can actually stretch them, not just repeat the lesson\"",
     ],
     intro: [
-      "Higher tier GCSE maths rewards depth, not just coverage — students who can genuinely reason through a problem, not just recognise a pattern from a past paper. Our Higher tier sessions push into that depth, working on the harder algebra, trigonometry and problem-solving questions that separate a grade 6 from a grade 8 or 9.",
+      "Higher tier GCSE maths asks for depth as much as coverage: the ability to reason through an unfamiliar problem, not just recognise a pattern from a past paper. Our Higher tier sessions push into that depth, working on the harder algebra, trigonometry and problem-solving questions that separate a grade 6 from a grade 8 or 9.",
       "We work across AQA and Pearson Edexcel, with a strong focus on exam technique — because a huge number of marks lost at Higher tier come from misreading a question or rushing working, not from not knowing the maths.",
     ],
     whoFor: [
@@ -221,7 +221,7 @@ export const topics: TopicInfo[] = [
     faqs: [
       {
         q: "My child understands the topics but still loses marks — can tutoring help with that?",
-        a: "Yes — this is one of the most common things we see at Higher tier. It's usually exam technique, not maths ability: misreading what a question is actually asking, rushing working, or running out of time. We spend real session time on this, not just re-teaching content they already know.",
+        a: "Yes — this is one of the most common things we see at Higher tier. Often the maths itself isn't the problem; it's misreading what a question is actually asking, rushing working, or running out of time. We spend real session time on this, not just re-teaching content they already know.",
       },
       {
         q: "Can sessions target specific weak topics rather than starting from the beginning?",
