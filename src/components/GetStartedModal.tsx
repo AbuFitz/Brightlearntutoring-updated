@@ -931,7 +931,11 @@ export const GetStartedModal = () => {
             onKeyDown={(e) => {
               if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
                 e.preventDefault();
-                isLastStep ? handleSubmit() : handleNext();
+                if (isLastStep) {
+                  handleSubmit();
+                } else {
+                  handleNext();
+                }
               }
             }}
           >
