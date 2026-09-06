@@ -142,13 +142,18 @@ export const HeroVideoShowcase = () => {
         </h2>
       </div>
 
-      <div className="relative h-[380px] sm:h-[420px] md:h-[460px] flex items-center justify-center">
+      <div className="relative h-[340px] sm:h-[400px] md:h-[460px] flex items-center justify-center overflow-hidden px-2">
         {(["left", "right", "center"] as const).map((slot) => {
           const index = positions[slot];
           const video = heroVideos[index];
           const isCenter = slot === "center";
-          const rotationDeg = slot === "left" ? -6 : slot === "right" ? 6 : 0;
           const active = isCenter && isPlaying;
+          const slotTransform =
+            slot === "left"
+              ? "-translate-x-[46%] sm:-translate-x-[56%] md:-translate-x-[62%] -rotate-6 scale-[0.8]"
+              : slot === "right"
+              ? "translate-x-[46%] sm:translate-x-[56%] md:translate-x-[62%] rotate-6 scale-[0.8]"
+              : "translate-x-0 rotate-0 scale-100";
 
           return (
             <button
@@ -160,14 +165,12 @@ export const HeroVideoShowcase = () => {
                   ? `${video.title}. ${isPlaying ? "Pause video" : "Play video"}`
                   : `Show and play: ${video.title}`
               }
-              style={{
-                transform: `translateX(${slot === "left" ? "-62%" : slot === "right" ? "62%" : "0%"}) rotate(${rotationDeg}deg) scale(${isCenter ? 1 : 0.82})`,
-                zIndex: isCenter ? 30 : 10,
-              }}
+              style={{ zIndex: isCenter ? 30 : 10 }}
               className={cn(
-                "absolute w-[170px] sm:w-[190px] md:w-[210px] aspect-[9/16] rounded-[1.75rem] overflow-hidden",
+                "absolute w-[150px] sm:w-[180px] md:w-[210px] aspect-[9/16] rounded-[1.75rem] overflow-hidden",
                 "border-[5px] border-background shadow-soft transition-all duration-500 ease-out",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2",
+                slotTransform,
                 isCenter ? "shadow-elevated" : "opacity-90 hover:opacity-100"
               )}
             >

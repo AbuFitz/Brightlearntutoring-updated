@@ -5,6 +5,7 @@ import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { WhatsAppModal } from "@/components/WhatsAppModal";
 import { InPersonModal } from "@/components/InPersonModal";
 import { locations } from "@/data/locations";
+import brandMark from "@/assets/brand-mark.webp";
 
 const LINKEDIN_URL = "https://www.linkedin.com/company/brightlearn-tutoring/";
 
@@ -76,11 +77,7 @@ export const Footer = () => {
         <div className="grid lg:grid-cols-12 gap-12 pb-16 border-b border-border-soft">
           <div className="lg:col-span-4">
             <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-lg bg-ink flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-4 h-4 text-background" fill="currentColor">
-                  <path d="M3 18l6-6-6-6v12zm9-12v12l9-6-9-6z" />
-                </svg>
-              </div>
+              <img src={brandMark} alt="BrightLearn Tutoring" width={36} height={36} className="w-9 h-9 rounded-full shrink-0" />
               <span className="font-semibold text-ink text-lg tracking-tight">BrightLearn Tutoring</span>
             </div>
             <p className="text-ink-soft text-[15px] leading-relaxed max-w-md">
