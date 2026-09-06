@@ -109,9 +109,11 @@ export const Hero = () => {
         <div className="grid lg:grid-cols-[48%_52%] gap-6 lg:gap-10 items-center">
           {/* LEFT — copy */}
           <div className="text-center lg:text-left animate-fade-up">
-            <span className="text-[11px] sm:text-sm uppercase tracking-[0.1em] sm:tracking-[0.2em] text-ink-soft font-semibold">
-              Live online maths tutoring · KS2 to GCSE
-            </span>
+            <div className="inline-flex items-center bg-background-soft border border-border-soft rounded-full px-4 py-1.5 shadow-soft">
+              <span className="text-[11px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.16em] text-ink-soft font-semibold">
+                Live online maths · KS2 to GCSE
+              </span>
+            </div>
 
             <h1
               aria-label="Maths that finally feels clear."
@@ -134,20 +136,21 @@ export const Hero = () => {
               Calm, structured online maths tutoring that builds real confidence and progress.
             </p>
 
-            <div className="mt-5 lg:mt-9 flex flex-row gap-2 lg:gap-3.5 justify-center lg:justify-start">
+            <div className="mt-5 lg:mt-9 flex flex-row gap-2.5 lg:gap-3.5 justify-center lg:justify-start">
               <Button
                 variant="default"
                 size="default"
-                className="flex-1 lg:flex-initial min-w-0 whitespace-normal leading-tight text-center text-[12.5px] px-2.5 lg:h-14 lg:px-8 lg:text-base lg:whitespace-nowrap group"
+                className="flex-1 lg:flex-initial min-w-0 lg:h-14 lg:px-8 lg:text-base group"
                 onClick={() => openModal()}
               >
-                Enquire about tuition
+                <span className="lg:hidden">Enquire now</span>
+                <span className="hidden lg:inline">Enquire about tuition</span>
                 <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
               </Button>
               <Button
                 variant="outline"
                 size="default"
-                className="flex-1 lg:flex-initial min-w-0 whitespace-normal leading-tight text-center text-[12.5px] px-2.5 lg:h-14 lg:px-8 lg:text-base lg:whitespace-nowrap"
+                className="flex-1 lg:flex-initial min-w-0 lg:h-14 lg:px-8 lg:text-base"
                 onClick={handleViewPricing}
               >
                 View prices

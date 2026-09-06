@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { CalendarCheck, MessageCircle, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { WhatsAppModal } from "@/components/WhatsAppModal";
 
 const WHATSAPP_NUMBER = "447577702613"; // 07577 702613, UK
 export const WHATSAPP_DISPLAY_NUMBER = "07577 702613";
@@ -16,6 +17,24 @@ export const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const QUICK_OPTIONS = [
+  {
+    icon: Tag,
+    label: "Ask about pricing",
+    message: "Hi! I'd like to ask about BrightLearn Tutoring's pricing.",
+  },
+  {
+    icon: CalendarCheck,
+    label: "Book a free session",
+    message: "Hi! I'd like to book a free introductory session with BrightLearn Tutoring.",
+  },
+  {
+    icon: MessageCircle,
+    label: "General enquiry",
+    message: "Hi! I have a question about BrightLearn Tutoring.",
+  },
+];
+
 /**
  * Fixed z-40 (below CookieBanner's z-[59]/[60] and any Dialog's z-50 overlay)
  * so it sits under the cookie banner while unresolved and dims naturally
@@ -26,7 +45,6 @@ export const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export const WhatsAppButton = () => {
   const location = useLocation();
   const [nearFooter, setNearFooter] = useState(false);
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const footer = document.querySelector("footer");
@@ -42,20 +60,58 @@ export const WhatsAppButton = () => {
   }, [location.pathname]);
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label="Chat with BrightLearn Tutoring on WhatsApp"
-        className={cn(
-          "fixed z-40 bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-elevated hover:scale-105 active:scale-95 transition-all duration-300",
-          nearFooter ? "opacity-0 translate-y-3 pointer-events-none" : "opacity-100"
-        )}
-        style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
-      >
-        <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7" />
-      </button>
-      <WhatsAppModal open={open} onClose={() => setOpen(false)} />
-    </>
+    <PopoverPrimitive.Root>
+      <PopoverPrimitive.Trigger asChild>
+        <button
+          type="button"
+          aria-label="Chat with BrightLearn Tutoring on WhatsApp"
+          className={cn(
+            "fixed z-40 bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-elevated hover:scale-105 active:scale-95 transition-all duration-300",
+            nearFooter ? "opacity-0 translate-y-3 pointer-events-none" : "opacity-100"
+          )}
+          style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
+        >
+          <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7" />
+        </button>
+      </PopoverPrimitive.Trigger>
+
+      <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content
+          side="top"
+          align="end"
+          sideOffset={14}
+          collisionPadding={16}
+          className={cn(
+            "z-40 w-[260px] rounded-2xl border border-border-soft bg-background shadow-elevated overflow-hidden",
+            "data-[state=open]:animate-in data-[state=closed]:animate-out",
+            "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+            "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+            "motion-reduce:duration-0 duration-150"
+          )}
+        >
+          <div className="px-4 py-3.5">
+            <div className="font-semibold text-ink text-sm">Chat with BrightLearn Tutoring</div>
+            <div className="text-xs text-ink-soft mt-0.5">Opens WhatsApp</div>
+          </div>
+          <div className="border-t border-border-soft">
+            {QUICK_OPTIONS.map((opt, i) => (
+              <a
+                key={opt.label}
+                href={whatsappLink(opt.message)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3 text-sm font-medium text-ink hover:bg-background-soft transition-colors",
+                  i < QUICK_OPTIONS.length - 1 && "border-b border-border-soft"
+                )}
+              >
+                <opt.icon className="w-4 h-4 text-ink-soft shrink-0" strokeWidth={2} />
+                {opt.label}
+              </a>
+            ))}
+          </div>
+        </PopoverPrimitive.Content>
+      </PopoverPrimitive.Portal>
+    </PopoverPrimitive.Root>
   );
 };
