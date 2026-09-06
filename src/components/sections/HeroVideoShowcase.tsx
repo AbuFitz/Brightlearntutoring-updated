@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Pause, Play, Volume2, VolumeX } from "lucide-react";
-import { heroVideos } from "@/data/heroVideos";
+import { useCallback, useEffect, useRef, useState } from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useGetStarted } from "@/contexts/GetStartedContext";
+import { heroVideos, heroVideoThumbnail } from "@/data/heroVideos";
 import { cn } from "@/lib/utils";
 
-const ROTATION_MS = 9000;
+const ROTATION_MS = 4500;
 
 const usePrefersReducedMotion = () => {
   const [reduced, setReduced] = useState(false);
@@ -18,241 +21,229 @@ const usePrefersReducedMotion = () => {
 };
 
 export const HeroVideoShowcase = () => {
+  const { openModal } = useGetStarted();
   const count = heroVideos.length;
   const [centerIndex, setCenterIndex] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [autoRotate, setAutoRotate] = useState(true);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [inView, setInView] = useState(true);
   const [tabVisible, setTabVisible] = useState(true);
 
   const reducedMotion = usePrefersReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const rotationTimer = useRef<ReturnType<typeof setTimeout>>();
 
   const leftIndex = (centerIndex + count - 1) % count;
   const rightIndex = (centerIndex + 1) % count;
+  const positions = { left: leftIndex, center: centerIndex, right: rightIndex };
 
-  const shouldAutoplay = autoRotate && inView && tabVisible && !reducedMotion;
+  const autoRotate = lightboxIndex === null && inView && tabVisible && !reducedMotion;
 
-  // Attempt to play the centre video whenever it should be playing; fall back
-  // to the poster (manual play control) if autoplay is blocked or the source
-  // hasn't been supplied yet.
-  useEffect(() => {
-    const activeVideo = videoRefs.current[heroVideos[centerIndex].id];
-    if (!activeVideo) return;
-
-    if (shouldAutoplay) {
-      const playPromise = activeVideo.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => setIsPlaying(true))
-          .catch(() => setIsPlaying(false));
-      }
-    } else if (reducedMotion) {
-      activeVideo.pause();
-      setIsPlaying(false);
-    }
-  }, [centerIndex, shouldAutoplay, reducedMotion]);
-
-  // Auto-rotation timer — advances to the next clip after ROTATION_MS, or
-  // sooner if the clip ends first (handled by onEnded below).
   useEffect(() => {
     clearTimeout(rotationTimer.current);
-    if (!shouldAutoplay) return;
-    rotationTimer.current = setTimeout(() => {
-      setCenterIndex((i) => (i + 1) % count);
-    }, ROTATION_MS);
+    if (!autoRotate) return;
+    rotationTimer.current = setTimeout(() => setCenterIndex((i) => (i + 1) % count), ROTATION_MS);
     return () => clearTimeout(rotationTimer.current);
-  }, [centerIndex, shouldAutoplay, count]);
+  }, [centerIndex, autoRotate, count]);
 
-  // Pause rotation and playback when the hero scrolls out of view.
   useEffect(() => {
     const el = containerRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.25 }
-    );
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.25 });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  // Pause when the browser tab itself is hidden.
   useEffect(() => {
     const onVisibility = () => setTabVisible(!document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  // Keep non-active videos paused and reset to their poster frame.
+  const goTo = useCallback((index: number) => {
+    clearTimeout(rotationTimer.current);
+    setCenterIndex(index);
+  }, []);
+
+  const closeLightbox = () => setLightboxIndex(null);
+  const showPrev = useCallback(() => setLightboxIndex((i) => (i === null ? null : (i - 1 + count) % count)), [count]);
+  const showNext = useCallback(() => setLightboxIndex((i) => (i === null ? null : (i + 1) % count)), [count]);
+
   useEffect(() => {
-    heroVideos.forEach((v, i) => {
-      if (i === centerIndex) return;
-      const el = videoRefs.current[v.id];
-      if (el && !el.paused) el.pause();
-    });
-  }, [centerIndex]);
+    if (lightboxIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") showPrev();
+      if (e.key === "ArrowRight") showNext();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxIndex, showPrev, showNext]);
 
-  const goTo = useCallback(
-    (index: number) => {
-      clearTimeout(rotationTimer.current);
-      setCenterIndex(index);
-    },
-    []
-  );
-
-  const toggleMute = () => {
-    setIsMuted((m) => !m);
-    setAutoRotate(false);
-  };
-
-  const toggleActivePlayback = () => {
-    const activeVideo = videoRefs.current[heroVideos[centerIndex].id];
-    setAutoRotate(false);
-    if (!activeVideo) {
-      setIsPlaying((p) => !p);
-      return;
-    }
-    if (activeVideo.paused) {
-      activeVideo.play().then(() => setIsPlaying(true)).catch(() => {});
-    } else {
-      activeVideo.pause();
-      setIsPlaying(false);
-    }
-  };
-
-  const positions = useMemo(
-    () => ({ left: leftIndex, center: centerIndex, right: rightIndex }),
-    [leftIndex, centerIndex, rightIndex]
-  );
+  const active = lightboxIndex !== null ? heroVideos[lightboxIndex] : null;
 
   return (
     <div ref={containerRef} className="relative">
       {/* Pale-blue ambient glow behind the stack */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto h-[90%] w-[90%] rounded-full bg-surface-sky blur-3xl opacity-90" />
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto h-[95%] w-[95%] rounded-full bg-surface-sky blur-3xl opacity-90" />
       </div>
 
-      <div className="text-center lg:text-left mb-6">
-        <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">See how we teach</span>
-        <h2 className="mt-1.5 text-xl md:text-2xl text-ink font-semibold tracking-tight">
-          Quick explanations from BrightLearn
+      <div className="text-center lg:text-left mb-7">
+        <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Free maths topics</span>
+        <h2 className="mt-2 text-2xl md:text-3xl text-ink font-semibold tracking-tight">
+          Quick explainers, <span className="font-display italic font-normal text-accent">one topic at a time.</span>
         </h2>
       </div>
 
-      <div className="relative h-[340px] sm:h-[400px] md:h-[460px] flex items-center justify-center overflow-hidden px-2">
+      <div className="relative h-[400px] sm:h-[460px] md:h-[520px] flex items-center justify-center overflow-hidden px-2">
         {(["left", "right", "center"] as const).map((slot) => {
           const index = positions[slot];
           const video = heroVideos[index];
           const isCenter = slot === "center";
-          const active = isCenter && isPlaying;
           const slotTransform =
             slot === "left"
-              ? "-translate-x-[46%] sm:-translate-x-[56%] md:-translate-x-[62%] -rotate-6 scale-[0.8]"
+              ? "-translate-x-[48%] sm:-translate-x-[58%] md:-translate-x-[64%] -rotate-6 scale-[0.82]"
               : slot === "right"
-              ? "translate-x-[46%] sm:translate-x-[56%] md:translate-x-[62%] rotate-6 scale-[0.8]"
+              ? "translate-x-[48%] sm:translate-x-[58%] md:translate-x-[64%] rotate-6 scale-[0.82]"
               : "translate-x-0 rotate-0 scale-100";
 
           return (
             <button
               key={video.id}
               type="button"
-              onClick={() => (isCenter ? toggleActivePlayback() : goTo(index))}
-              aria-label={
-                isCenter
-                  ? `${video.title}. ${isPlaying ? "Pause video" : "Play video"}`
-                  : `Show and play: ${video.title}`
-              }
+              onClick={() => (isCenter ? setLightboxIndex(index) : goTo(index))}
+              aria-label={isCenter ? `Play: ${video.title}` : `Show and play: ${video.title}`}
               style={{ zIndex: isCenter ? 30 : 10 }}
               className={cn(
-                "absolute w-[150px] sm:w-[180px] md:w-[210px] aspect-[9/16] rounded-[1.75rem] overflow-hidden",
-                "border-[5px] border-background shadow-soft transition-all duration-500 ease-out",
+                "absolute w-[190px] sm:w-[220px] md:w-[250px] aspect-[9/16] rounded-[2rem] overflow-hidden",
+                "border-[6px] border-background shadow-soft transition-all duration-500 ease-out",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2",
                 slotTransform,
-                isCenter ? "shadow-elevated" : "opacity-90 hover:opacity-100"
+                isCenter ? "shadow-elevated hover:scale-[1.02]" : "opacity-90 hover:opacity-100"
               )}
             >
-              <video
-                ref={(el) => (videoRefs.current[video.id] = el)}
+              <img
+                src={heroVideoThumbnail(video.id)}
+                alt={video.title}
+                loading="eager"
                 className="absolute inset-0 w-full h-full object-cover bg-ink"
-                poster={video.poster}
-                muted={isMuted}
-                loop={false}
-                playsInline
-                preload="metadata"
-                aria-hidden="true"
-                tabIndex={-1}
-                onEnded={() => isCenter && setCenterIndex((i) => (i + 1) % count)}
-                onPlay={() => isCenter && setIsPlaying(true)}
-                onPause={() => isCenter && setIsPlaying(false)}
-              >
-                {video.sources.map((s) => (
-                  <source key={s.src} src={s.src} type={s.type} />
-                ))}
-              </video>
+              />
+              <div className="absolute inset-0 bg-ink/15" />
 
-              {/* Topic label */}
+              {isCenter && (
+                <span className="absolute inset-0 flex items-center justify-center">
+                  <span className="w-14 h-14 rounded-full bg-background/90 flex items-center justify-center shadow-soft transition-transform group-hover:scale-110">
+                    <Play className="w-5 h-5 text-ink fill-ink ml-0.5" />
+                  </span>
+                </span>
+              )}
+
               <span
                 className={cn(
-                  "absolute left-2.5 right-2.5 bottom-2.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-center truncate",
+                  "absolute left-3 right-3 bottom-3 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-center truncate",
                   "bg-ink/60 text-white backdrop-blur-sm",
                   !isCenter && "opacity-90"
                 )}
               >
                 {video.topic}
               </span>
-
-              {/* Play affordance shown only when the centre video isn't playing */}
-              {isCenter && !active && (
-                <span className="absolute inset-0 flex items-center justify-center bg-ink/10">
-                  <span className="w-11 h-11 rounded-full bg-background/90 flex items-center justify-center shadow-soft">
-                    <Play className="w-4 h-4 text-ink fill-ink ml-0.5" />
-                  </span>
-                </span>
-              )}
             </button>
           );
         })}
       </div>
 
-      {/* Rotation progress + controls */}
-      <div className="mt-5 flex items-center justify-center lg:justify-start gap-3">
-        <button
-          type="button"
-          onClick={toggleMute}
-          aria-pressed={!isMuted}
-          aria-label={isMuted ? "Unmute video" : "Mute video"}
-          className="w-8 h-8 rounded-full border border-border-soft bg-background flex items-center justify-center text-ink-soft hover:text-ink hover:border-ink/30 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-        >
-          {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-        </button>
-
-        <div className="flex items-center gap-1.5">
-          {heroVideos.map((v, i) => (
-            <button
-              key={v.id}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={`Show video ${i + 1} of ${count}: ${v.title}`}
-              aria-current={i === centerIndex}
-              className="relative h-1.5 rounded-full bg-border-soft overflow-hidden transition-all"
-              style={{ width: i === centerIndex ? "28px" : "8px" }}
-            >
-              {i === centerIndex && shouldAutoplay && (
-                <span
-                  key={centerIndex}
-                  className="absolute inset-y-0 left-0 bg-accent rounded-full animate-hero-rotation-progress"
-                />
-              )}
-              {i === centerIndex && !shouldAutoplay && (
-                <span className="absolute inset-0 bg-accent rounded-full" />
-              )}
-            </button>
-          ))}
-        </div>
+      <div className="mt-6 flex items-center justify-center lg:justify-start gap-1.5">
+        {heroVideos.map((v, i) => (
+          <button
+            key={v.id}
+            type="button"
+            onClick={() => goTo(i)}
+            aria-label={`Show video ${i + 1} of ${count}: ${v.title}`}
+            aria-current={i === centerIndex}
+            className={cn(
+              "h-1.5 rounded-full transition-all",
+              i === centerIndex ? "w-7 bg-accent" : "w-2 bg-border-soft"
+            )}
+          />
+        ))}
       </div>
+
+      {/* Video lightbox — same pattern as the /blog page */}
+      <DialogPrimitive.Root open={active !== null} onOpenChange={(v) => !v && closeLightbox()}>
+        <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/70 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+          <DialogPrimitive.Content
+            className={cn(
+              "fixed z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+              "w-[92vw] sm:w-auto max-w-[92vw] max-h-[90dvh] flex flex-col sm:flex-row",
+              "bg-background rounded-3xl shadow-elevated overflow-hidden",
+              "data-[state=open]:animate-in data-[state=closed]:animate-out",
+              "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+              "motion-reduce:duration-0 duration-200"
+            )}
+          >
+            {active && (
+              <>
+                <DialogPrimitive.Title className="sr-only">{active.title}</DialogPrimitive.Title>
+
+                <div className="relative bg-ink aspect-[9/16] h-[min(70dvh,640px)] sm:h-[min(80dvh,720px)] shrink-0 mx-auto sm:mx-0">
+                  <iframe
+                    key={active.id}
+                    src={`https://www.youtube.com/embed/${active.id}?autoplay=1`}
+                    title={active.title}
+                    className="absolute inset-0 w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                  <button
+                    type="button"
+                    onClick={showPrev}
+                    aria-label="Previous video"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-ink/50 hover:bg-ink/70 backdrop-blur flex items-center justify-center text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={showNext}
+                    aria-label="Next video"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-ink/50 hover:bg-ink/70 backdrop-blur flex items-center justify-center text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+
+                <div className="p-5 sm:w-64 flex flex-col shrink-0">
+                  <button
+                    type="button"
+                    onClick={closeLightbox}
+                    aria-label="Close"
+                    className="self-end -mt-1 -mr-1 w-8 h-8 rounded-full border border-border-soft flex items-center justify-center text-ink-soft hover:text-ink hover:border-ink/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                  <div className="mt-2">
+                    <div className="font-semibold text-ink text-base leading-snug">{active.title}</div>
+                    <DialogPrimitive.Description asChild>
+                      <p className="text-sm text-ink-soft mt-2 leading-relaxed">{active.description}</p>
+                    </DialogPrimitive.Description>
+                  </div>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="mt-5"
+                    onClick={() => {
+                      closeLightbox();
+                      openModal();
+                    }}
+                  >
+                    Enquire about tuition
+                  </Button>
+                </div>
+              </>
+            )}
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>
+      </DialogPrimitive.Root>
     </div>
   );
 };
