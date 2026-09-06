@@ -20,7 +20,7 @@ const FAQPage = () => {
   useSEO({
     title: "Frequently Asked Questions — BrightLearn Tutoring",
     description:
-      "Answers to common questions about BrightLearn Tutoring's online maths tutoring — pricing, session format, 1-on-1 tuition, areas we cover, safeguarding and cancellations.",
+      "Answers to common questions about BrightLearn Tutoring's online maths tutoring — pricing, session format, 1 to 1 tuition, areas we cover, safeguarding and cancellations.",
     path: "/faq",
   });
 
@@ -69,7 +69,7 @@ const FAQPage = () => {
             <span className="font-display italic font-normal text-accent">answered.</span>
           </h1>
           <p className="mt-6 text-lg text-ink-soft leading-relaxed">
-            Everything parents usually ask about pricing, sessions, 1-on-1 tuition and how it all works. Can't
+            Everything parents usually ask about pricing, sessions, 1 to 1 tuition and how it all works. Can't
             find what you need?{" "}
             <button
               type="button"

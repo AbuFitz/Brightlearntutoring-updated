@@ -563,7 +563,7 @@ export const GetStartedModal = () => {
               );
             })}
             {hasErr("sessionType") && (
-              <p className="text-xs text-red-500">Please choose group or 1-on-1.</p>
+              <p className="text-xs text-red-500">Please choose group or 1 to 1.</p>
             )}
           </div>
         );

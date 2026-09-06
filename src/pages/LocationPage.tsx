@@ -183,7 +183,7 @@ const LocationPage = () => {
             onClick={() => setPricingOpen(true)}
             className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-accent hover:underline"
           >
-            1-on-1 tuition also available — see all pricing options
+            1 to 1 tuition also available — see all pricing options
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>

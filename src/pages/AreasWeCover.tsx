@@ -84,7 +84,7 @@ const AreasWeCover = () => {
           <div className="flex items-baseline justify-between gap-4 mb-6">
             <h2 className="text-2xl md:text-3xl text-ink font-semibold tracking-tight">Our North London base</h2>
             <span className="text-sm text-ink-soft hidden sm:block">
-              Small-group and 1-on-1 tutoring for SATs, KS3 and GCSE maths.
+              Small-group and 1 to 1 tutoring for SATs, KS3 and GCSE maths.
             </span>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -139,7 +139,7 @@ const AreasWeCover = () => {
               <h2 className="font-semibold text-ink text-lg">Not in North London? We still tutor you.</h2>
               <p className="mt-2 text-sm text-ink-soft leading-relaxed">
                 Every BrightLearn session is delivered live online, so families anywhere in the UK can join a
-                group or book 1-on-1 sessions — you're not limited to our home boroughs.
+                group or book 1 to 1 sessions — you're not limited to our home boroughs.
               </p>
             </div>
           </div>
