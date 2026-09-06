@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { useReveal } from "@/hooks/useReveal";
-import { ExternalLink, Play } from "lucide-react";
+import { ArrowRight, ExternalLink, Play } from "lucide-react";
 import thumb1 from "@/assets/tiktok-thumb-1.webp";
 import thumb2 from "@/assets/tiktok-thumb-2.webp";
 import thumb3 from "@/assets/tiktok-thumb-3.webp";
@@ -11,182 +11,75 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-type Topic = {
-  title: string;
-  desc: string;
-  url: string;
-  thumb: string | null;
-  gradient: string;
-};
+const thumbs = [thumb1, thumb2, thumb3];
 
-const desktopTopics: Topic[] = [
-  {
-    title: "Simultaneous equations made EASY",
-    desc: "Grade 8/9 GCSE maths - save this for revision.",
-    url: "https://www.tiktok.com/@brightlearntutoring/video/7627986502479318274",
-    thumb: thumb1,
-    gradient: "",
-  },
-  {
-    title: "Basic Trig example",
-    desc: "A clear walkthrough of trigonometry for GCSE students.",
-    url: "https://www.tiktok.com/@brightlearntutoring/video/7631676960132828438",
-    thumb: thumb2,
-    gradient: "",
-  },
-  {
-    title: "Decimals to Percentages",
-    desc: "Converting decimals to percentages - quick and simple.",
-    url: "https://www.tiktok.com/@brightlearntutoring/video/7629757799156780310",
-    thumb: thumb3,
-    gradient: "",
-  },
-];
-
-const mobileExtraTopics: Topic[] = [
-  {
-    title: "BrightLearn Maths Tip 1",
-    desc: "More free maths tips from BrightLearn Tutoring.",
-    url: "https://www.tiktok.com/@brightlearntutoring/video/7629026072146824470",
-    thumb: null,
-    gradient: "from-slate-800 to-blue-900",
-  },
-  {
-    title: "BrightLearn Maths Tip 2",
-    desc: "More free maths tips from BrightLearn Tutoring.",
-    url: "https://www.tiktok.com/@brightlearntutoring/video/7628477148734426390",
-    thumb: null,
-    gradient: "from-slate-800 to-emerald-900",
-  },
-  {
-    title: "BrightLearn Maths Tip 3",
-    desc: "More free maths tips from BrightLearn Tutoring.",
-    url: "https://www.tiktok.com/@brightlearntutoring/video/7628357985139461378",
-    thumb: null,
-    gradient: "from-slate-800 to-purple-900",
-  },
-];
-
-const allTopics = [...desktopTopics, ...mobileExtraTopics];
-
+/**
+ * Lightweight teaser band, not a full video showcase — the video hub
+ * itself lives at /blog. This section's job is just to point people
+ * there (and to the TikTok profile for shorter, native-feed clips),
+ * without duplicating the same video grid twice on one page.
+ */
 export const TikTokFeed = () => {
   const ref = useReveal<HTMLDivElement>();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    const maxScroll = scrollWidth - clientWidth;
-    if (maxScroll === 0) return;
-    setActiveIndex(Math.round((scrollLeft / maxScroll) * (allTopics.length - 1)));
-  };
 
   return (
-    <section className="relative py-14 lg:py-32 bg-background-soft">
+    <section className="relative py-14 lg:py-20 bg-background">
       <div className="container">
-        <div ref={ref} className="reveal text-center max-w-2xl mx-auto mb-10 md:mb-14">
-          <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">On TikTok</span>
-          <h2 className="mt-3 text-4xl md:text-5xl text-ink font-semibold tracking-tight leading-[1.05]">
-            Maths made clear - <span className="font-display italic font-normal text-accent">on your feed.</span>
-          </h2>
-          <p className="text-ink-soft mt-5 text-lg leading-relaxed">
-            Free bite-sized maths lessons on TikTok, loved by students and parents across the UK.
-          </p>
-        </div>
-
-        {/* Desktop grid — original 3 videos */}
-        <div className="hidden md:grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-          {desktopTopics.map((t, i) => (
-            <TopicCard key={t.url} topic={t} delay={i * 100} />
-          ))}
-        </div>
-
-        {/* Mobile swipe carousel — all 6 videos */}
-        <div className="md:hidden">
-          <div
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-4 -mx-4 px-4 pb-4 scrollbar-hide"
-          >
-            {allTopics.map((t) => (
-              <div key={t.url} className="snap-center flex-shrink-0 w-[75vw]">
-                <TopicCard topic={t} delay={0} />
+        <div
+          ref={ref}
+          className="reveal rounded-[2.5rem] border border-border-soft bg-background-soft px-6 py-10 md:px-12 md:py-12 flex flex-col md:flex-row items-center gap-8 md:gap-12"
+        >
+          {/* Thumbnail collage */}
+          <div className="flex -space-x-6 shrink-0">
+            {thumbs.map((t, i) => (
+              <div
+                key={t}
+                className="relative w-20 h-28 md:w-24 md:h-32 rounded-2xl overflow-hidden border-4 border-background shadow-soft"
+                style={{ zIndex: thumbs.length - i, transform: `rotate(${(i - 1) * 6}deg)` }}
+              >
+                <img src={t} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+                {i === 1 && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-ink/20">
+                    <div className="w-9 h-9 rounded-full bg-background/90 flex items-center justify-center">
+                      <Play className="w-3.5 h-3.5 text-ink fill-ink ml-0.5" />
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
-          {/* Dot indicators */}
-          <div className="flex items-center justify-center gap-1.5 mt-3">
-            {allTopics.map((_, i) => (
-              <div
-                key={i}
-                className={`rounded-full transition-all duration-300 ${
-                  i === activeIndex ? "w-5 h-2 bg-accent" : "w-2 h-2 bg-ink/20"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
 
-        <div className="mt-10 text-center">
-          <a
-            href="https://www.tiktok.com/@brightlearntutoring"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-ink text-background text-sm font-semibold hover:bg-ink-soft transition-colors"
-          >
-            <TikTokIcon className="w-4 h-4" />
-            Watch on TikTok - @brightlearntutoring
-            <ExternalLink className="w-3.5 h-3.5 opacity-60" />
-          </a>
+          {/* Text + CTAs */}
+          <div className="flex-1 text-center md:text-left">
+            <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Free video lessons</span>
+            <h2 className="mt-2 text-2xl md:text-3xl text-ink font-semibold tracking-tight leading-tight">
+              Bite-sized maths tips, <span className="font-display italic font-normal text-accent">on video.</span>
+            </h2>
+            <p className="text-ink-soft mt-3 leading-relaxed max-w-lg mx-auto md:mx-0">
+              Every lesson lives on our blog, plus shorter clips on TikTok.
+            </p>
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3">
+              <Link
+                to="/blog"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink text-background text-sm font-semibold hover:bg-ink-soft transition-colors"
+              >
+                Watch on our blog
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              <a
+                href="https://www.tiktok.com/@brightlearntutoring"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border-soft text-ink text-sm font-semibold hover:border-ink/30 transition-colors"
+              >
+                <TikTokIcon className="w-4 h-4" />
+                Follow on TikTok
+                <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
-};
-
-const TopicCard = ({ topic, delay }: { topic: Topic; delay: number }) => {
-  const ref = useReveal<HTMLDivElement>();
-  return (
-    <div
-      ref={ref}
-      className="reveal rounded-3xl overflow-hidden border border-border-soft shadow-card bg-background hover:-translate-y-1 hover:shadow-soft transition-all duration-400"
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      <div className="relative aspect-[9/10] overflow-hidden bg-ink">
-        {topic.thumb ? (
-          <img
-            src={topic.thumb}
-            alt={topic.title}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="lazy"
-          />
-        ) : (
-          <div className={`absolute inset-0 bg-gradient-to-br ${topic.gradient}`} />
-        )}
-        <div className="absolute inset-0 bg-ink/20" />
-        <a
-          href={topic.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Watch ${topic.title} on TikTok`}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <div className="w-16 h-16 rounded-full bg-background/90 backdrop-blur flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-soft">
-            <Play className="w-6 h-6 text-ink fill-ink ml-1" />
-          </div>
-        </a>
-        <div className="absolute bottom-4 left-4 right-4">
-          <div className="inline-flex items-center gap-1.5 bg-background/90 backdrop-blur rounded-full px-3 py-1.5 border border-border-soft">
-            <TikTokIcon className="w-3.5 h-3.5 text-ink" />
-            <span className="text-[11px] font-semibold text-ink tracking-wide">@brightlearntutoring</span>
-          </div>
-        </div>
-      </div>
-      <div className="p-5">
-        <h3 className="font-semibold text-ink text-base leading-snug">{topic.title}</h3>
-        <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">{topic.desc}</p>
-      </div>
-    </div>
   );
 };

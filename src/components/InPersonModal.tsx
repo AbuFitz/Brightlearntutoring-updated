@@ -13,7 +13,6 @@ export const InPersonModal = ({ open, onClose }: InPersonModalProps) => {
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200" />
         <DialogPrimitive.Content
-          aria-describedby="in-person-desc"
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 flex flex-col",
             "bg-background rounded-t-[2rem] shadow-elevated",
@@ -46,10 +45,12 @@ export const InPersonModal = ({ open, onClose }: InPersonModalProps) => {
             <DialogPrimitive.Title className="text-xl font-semibold text-ink tracking-tight">
               In-person tutoring
             </DialogPrimitive.Title>
-            <p id="in-person-desc" className="text-sm text-ink-soft mt-1.5 leading-relaxed">
-              We're currently online-only — every session is delivered live over video, so there's nothing to
-              commute to. We're planning to introduce in-person tutoring, based out of Enfield, in the future.
-            </p>
+            <DialogPrimitive.Description asChild>
+              <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">
+                We're currently online-only. Every session is delivered live over video, so there's nothing to
+                commute to. We're planning to introduce in-person tutoring, based out of Enfield, in the future.
+              </p>
+            </DialogPrimitive.Description>
             <p className="text-sm text-ink-soft mt-3 leading-relaxed">
               Want us to let you know as soon as it's available? Send us a message and we'll keep you posted.
             </p>
@@ -62,6 +63,12 @@ export const InPersonModal = ({ open, onClose }: InPersonModalProps) => {
               <Mail className="w-4 h-4" />
               Register your interest
             </a>
+            <p className="mt-3 text-center text-xs text-ink-soft">
+              Or email us directly at{" "}
+              <a href="mailto:info@brightlearntutoring.co.uk" className="underline hover:text-ink">
+                info@brightlearntutoring.co.uk
+              </a>
+            </p>
           </div>
           <div className="md:hidden" style={{ height: "env(safe-area-inset-bottom, 0px)" }} />
         </DialogPrimitive.Content>

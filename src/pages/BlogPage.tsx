@@ -195,7 +195,6 @@ const BlogPage = () => {
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/70 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
           <DialogPrimitive.Content
-            aria-describedby={active ? "lightbox-desc" : undefined}
             className={cn(
               "fixed z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
               "w-[92vw] sm:w-auto max-w-[92vw] max-h-[90dvh] flex flex-col sm:flex-row",
@@ -250,9 +249,11 @@ const BlogPage = () => {
                   </button>
                   <div className="mt-2">
                     <div className="font-semibold text-ink text-base leading-snug">{active.title}</div>
-                    <p id="lightbox-desc" className="text-sm text-ink-soft mt-2 leading-relaxed">
-                      {active.description}
-                    </p>
+                    <DialogPrimitive.Description asChild>
+                      <p className="text-sm text-ink-soft mt-2 leading-relaxed">
+                        {active.description}
+                      </p>
+                    </DialogPrimitive.Description>
                     <div className="text-xs text-ink-soft/70 mt-3">{fmtDate(active.publishedDate)}</div>
                   </div>
                   <Button
