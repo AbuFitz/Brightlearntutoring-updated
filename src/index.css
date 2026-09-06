@@ -209,6 +209,17 @@
   100% { background-position: 200% 0; }
 }
 
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes hero-rotation-progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
 .animate-float-slow { animation: float-slow 7s ease-in-out infinite; }
 .animate-float-slower { animation: float-slower 11s ease-in-out infinite; }
 .animate-float-tiny { animation: float-tiny 4s ease-in-out infinite; }
@@ -224,3 +235,5 @@
   stroke-dasharray: var(--len, 200);
   animation: draw-line 2.4s var(--ease-smooth) infinite alternate;
 }
+.animate-caret-blink { animation: caret-blink 1.1s step-end infinite; }
+.animate-hero-rotation-progress { animation: hero-rotation-progress 9s linear forwards; }
