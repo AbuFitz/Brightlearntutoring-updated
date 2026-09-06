@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/sections/Hero";
-import { Trust } from "@/components/sections/Trust";
 import { Services } from "@/components/sections/Services";
 import { Values } from "@/components/sections/Values";
 import { HowItWorks } from "@/components/sections/HowItWorks";
@@ -278,7 +277,6 @@ const Index = () => {
     <main className="min-h-screen bg-background text-foreground" aria-label="BrightLearn Tutoring — Online Maths Tutor for KS2, KS3 and GCSE">
       <Navbar />
       <Hero />
-      <Trust />
       <Services />
       <Values />
       <div className="hidden md:block"><HowItWorks /></div>

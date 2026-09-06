@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { PricingModal } from "@/components/PricingModal";
+import brandMark from "@/assets/brand-mark.webp";
 
 const navLinks = [
   { label: "Programmes", href: "#services" },
@@ -39,11 +40,7 @@ export const Navbar = () => {
           <nav className="flex items-center justify-between h-16 lg:h-[72px]">
             {/* Logo */}
             <a href="#" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-ink flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-4 h-4 text-background" fill="currentColor">
-                  <path d="M3 18l6-6-6-6v12zm9-12v12l9-6-9-6z" />
-                </svg>
-              </div>
+              <img src={brandMark} alt="BrightLearn Tutoring" width={32} height={32} className="w-8 h-8 rounded-full shrink-0" />
               <span className="font-semibold text-ink tracking-tight">BrightLearn Tutoring</span>
             </a>
 

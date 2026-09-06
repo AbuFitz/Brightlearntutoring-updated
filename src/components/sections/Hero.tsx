@@ -4,7 +4,7 @@ import { ArrowRight, ShieldCheck, Users, Video } from "lucide-react";
 import { useGetStarted } from "@/contexts/GetStartedContext";
 import { HeroVideoShowcase } from "@/components/sections/HeroVideoShowcase";
 
-const DYNAMIC_WORDS = ["CLEAR.", "MANAGEABLE.", "ACHIEVABLE.", "REWARDING."];
+const DYNAMIC_WORDS = ["clear.", "manageable.", "achievable.", "rewarding."];
 const LONGEST_WORD = DYNAMIC_WORDS.reduce((a, b) => (b.length > a.length ? b : a), "");
 const TYPE_MS = 65;
 const DELETE_MS = 35;
@@ -102,24 +102,23 @@ export const Hero = () => {
 
             <h1
               aria-label="Maths that finally feels clear."
-              className="mt-4 text-[2.5rem] sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem] leading-[1.05] tracking-[-0.02em] text-ink font-bold uppercase"
+              className="mt-4 text-[2.5rem] sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem] leading-[1.05] tracking-[-0.02em] text-ink font-semibold"
             >
               <span aria-hidden="true" className="block">Maths that</span>
-              <span aria-hidden="true" className="block">Finally feels</span>
-              <span aria-hidden="true" className="relative inline-grid text-accent">
+              <span aria-hidden="true" className="block">finally feels</span>
+              <span aria-hidden="true" className="relative inline-grid font-display italic font-normal text-accent">
                 <span className="invisible col-start-1 row-start-1">{LONGEST_WORD}</span>
                 <span className="col-start-1 row-start-1 whitespace-nowrap">
                   {display}
                   {!reducedMotion && (
-                    <span className="inline-block w-[3px] ml-1 h-[0.85em] -mb-[0.05em] bg-accent animate-caret-blink" />
+                    <span className="inline-block w-[2px] ml-1 h-[0.75em] bg-accent animate-caret-blink" />
                   )}
                 </span>
               </span>
             </h1>
 
             <p className="mt-6 text-lg text-ink-soft leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Calm, structured online maths tutoring that meets your child where they are, helping them understand
-              the work, grow in confidence and make real progress.
+              Calm, structured online maths tutoring that builds real confidence and progress.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
