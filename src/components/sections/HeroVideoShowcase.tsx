@@ -3,7 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useGetStarted } from "@/contexts/GetStartedContext";
-import { heroVideos, heroVideoThumbnail } from "@/data/heroVideos";
+import { heroVideos } from "@/data/heroVideos";
 import { cn } from "@/lib/utils";
 
 const ROTATION_MS = 4500;
@@ -90,7 +90,7 @@ export const HeroVideoShowcase = () => {
       <div className="text-center lg:text-left mb-7">
         <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Free maths topics</span>
         <h2 className="mt-2 text-2xl md:text-3xl text-ink font-semibold tracking-tight">
-          Quick explainers, <span className="font-display italic font-normal text-accent">one topic at a time.</span>
+          Quick explainers, <span className="text-accent">one topic at a time.</span>
         </h2>
       </div>
 
@@ -122,7 +122,7 @@ export const HeroVideoShowcase = () => {
               )}
             >
               <img
-                src={heroVideoThumbnail(video.id)}
+                src={video.poster}
                 alt={video.title}
                 loading="eager"
                 className="absolute inset-0 w-full h-full object-cover bg-ink"
