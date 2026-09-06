@@ -48,12 +48,12 @@ export const WhatsAppButton = () => {
         onClick={() => setOpen(true)}
         aria-label="Chat with BrightLearn Tutoring on WhatsApp"
         className={cn(
-          "fixed z-40 bottom-5 right-4 sm:bottom-6 sm:right-6 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-elevated hover:scale-105 active:scale-95 transition-all duration-300",
+          "fixed z-40 bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-elevated hover:scale-105 active:scale-95 transition-all duration-300",
           nearFooter ? "opacity-0 translate-y-3 pointer-events-none" : "opacity-100"
         )}
         style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
-        <WhatsAppIcon className="w-7 h-7" />
+        <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7" />
       </button>
       <WhatsAppModal open={open} onClose={() => setOpen(false)} />
     </>
