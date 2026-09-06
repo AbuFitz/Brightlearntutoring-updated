@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Instagram, Youtube, Facebook, Linkedin, Mail, MapPin, Link, UserCircle2 } from "lucide-react";
+import { Instagram, Youtube, Facebook, Linkedin, Mail, MapPin, Link } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { WhatsAppModal } from "@/components/WhatsAppModal";
 import { InPersonModal } from "@/components/InPersonModal";
 import { locations } from "@/data/locations";
 
-const PORTAL_URL = "https://lessons.brightlearntutoring.co.uk";
 const LINKEDIN_URL = "https://www.linkedin.com/company/brightlearn-tutoring/";
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -37,7 +36,6 @@ const linkGroups: {
       { label: "FAQ", href: "/faq" },
       { label: "Guides", href: "/guides" },
       { label: "Blog", href: "/blog" },
-      { label: "Learning Portal", href: PORTAL_URL, external: true },
     ],
   },
   {

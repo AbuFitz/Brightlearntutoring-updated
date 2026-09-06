@@ -83,7 +83,7 @@ function sect(title: string, rows: string): string {
 }
 
 function buildAdminHtml(d: EnquiryPayload): string {
-  const replyEmail = d["Contact email"] !== "—" ? d["Contact email"] : "";
+  const replyEmail = d["Contact email"] && d["Contact email"] !== "—" ? d["Contact email"].trim() : ADMIN_EMAIL;
   const replyName = d["Contact name"] !== "—" ? d["Contact name"].split(" ")[0] : d["Student name"].split(" ")[0];
 
   const body = `
@@ -117,8 +117,8 @@ function buildAdminHtml(d: EnquiryPayload): string {
 
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f2;border-radius:12px;margin-top:8px;">
       <tr><td style="padding:20px 24px;text-align:center;">
-        <p style="margin:0 0 14px;font-size:13px;color:#6b6560;">Hit reply or click below to respond to this enquiry directly.</p>
-        <a href="mailto:${replyEmail}" style="display:inline-block;background:#1a1a1a;color:#fff;font-size:13px;font-weight:600;padding:11px 28px;border-radius:100px;text-decoration:none;">Reply to ${replyName}</a>
+        <p style="margin:0 0 14px;font-size:13px;color:#6b6560;">Hit reply on this email, or contact ${replyName} directly at:</p>
+        <a href="mailto:${replyEmail}" style="display:inline-block;background:#1a1a1a;color:#fff;font-size:13px;font-weight:600;padding:11px 28px;border-radius:100px;text-decoration:none;">${replyEmail}</a>
       </td></tr>
     </table>
   `;
@@ -159,10 +159,10 @@ function buildConfirmationHtml(d: EnquiryPayload): string {
 
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f2;border-radius:12px;margin-top:8px;">
       <tr><td style="padding:20px 24px;text-align:center;">
-        <p style="margin:0 0 14px;font-size:13px;color:#6b6560;">If you need to add anything else, just reply to this email and we'll help.</p>
+        <p style="margin:0 0 14px;font-size:13px;color:#6b6560;">If you need to add anything else, just reply to this email, or contact us at:</p>
         <table cellpadding="0" cellspacing="0" role="presentation" style="margin:0 auto;"><tr>
           <td style="padding-right:10px;">
-            <a href="mailto:${ADMIN_EMAIL}" style="display:inline-block;background:#111111;color:#ffffff;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;text-decoration:none;">Reply by email</a>
+            <a href="mailto:${ADMIN_EMAIL}" style="display:inline-block;background:#111111;color:#ffffff;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;text-decoration:none;">${ADMIN_EMAIL}</a>
           </td>
           <td>
             <a href="${SITE_URL}" style="display:inline-block;background:#ffffff;color:#111111;font-size:13px;font-weight:700;padding:12px 26px;border-radius:100px;border:1px solid #e6e3db;text-decoration:none;">Visit website</a>

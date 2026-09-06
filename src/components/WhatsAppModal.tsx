@@ -24,7 +24,6 @@ export const WhatsAppModal = ({ open, onClose }: WhatsAppModalProps) => {
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200" />
         <DialogPrimitive.Content
-          aria-describedby="whatsapp-desc"
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 flex flex-col",
             "bg-background rounded-t-[2rem] shadow-elevated",
@@ -54,9 +53,11 @@ export const WhatsAppModal = ({ open, onClose }: WhatsAppModalProps) => {
             <DialogPrimitive.Title className="text-xl font-semibold text-ink tracking-tight">
               Chat with us on WhatsApp
             </DialogPrimitive.Title>
-            <p id="whatsapp-desc" className="text-sm text-ink-soft mt-1.5 leading-relaxed">
-              Message BrightLearn Tutoring directly — we usually reply within a few hours.
-            </p>
+            <DialogPrimitive.Description asChild>
+              <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">
+                Message BrightLearn Tutoring directly, we usually reply within a few hours.
+              </p>
+            </DialogPrimitive.Description>
 
             <div className="mt-5 flex items-center justify-between gap-3 rounded-2xl border border-border-soft bg-background-soft px-4 py-3">
               <span className="text-sm font-semibold text-ink tracking-wide">{WHATSAPP_DISPLAY_NUMBER}</span>

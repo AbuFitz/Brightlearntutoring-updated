@@ -29,7 +29,6 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <DialogPrimitive.Content
-          aria-describedby="pricing-desc"
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 flex flex-col",
             "bg-background rounded-t-[2rem] shadow-elevated max-h-[88dvh]",
@@ -64,7 +63,8 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
             </button>
           </div>
 
-          <div id="pricing-desc" className="flex-1 overflow-y-auto px-5 pb-6 md:px-8 md:pb-8 space-y-3">
+          <DialogPrimitive.Description asChild>
+          <div className="flex-1 overflow-y-auto px-5 pb-6 md:px-8 md:pb-8 space-y-3">
             {pricingTiers.map((t) => {
               const isStandout = t.name === "GCSE";
               return (
@@ -139,6 +139,7 @@ export const PricingModal = ({ open, onClose }: PricingModalProps) => {
             </p>
             <div className="md:hidden" style={{ height: "env(safe-area-inset-bottom, 0px)" }} />
           </div>
+          </DialogPrimitive.Description>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

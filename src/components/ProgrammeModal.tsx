@@ -71,7 +71,9 @@ export const ProgrammeModal = ({ programme, onClose }: ProgrammeModalProps) => {
                 <div className="relative px-5 py-5">
                   <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink/60">{programme.tag}</span>
                   <h2 className="text-2xl font-semibold text-ink tracking-tight mt-1">{programme.name} Maths</h2>
-                  <p className="text-sm text-ink/70 mt-1 leading-relaxed">{programme.tagline}</p>
+                  <DialogPrimitive.Description asChild>
+                    <p className="text-sm text-ink/70 mt-1 leading-relaxed">{programme.tagline}</p>
+                  </DialogPrimitive.Description>
                 </div>
               </div>
 

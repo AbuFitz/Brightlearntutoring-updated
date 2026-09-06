@@ -108,6 +108,7 @@ const blank = (): FormData => ({
 // ── Validation ─────────────────────────────────────────────────────────────
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phoneRe = /^[+\d][\d\s()-]{6,}$/;
 
 const validateStep = (step: StepId, form: FormData): string[] => {
   const e: string[] = [];
@@ -131,7 +132,7 @@ const validateStep = (step: StepId, form: FormData): string[] => {
     case "contact":
       if (!form.contactName.trim()) e.push("contactName");
       if (!emailRe.test(form.contactEmail)) e.push("contactEmail");
-      if (!form.contactPhone.trim()) e.push("contactPhone");
+      if (!phoneRe.test(form.contactPhone.trim())) e.push("contactPhone");
       if (!form.preferredContact) e.push("preferredContact");
       break;
   }
@@ -663,6 +664,7 @@ export const GetStartedModal = () => {
                 label="Phone number"
                 required
                 error={hasErr("contactPhone")}
+                errorMsg="Please enter a valid phone number"
               >
                 <input
                   type="tel"
@@ -844,13 +846,15 @@ export const GetStartedModal = () => {
               </div>
               <div>
                 <h2 className="text-2xl font-semibold text-ink">
-                  Thank you{firstName ? `, ${firstName}` : ""} — we've received your enquiry.
+                  Thank you{firstName ? `, ${firstName}` : ""}, we've received your enquiry.
                 </h2>
-                <p className="text-ink-soft leading-relaxed max-w-sm text-sm mt-2">
-                  A member of BrightLearn Tutoring will review the details and contact you to discuss
-                  tuition, current availability and the next steps — including arranging a free
-                  introductory session.
-                </p>
+                <DialogPrimitive.Description asChild>
+                  <p className="text-ink-soft leading-relaxed max-w-sm text-sm mt-2">
+                    A member of BrightLearn Tutoring will review the details and contact you to discuss
+                    tuition, current availability and the next steps, including arranging a free
+                    introductory session.
+                  </p>
+                </DialogPrimitive.Description>
               </div>
               <button
                 onClick={handleClose}
@@ -896,9 +900,11 @@ export const GetStartedModal = () => {
                 {stepTitles[currentStep]}
               </DialogPrimitive.Title>
               {stepSubtitles[currentStep] && (
-                <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">
-                  {stepSubtitles[currentStep]}
-                </p>
+                <DialogPrimitive.Description asChild>
+                  <p className="text-sm text-ink-soft mt-1.5 leading-relaxed">
+                    {stepSubtitles[currentStep]}
+                  </p>
+                </DialogPrimitive.Description>
               )}
             </div>
             <button
@@ -920,7 +926,15 @@ export const GetStartedModal = () => {
           </div>
 
           {/* Body — scrollable */}
-          <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+          <div
+            className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
+                e.preventDefault();
+                isLastStep ? handleSubmit() : handleNext();
+              }
+            }}
+          >
             <div key={currentStep} className="animate-fade-up">
               {renderStep()}
             </div>
