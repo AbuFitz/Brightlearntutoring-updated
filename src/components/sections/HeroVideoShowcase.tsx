@@ -7,6 +7,7 @@ import { heroVideos } from "@/data/heroVideos";
 import { cn } from "@/lib/utils";
 
 const ROTATION_MS = 4500;
+const SHOWCASE_CAPTION = "Quick clips from our TikTok & YouTube";
 
 const usePrefersReducedMotion = () => {
   const [reduced, setReduced] = useState(false);
@@ -87,14 +88,12 @@ export const HeroVideoShowcase = () => {
         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto h-[95%] w-[95%] rounded-full bg-surface-sky blur-3xl opacity-90" />
       </div>
 
-      <div className="text-center lg:text-left mb-7">
-        <span className="text-xs uppercase tracking-[0.18em] text-ink-soft font-semibold">Free maths topics</span>
-        <h2 className="mt-2 text-2xl md:text-3xl text-ink font-semibold tracking-tight">
-          Quick explainers, <span className="text-accent">one topic at a time.</span>
-        </h2>
+      {/* Mobile — small caption above the carousel, clarifying these are social clips */}
+      <div className="lg:hidden mb-3 text-center">
+        <span className="text-xs text-ink-soft font-medium">{SHOWCASE_CAPTION}</span>
       </div>
 
-      <div className="relative h-[400px] sm:h-[460px] md:h-[520px] flex items-center justify-center overflow-hidden px-2">
+      <div className="relative h-[400px] sm:h-[460px] md:h-[520px] lg:h-[560px] flex items-center justify-center overflow-hidden px-2">
         {(["left", "right", "center"] as const).map((slot) => {
           const index = positions[slot];
           const video = heroVideos[index];
@@ -114,7 +113,7 @@ export const HeroVideoShowcase = () => {
               aria-label={isCenter ? `Play: ${video.title}` : `Show and play: ${video.title}`}
               style={{ zIndex: isCenter ? 30 : 10 }}
               className={cn(
-                "absolute w-[190px] sm:w-[220px] md:w-[250px] aspect-[9/16] rounded-[2rem] overflow-hidden",
+                "absolute w-[190px] sm:w-[220px] md:w-[250px] lg:w-[275px] aspect-[9/16] rounded-[2rem] overflow-hidden",
                 "border-[6px] border-background shadow-soft transition-all duration-500 ease-out",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2",
                 slotTransform,
@@ -165,6 +164,11 @@ export const HeroVideoShowcase = () => {
             )}
           />
         ))}
+      </div>
+
+      {/* Desktop — small caption under the carousel, clarifying these are social clips */}
+      <div className="hidden lg:block mt-4 text-left">
+        <span className="text-xs text-ink-soft font-medium">{SHOWCASE_CAPTION}</span>
       </div>
 
       {/* Video lightbox — same pattern as the /blog page */}

@@ -84,11 +84,11 @@ const useTypewriter = () => {
 
 /** Flat icon + text trust row — no heavy icon badges, matches the site's plain contact-strip style. */
 const TrustStrip = () => (
-  <div className="flex flex-wrap items-center justify-start gap-x-1 gap-y-2 text-[13px] sm:text-sm font-medium text-ink-soft">
+  <div className="flex flex-nowrap items-center justify-start gap-x-0.5 lg:gap-x-1 gap-y-2 text-[11px] sm:text-xs lg:text-sm font-medium text-ink-soft">
     {TRUST_ITEMS.map((item, i) => (
-      <span key={item.label} className="flex items-center gap-1.5 px-2">
-        {i > 0 && <span className="text-border-soft mr-2.5 -ml-1" aria-hidden="true">·</span>}
-        <item.icon className="w-4 h-4 text-accent shrink-0" strokeWidth={2.25} />
+      <span key={item.label} className="flex items-center gap-1 lg:gap-1.5 px-1 lg:px-2 whitespace-nowrap">
+        {i > 0 && <span className="text-border-soft mr-1.5 -ml-0.5 lg:mr-2.5 lg:-ml-1" aria-hidden="true">·</span>}
+        <item.icon className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-accent shrink-0" strokeWidth={2.25} />
         {item.label}
       </span>
     ))}
@@ -104,7 +104,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative pt-20 pb-12 lg:pt-40 lg:pb-28 overflow-hidden bg-background">
+    <section className="relative pt-20 pb-6 lg:pt-40 lg:pb-28 overflow-hidden bg-background">
       <div className="container relative">
         <div className="grid lg:grid-cols-[48%_52%] gap-6 lg:gap-10 items-center">
           {/* LEFT — copy */}
