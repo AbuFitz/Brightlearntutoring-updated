@@ -106,7 +106,7 @@ export const Hero = () => {
   return (
     <section className="relative pt-20 pb-6 lg:pt-40 lg:pb-28 overflow-hidden bg-background">
       <div className="container relative">
-        <div className="grid lg:grid-cols-[48%_52%] gap-6 lg:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[48%_52%] gap-6 lg:gap-10 items-center">
           {/* LEFT — copy */}
           <div className="text-left animate-fade-up">
             <div className="inline-flex items-center bg-background-soft border border-border-soft rounded-full px-4 py-1.5 shadow-soft">
@@ -117,7 +117,7 @@ export const Hero = () => {
 
             <h1
               aria-label="Maths that finally feels clear."
-              className="mt-3 lg:mt-5 text-4xl sm:text-6xl lg:text-[3.85rem] xl:text-[4.25rem] leading-[1.08] lg:leading-[1.04] tracking-[-0.02em] text-ink font-semibold"
+              className="mt-3 lg:mt-5 text-5xl sm:text-6xl lg:text-[3.85rem] xl:text-[4.25rem] leading-[1.08] lg:leading-[1.04] tracking-[-0.02em] text-ink font-semibold"
             >
               <span aria-hidden="true" className="block">Maths that</span>
               <span aria-hidden="true" className="block">finally feels</span>
