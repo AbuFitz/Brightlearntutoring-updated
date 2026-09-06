@@ -84,7 +84,7 @@ const useTypewriter = () => {
 
 /** Flat icon + text trust row — no heavy icon badges, matches the site's plain contact-strip style. */
 const TrustStrip = () => (
-  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-1 gap-y-2 text-[13px] sm:text-sm font-medium text-ink-soft">
+  <div className="flex flex-wrap items-center justify-start gap-x-1 gap-y-2 text-[13px] sm:text-sm font-medium text-ink-soft">
     {TRUST_ITEMS.map((item, i) => (
       <span key={item.label} className="flex items-center gap-1.5 px-2">
         {i > 0 && <span className="text-border-soft mr-2.5 -ml-1" aria-hidden="true">·</span>}
@@ -108,7 +108,7 @@ export const Hero = () => {
       <div className="container relative">
         <div className="grid lg:grid-cols-[48%_52%] gap-6 lg:gap-10 items-center">
           {/* LEFT — copy */}
-          <div className="text-center lg:text-left animate-fade-up">
+          <div className="text-left animate-fade-up">
             <div className="inline-flex items-center bg-background-soft border border-border-soft rounded-full px-4 py-1.5 shadow-soft">
               <span className="text-[11px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.16em] text-ink-soft font-semibold">
                 Live online maths · KS2 to GCSE
@@ -132,15 +132,15 @@ export const Hero = () => {
               </span>
             </h1>
 
-            <p className="mt-4 lg:mt-7 text-base lg:text-xl text-ink-soft leading-relaxed max-w-xl mx-auto lg:mx-0">
+            <p className="mt-4 lg:mt-7 text-base lg:text-xl text-ink-soft leading-relaxed max-w-xl">
               Calm, structured online maths tutoring that builds real confidence and progress.
             </p>
 
-            <div className="mt-5 lg:mt-9 flex flex-row gap-2.5 lg:gap-3.5 justify-center lg:justify-start">
+            <div className="mt-5 lg:mt-9 flex flex-col lg:flex-row gap-3 lg:gap-3.5 justify-start">
               <Button
                 variant="default"
                 size="default"
-                className="flex-1 lg:flex-initial min-w-0 lg:h-14 lg:px-8 lg:text-base group"
+                className="w-full lg:w-auto lg:h-14 lg:px-8 lg:text-base shadow-none hover:shadow-none hover:translate-y-0 group"
                 onClick={() => openModal()}
               >
                 <span className="lg:hidden">Enquire now</span>
@@ -150,7 +150,7 @@ export const Hero = () => {
               <Button
                 variant="outline"
                 size="default"
-                className="flex-1 lg:flex-initial min-w-0 lg:h-14 lg:px-8 lg:text-base"
+                className="w-full lg:w-auto lg:h-14 lg:px-8 lg:text-base shadow-none hover:shadow-none"
                 onClick={handleViewPricing}
               >
                 View prices

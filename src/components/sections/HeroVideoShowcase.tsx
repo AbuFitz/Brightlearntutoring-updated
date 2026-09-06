@@ -185,7 +185,7 @@ export const HeroVideoShowcase = () => {
               <>
                 <DialogPrimitive.Title className="sr-only">{active.title}</DialogPrimitive.Title>
 
-                <div className="relative bg-ink aspect-[9/16] h-[min(70dvh,640px)] sm:h-[min(80dvh,720px)] shrink-0 mx-auto sm:mx-0">
+                <div className="relative bg-ink aspect-[9/16] h-[42vh] sm:h-[min(80dvh,720px)] shrink-0 mx-auto sm:mx-0">
                   <iframe
                     key={active.id}
                     src={`https://www.youtube.com/embed/${active.id}?autoplay=1`}
@@ -212,25 +212,25 @@ export const HeroVideoShowcase = () => {
                   </button>
                 </div>
 
-                <div className="p-5 sm:w-64 flex flex-col shrink-0">
+                <div className="p-4 sm:p-5 sm:w-64 flex flex-col flex-1 min-h-0 overflow-y-auto sm:shrink-0 sm:overflow-visible">
                   <button
                     type="button"
                     onClick={closeLightbox}
                     aria-label="Close"
-                    className="self-end -mt-1 -mr-1 w-8 h-8 rounded-full border border-border-soft flex items-center justify-center text-ink-soft hover:text-ink hover:border-ink/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="self-end -mt-1 -mr-1 w-8 h-8 rounded-full border border-border-soft flex items-center justify-center text-ink-soft hover:text-ink hover:border-ink/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shrink-0"
                   >
                     <X className="w-4 h-4" />
                   </button>
-                  <div className="mt-2">
+                  <div className="mt-1.5 sm:mt-2">
                     <div className="font-semibold text-ink text-base leading-snug">{active.title}</div>
                     <DialogPrimitive.Description asChild>
-                      <p className="text-sm text-ink-soft mt-2 leading-relaxed">{active.description}</p>
+                      <p className="text-sm text-ink-soft mt-1.5 sm:mt-2 leading-relaxed">{active.description}</p>
                     </DialogPrimitive.Description>
                   </div>
                   <Button
                     variant="default"
                     size="sm"
-                    className="mt-5"
+                    className="mt-3 sm:mt-5 w-full sm:w-auto shrink-0"
                     onClick={() => {
                       closeLightbox();
                       openModal();
