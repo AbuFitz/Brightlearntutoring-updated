@@ -1,6 +1,6 @@
 # BrightLearn Tutoring
 
-> Live online maths tutoring for KS2, KS3 and GCSE students following the National Curriculum in England. Small-group (maximum 5 students) and 1-on-1 lessons, covering AQA and Pearson Edexcel GCSE Maths, including Foundation, Higher tier and resit support. Based in North London, delivered live online to students across the UK.
+> Live online maths tutoring for KS2, KS3 and GCSE students following the National Curriculum in England. Small-group (maximum 5 students) and 1 to 1 lessons, covering AQA and Pearson Edexcel GCSE Maths, including Foundation, Higher tier and resit support. Based in North London, delivered live online to students across the UK.
 
 ## Programmes
 
@@ -9,7 +9,7 @@
 - [GCSE Maths Foundation](https://www.brightlearntutoring.co.uk/gcse-maths-foundation-tutor): Online GCSE Maths Foundation tuition, AQA and Pearson Edexcel.
 - [GCSE Maths Higher](https://www.brightlearntutoring.co.uk/gcse-maths-higher-tutor): Online GCSE Maths Higher tuition, AQA and Pearson Edexcel, targeted at grades 6-9.
 - [GCSE Maths Resit](https://www.brightlearntutoring.co.uk/gcse-maths-resit-tuition): Online GCSE Maths resit tutoring for students retaking the exam in school, sixth form or college.
-- [1-on-1 Online Tutoring](https://www.brightlearntutoring.co.uk/online-one-to-one-maths-tutoring): Fully personalised 1-on-1 online maths tutoring for KS2, KS3 and GCSE students.
+- [1 to 1 Online Tutoring](https://www.brightlearntutoring.co.uk/online-one-to-one-maths-tutoring): Fully personalised 1 to 1 online maths tutoring for KS2, KS3 and GCSE students.
 - [Small-Group GCSE Revision](https://www.brightlearntutoring.co.uk/small-group-gcse-maths-revision): Small-group GCSE Maths revision sessions, maximum 5 students.
 
 ## Areas covered

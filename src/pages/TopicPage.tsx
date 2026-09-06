@@ -204,7 +204,7 @@ const TopicPage = () => {
                   {t.group.sessionsPerMonth} lessons · {t.group.sessionLength} each
                 </div>
                 <div className="mt-1 text-xs text-ink-soft">
-                  or from {fmtPrice(t.oneToOne.singleLessonPrice)}/lesson 1-on-1
+                  or from {fmtPrice(t.oneToOne.singleLessonPrice)}/lesson 1 to 1
                 </div>
                 <button
                   type="button"

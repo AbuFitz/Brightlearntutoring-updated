@@ -57,7 +57,7 @@ const JSON_LD_LOCAL_BUSINESS = {
   "name": "BrightLearn Tutoring",
   "alternateName": ["BrightLearn Tutoring UK", "BrightLearn Maths Tutoring"],
   "legalName": "BrightLearn Tutoring Ltd",
-  "description": "Online group and 1-on-1 maths tutoring for students following the English curriculum, based in North London (Enfield, Edmonton, Tottenham and Haringey). KS2, KS3 and GCSE Foundation, Higher and resit support. DBS-checked tutor with personalised lesson plans.",
+  "description": "Online group and 1 to 1 maths tutoring for students following the English curriculum, based in North London (Enfield, Edmonton, Tottenham and Haringey). KS2, KS3 and GCSE Foundation, Higher and resit support. DBS-checked tutor with personalised lesson plans.",
   "url": "https://www.brightlearntutoring.co.uk",
   "logo": "https://www.brightlearntutoring.co.uk/favicon.png",
   "image": "https://www.brightlearntutoring.co.uk/og-image.png",
@@ -86,8 +86,8 @@ const JSON_LD_LOCAL_BUSINESS = {
       },
       {
         "@type": "Offer",
-        "name": `${t.name} Maths Tutoring — 1-on-1`,
-        "description": `Online 1-on-1 maths tutoring for ${t.name} students. £${t.oneToOne.singleLessonPrice} per lesson, or a package of ${t.oneToOne.sessionsPerMonth} × ${t.oneToOne.sessionLength} lessons.`,
+        "name": `${t.name} Maths Tutoring — 1 to 1`,
+        "description": `Online 1 to 1 maths tutoring for ${t.name} students. £${t.oneToOne.singleLessonPrice} per lesson, or a package of ${t.oneToOne.sessionsPerMonth} × ${t.oneToOne.sessionLength} lessons.`,
         "price": String(t.oneToOne.monthlyPrice),
         "priceCurrency": "GBP"
       }
@@ -138,7 +138,7 @@ const buildCourseSchemas = () =>
     {
       "@context": "https://schema.org",
       "@type": "Course",
-      "name": `${t.name} Maths Tutoring — 1-on-1`,
+      "name": `${t.name} Maths Tutoring — 1 to 1`,
       "description": COURSE_DESCRIPTIONS[t.name],
       "provider": { "@type": "Organization", "name": "BrightLearn Tutoring", "sameAs": SITE_URL },
       "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "online", "inLanguage": "en-GB" },

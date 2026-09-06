@@ -43,7 +43,7 @@ const Terms = () => {
           <section>
             <h2 className="text-lg font-semibold text-ink mb-3">2. Services</h2>
             <p>
-              BrightLearn Tutoring provides online small-group and 1-to-1 maths tutoring for KS2, KS3 and GCSE
+              BrightLearn Tutoring provides online small-group and 1 to 1 maths tutoring for KS2, KS3 and GCSE
               students (Foundation, Higher and resit) following the English curriculum. All sessions are
               delivered online via a video platform. Session schedules and topics are agreed between the tutor
               and the parent/guardian.
@@ -61,16 +61,16 @@ const Terms = () => {
             <p className="text-sm mt-2">
               Small-group places are subject to suitable group availability.
             </p>
-            <p className="font-semibold text-ink text-sm mt-4">1-to-1 tuition (pay as you go, or a monthly plan)</p>
+            <p className="font-semibold text-ink text-sm mt-4">1 to 1 tuition (pay as you go, or a monthly plan)</p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>KS2 Maths — £15 per lesson, or £60/month (4 x 1-hour lessons)</li>
               <li>KS3 Maths — £15 per lesson, or £120/month (8 x 1.5-hour lessons)</li>
               <li>GCSE Maths — £17.50 per lesson, or £140/month (8 x 1.5-hour lessons)</li>
             </ul>
             <p className="mt-3">
-              Payment is due monthly for group and 1-to-1 plans, or per lesson for 1-to-1 sessions booked
+              Payment is due monthly for group and 1 to 1 plans, or per lesson for 1 to 1 sessions booked
               individually. No card details are required at the point of enquiry. Payment instructions will be
-              provided upon confirmation. There is no long-term contract — tuition runs month to month and can
+              provided upon confirmation. There is no long-term contract. Tuition runs month to month and can
               be stopped at any time by simply not booking the following month.
             </p>
           </section>

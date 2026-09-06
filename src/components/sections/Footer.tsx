@@ -27,7 +27,7 @@ const linkGroups: {
       { label: "GCSE Maths Foundation", href: "/gcse-maths-foundation-tutor" },
       { label: "GCSE Maths Higher", href: "/gcse-maths-higher-tutor" },
       { label: "GCSE Maths Resit", href: "/gcse-maths-resit-tuition" },
-      { label: "1-to-1 Online Tutoring", href: "/online-one-to-one-maths-tutoring" },
+      { label: "1 to 1 Online Tutoring", href: "/online-one-to-one-maths-tutoring" },
       { label: "Small-Group GCSE Revision", href: "/small-group-gcse-maths-revision" },
     ],
   },

@@ -3,22 +3,9 @@ import { useReveal } from "@/hooks/useReveal";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight } from "lucide-react";
 import { useGetStarted } from "@/contexts/GetStartedContext";
-import { pricingTiers, TierPricing, SessionType } from "@/data/pricing";
+import { pricingTiers, TierPricing, SessionType, fmtPrice, perLessonPrice } from "@/data/pricing";
 import { PricingModal } from "@/components/PricingModal";
 import { cn } from "@/lib/utils";
-
-/** Same stage → tint mapping used in Services.tsx, reused here for visual identity (not hierarchy). */
-const STAGE_SURFACE: Record<string, string> = {
-  KS2: "bg-surface-cream",
-  KS3: "bg-surface-mint",
-  GCSE: "bg-accent-soft",
-};
-
-/** Feature lines identical across all three stages for a given format — shown once, not repeated per card. */
-const SHARED_FEATURES: Record<SessionType, string[]> = {
-  group: ["Custom learning plan", "Parent report"],
-  "1on1": ["Fully personalised plan", "Parent report"],
-};
 
 export const Pricing = () => {
   const ref = useReveal<HTMLDivElement>();
@@ -34,7 +21,7 @@ export const Pricing = () => {
             Honest pricing. <span className="font-display italic font-normal text-accent">Real value.</span>
           </h2>
           <p className="text-ink-soft mt-5 text-lg leading-relaxed">
-            No long-term contract — pay monthly, cancel any time.
+            No long-term contract. Pay monthly, cancel any time.
           </p>
         </div>
 
@@ -58,29 +45,20 @@ export const Pricing = () => {
                   sessionType === type ? "bg-ink text-background shadow-sm" : "text-ink-soft hover:text-ink"
                 )}
               >
-                {type === "group" ? "Small group" : "1-on-1"}
+                {type === "group" ? "Small group" : "1 to 1"}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-5 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-3 gap-5 max-w-5xl mx-auto items-start">
           {pricingTiers.map((t, i) => (
             <PriceCard key={t.name} t={t} sessionType={sessionType} delay={i * 80} />
           ))}
         </div>
 
-        {/* Shared inclusions + conditions — stated once, not repeated per card */}
         <div className="mt-10 max-w-2xl mx-auto text-center">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {SHARED_FEATURES[sessionType].map((f) => (
-              <span key={f} className="inline-flex items-center gap-1.5 text-sm text-ink-soft">
-                <Check className="w-3.5 h-3.5 text-accent shrink-0" strokeWidth={3} />
-                {f}
-              </span>
-            ))}
-          </div>
-          <p className="text-sm text-ink-soft mt-4">
+          <p className="text-sm text-ink-soft">
             KS2 lessons run weekly (4 a month); KS3 and GCSE run twice a week (8 a month). Small-group places
             are subject to suitable group availability.
           </p>
@@ -113,49 +91,83 @@ const PriceCard = ({
   const { openModal } = useGetStarted();
   const plan = sessionType === "group" ? t.group : t.oneToOne;
   const price = sessionType === "group" ? t.group.price : t.oneToOne.monthlyPrice;
-  const shared = SHARED_FEATURES[sessionType];
-  const differentiator = plan.features.find((f) => !shared.includes(f) && !f.toLowerCase().includes("lesson"));
   const ctaLabel = sessionType === "group" ? "Register interest" : "Enquire about tuition";
+  const isStandout = t.name === "GCSE";
 
   return (
-    <div ref={ref} className="reveal h-full" style={{ transitionDelay: `${delay}ms` }}>
-      <div className="relative h-full flex flex-col rounded-3xl p-7 bg-background border border-border-soft shadow-card hover:shadow-soft hover:-translate-y-1 transition-all duration-400">
-        <div
-          className={cn(
-            "absolute top-0 left-7 right-7 h-1 rounded-b-full",
-            STAGE_SURFACE[t.name] ?? "bg-accent-soft"
-          )}
-        />
-
+    <div ref={ref} className="reveal h-full relative" style={{ transitionDelay: `${delay}ms` }}>
+      {isStandout && (
+        <span className="absolute left-1/2 -translate-x-1/2 -top-3 z-10 inline-flex items-center rounded-full bg-accent px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-accent-foreground shadow-md">
+          Most included
+        </span>
+      )}
+      <div
+        className={cn(
+          "relative h-full flex flex-col rounded-3xl p-7 pt-9 transition-all duration-400",
+          isStandout
+            ? "bg-ink border border-ink shadow-elevated"
+            : "bg-background border border-border-soft shadow-card hover:shadow-soft hover:-translate-y-1"
+        )}
+      >
         <div className="flex items-center justify-between gap-2">
-          <div className="text-lg font-semibold text-ink tracking-tight">{t.name}</div>
-          <span className="text-[11px] font-medium text-ink-soft bg-background-soft border border-border-soft rounded-full px-2.5 py-1 shrink-0">
+          <div className={cn("text-lg font-semibold tracking-tight", isStandout ? "text-background" : "text-ink")}>
+            {t.name}
+          </div>
+          <span
+            className={cn(
+              "text-[11px] font-medium rounded-full px-2.5 py-1 shrink-0 border",
+              isStandout
+                ? "text-background/80 bg-background/10 border-background/10"
+                : "text-ink-soft bg-background-soft border-border-soft"
+            )}
+          >
             {t.ageTag}
           </span>
         </div>
-        <p className="mt-2 text-sm text-ink-soft leading-relaxed min-h-[40px]">{t.desc}</p>
+        <p className={cn("mt-2 text-sm leading-relaxed min-h-[40px]", isStandout ? "text-background/70" : "text-ink-soft")}>
+          {t.desc}
+        </p>
 
         <div className="mt-5 flex items-baseline gap-1">
-          <span className="text-base text-ink-soft">£</span>
-          <span className="text-5xl font-semibold tracking-tight text-ink">{price}</span>
-          <span className="text-sm text-ink-soft">/month</span>
+          <span className={cn("text-base", isStandout ? "text-background/70" : "text-ink-soft")}>£</span>
+          <span className={cn("text-5xl font-semibold tracking-tight", isStandout ? "text-background" : "text-ink")}>
+            {price}
+          </span>
+          <span className={cn("text-sm", isStandout ? "text-background/60" : "text-ink-soft")}>/ month</span>
         </div>
-        <div className="mt-2 inline-flex items-center self-start rounded-full bg-accent-soft px-2.5 py-1 text-xs font-semibold text-accent">
-          {plan.sessionsPerMonth} lessons · {plan.sessionLength} each
+        <div
+          className={cn(
+            "mt-2 inline-flex items-center self-start rounded-full px-2.5 py-1 text-xs font-semibold",
+            isStandout ? "bg-background/10 text-background/90" : "bg-accent-soft text-accent"
+          )}
+        >
+          {fmtPrice(perLessonPrice(t, sessionType))}/lesson · {plan.sessionsPerMonth} lessons
         </div>
 
-        {differentiator && (
-          <div className="mt-4 flex items-center gap-2 text-sm text-ink/85">
-            <div className="w-5 h-5 rounded-full bg-secondary flex items-center justify-center shrink-0">
-              <Check className="w-3 h-3 text-ink" strokeWidth={3} />
-            </div>
-            {differentiator}
-          </div>
-        )}
-
-        <Button variant="default" size="lg" className="w-full mt-6" onClick={() => openModal(t.name, sessionType)}>
+        <Button
+          variant={isStandout ? "accent" : "default"}
+          size="lg"
+          className="w-full mt-6"
+          onClick={() => openModal(t.name, sessionType)}
+        >
           {ctaLabel}
         </Button>
+
+        <ul className={cn("mt-6 space-y-2.5 border-t pt-6", isStandout ? "border-background/10" : "border-border-soft")}>
+          {plan.features.map((f) => (
+            <li key={f} className={cn("flex items-center gap-2.5 text-sm", isStandout ? "text-background/90" : "text-ink/85")}>
+              <span
+                className={cn(
+                  "w-5 h-5 rounded-full flex items-center justify-center shrink-0",
+                  isStandout ? "bg-accent" : "bg-secondary"
+                )}
+              >
+                <Check className={cn("w-3 h-3", isStandout ? "text-white" : "text-ink")} strokeWidth={3} />
+              </span>
+              {f}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

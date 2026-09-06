@@ -55,7 +55,7 @@ export const pricingTiers: TierPricing[] = [
         "4 lessons a month",
         "Custom learning plan",
         "Parent report",
-        "Monthly progress review",
+        "End of term assessment",
       ],
     },
     oneToOne: {
@@ -64,11 +64,11 @@ export const pricingTiers: TierPricing[] = [
       sessionLength: "1 hour",
       sessionsPerMonth: 4,
       features: [
-        "1-on-1, 1-hour lessons",
+        "1 to 1, 1-hour lessons",
         "4 lessons a month",
         "Fully personalised plan",
         "Parent report",
-        "Monthly progress review",
+        "End of term assessment",
       ],
     },
   },
@@ -85,7 +85,8 @@ export const pricingTiers: TierPricing[] = [
         "8 lessons a month",
         "Custom learning plan",
         "Parent report",
-        "Monthly progress review",
+        "End of term assessment",
+        "End of topic assessment",
       ],
     },
     oneToOne: {
@@ -94,18 +95,19 @@ export const pricingTiers: TierPricing[] = [
       sessionLength: "1.5 hours",
       sessionsPerMonth: 8,
       features: [
-        "1-on-1, 1.5-hour lessons",
+        "1 to 1, 1.5-hour lessons",
         "8 lessons a month",
         "Fully personalised plan",
         "Parent report",
-        "Monthly progress review",
+        "End of term assessment",
+        "End of topic assessment",
       ],
     },
   },
   {
     name: "GCSE",
     ageTag: "Ages 14–16",
-    desc: "Personalised revision strategies for Foundation, Higher and resits — designed to improve grades and confidence.",
+    desc: "Personalised revision strategies designed to improve grades and confidence.",
     group: {
       price: 100,
       sessionLength: "1.5 hours",
@@ -115,7 +117,8 @@ export const pricingTiers: TierPricing[] = [
         "8 lessons a month",
         "Custom learning plan",
         "Parent report",
-        "Past paper practice",
+        "Past paper sessions",
+        "Mock exam support",
       ],
     },
     oneToOne: {
@@ -124,16 +127,19 @@ export const pricingTiers: TierPricing[] = [
       sessionLength: "1.5 hours",
       sessionsPerMonth: 8,
       features: [
-        "1-on-1, 1.5-hour lessons",
+        "1 to 1, 1.5-hour lessons",
         "8 lessons a month",
         "Fully personalised plan",
         "Parent report",
-        "Past paper practice",
+        "Past paper sessions",
+        "Mock exam support",
       ],
     },
   },
 ];
 
 export const getTier = (name: Package) => pricingTiers.find((t) => t.name === name);
-export const sessionLabel = (type: SessionType) => (type === "1on1" ? "1-on-1" : "Group of 5");
+export const sessionLabel = (type: SessionType) => (type === "1on1" ? "1 to 1" : "Group of 5");
 export const fmtPrice = (n: number) => (Number.isInteger(n) ? `£${n}` : `£${n.toFixed(2)}`);
+export const perLessonPrice = (t: TierPricing, type: SessionType) =>
+  type === "group" ? t.group.price / t.group.sessionsPerMonth : t.oneToOne.singleLessonPrice;
