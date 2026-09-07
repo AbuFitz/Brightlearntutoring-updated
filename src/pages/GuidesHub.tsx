@@ -18,7 +18,7 @@ const GuidesHub = () => {
   const { openModal } = useGetStarted();
 
   useSEO({
-    title: "Maths Guides for Parents & Students | BrightLearn",
+    title: "Maths Guides for Parents & Students | BrightLearn Tutoring",
     description:
       "Practical guides on GCSE resits, revision techniques, KS3 foundations and SATs preparation, written for parents and students following the English curriculum.",
     path: "/guides",

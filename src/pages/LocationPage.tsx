@@ -23,7 +23,7 @@ const LocationPage = () => {
   useSEO(
     location
       ? {
-          title: `Online Maths Tutor ${location.city} | KS2-GCSE | BrightLearn`,
+          title: `Online Maths Tutor ${location.city} | KS2-GCSE | BrightLearn Tutoring`,
           description: location.metaDescription,
           path: `/online-maths-tutor/${location.slug}`,
         }
