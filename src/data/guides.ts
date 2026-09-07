@@ -32,7 +32,7 @@ export const guides: GuideInfo[] = [
     slug: "gcse-maths-resit-guide",
     category: "GCSE",
     navLabel: "GCSE Maths Resit Guide",
-    metaTitle: "GCSE Maths Resit Guide — What to Know | BrightLearn",
+    metaTitle: "GCSE Maths Resit Guide — What to Know | BrightLearn Tutoring",
     metaDescription:
       "A clear guide to GCSE Maths resits in England — when you can resit, who has to, how grading works, and how to prepare properly.",
     h1: "GCSE Maths resit guide",
@@ -94,7 +94,7 @@ export const guides: GuideInfo[] = [
     slug: "what-happens-if-you-fail-gcse-maths",
     category: "GCSE",
     navLabel: "What Happens If You Fail GCSE Maths?",
-    metaTitle: "What Happens If You Fail GCSE Maths? | BrightLearn",
+    metaTitle: "What Happens If You Fail GCSE Maths? | BrightLearn Tutoring",
     metaDescription:
       "What a grade below 4 in GCSE Maths actually means for your options — sixth form, college, apprenticeships — and the realistic ways forward.",
     h1: "What happens if you",
@@ -148,7 +148,7 @@ export const guides: GuideInfo[] = [
     slug: "gcse-maths-foundation-vs-higher",
     category: "GCSE",
     navLabel: "GCSE Maths Foundation vs Higher",
-    metaTitle: "GCSE Maths Foundation vs Higher | BrightLearn",
+    metaTitle: "GCSE Maths Foundation vs Higher | BrightLearn Tutoring",
     metaDescription:
       "The real differences between GCSE Maths Foundation and Higher tier — grade ranges, content, and how to work out which is right for your child.",
     h1: "GCSE Maths Foundation",
@@ -206,7 +206,7 @@ export const guides: GuideInfo[] = [
     slug: "grade-3-to-grade-4-gcse-maths",
     category: "GCSE",
     navLabel: "Grade 3 to Grade 4 in GCSE Maths",
-    metaTitle: "Grade 3 to Grade 4 in GCSE Maths — How To | BrightLearn",
+    metaTitle: "Grade 3 to Grade 4 in GCSE Maths — How To | BrightLearn Tutoring",
     metaDescription:
       "Practical steps to move from a grade 3 to a grade 4 in GCSE Maths — where students usually lose marks, and how to close the gap.",
     h1: "How to move from",
@@ -258,7 +258,7 @@ export const guides: GuideInfo[] = [
     slug: "gcse-maths-revision-techniques",
     category: "GCSE",
     navLabel: "GCSE Maths Revision Techniques",
-    metaTitle: "GCSE Maths Revision Techniques That Work | BrightLearn",
+    metaTitle: "GCSE Maths Revision Techniques That Work | BrightLearn Tutoring",
     metaDescription:
       "Revision techniques for GCSE Maths that actually improve results — active recall, past papers, spaced practice, and common revision mistakes to avoid.",
     h1: "GCSE Maths revision techniques",
@@ -315,7 +315,7 @@ export const guides: GuideInfo[] = [
     slug: "gcse-maths-revision-timetable",
     category: "GCSE",
     navLabel: "GCSE Maths Revision Timetable",
-    metaTitle: "How to Build a GCSE Maths Revision Timetable | BrightLearn",
+    metaTitle: "How to Build a GCSE Maths Revision Timetable | BrightLearn Tutoring",
     metaDescription:
       "How to build a realistic GCSE Maths revision timetable — how far out to start, how to structure the weeks, and a sample plan to adapt.",
     h1: "How to build a GCSE Maths",
@@ -372,7 +372,7 @@ export const guides: GuideInfo[] = [
     slug: "common-gcse-maths-mistakes",
     category: "GCSE",
     navLabel: "Common GCSE Maths Mistakes",
-    metaTitle: "Common GCSE Maths Mistakes (and Fixes) | BrightLearn",
+    metaTitle: "Common GCSE Maths Mistakes (and Fixes) | BrightLearn Tutoring",
     metaDescription:
       "The most common mistakes GCSE Maths students make in exams — misreading questions, rounding errors, calculator mistakes — and how to avoid each one.",
     h1: "Common GCSE Maths mistakes",
@@ -435,7 +435,7 @@ export const guides: GuideInfo[] = [
     slug: "preparing-for-gcse-maths-in-year-9",
     category: "KS3",
     navLabel: "Preparing for GCSE Maths in Year 9",
-    metaTitle: "Preparing for GCSE Maths in Year 9 | BrightLearn",
+    metaTitle: "Preparing for GCSE Maths in Year 9 | BrightLearn Tutoring",
     metaDescription:
       "Why Year 9 is a key year for GCSE Maths preparation, and what to focus on to build a strong foundation before the GCSE course begins.",
     h1: "Preparing for GCSE Maths",
@@ -492,7 +492,7 @@ export const guides: GuideInfo[] = [
     slug: "important-year-7-9-maths-topics",
     category: "KS3",
     navLabel: "Important Year 7–9 Maths Topics",
-    metaTitle: "Important Year 7–9 Maths Topics | BrightLearn",
+    metaTitle: "Important Year 7–9 Maths Topics | BrightLearn Tutoring",
     metaDescription:
       "The Year 7–9 maths topics that matter most for a strong foundation and a smoother move into GCSE — algebra, ratio, geometry and more.",
     h1: "Important Year 7–9",
@@ -549,7 +549,7 @@ export const guides: GuideInfo[] = [
     slug: "sats-maths-revision",
     category: "KS2",
     navLabel: "SATs Maths Revision Guide",
-    metaTitle: "SATs Maths Revision Guide | BrightLearn",
+    metaTitle: "SATs Maths Revision Guide | BrightLearn Tutoring",
     metaDescription:
       "How to approach SATs Maths revision for Year 6 — what the papers cover, when they happen, and how to revise without adding to exam stress.",
     h1: "SATs Maths",
@@ -606,7 +606,7 @@ export const guides: GuideInfo[] = [
     slug: "supporting-your-child-with-ks2-maths",
     category: "KS2",
     navLabel: "Supporting Your Child with KS2 Maths",
-    metaTitle: "Supporting Your Child with KS2 Maths | BrightLearn",
+    metaTitle: "Supporting Your Child with KS2 Maths | BrightLearn Tutoring",
     metaDescription:
       "Practical ways to support a Year 3–6 child with maths at home — building confidence, times tables, and knowing when extra help might be useful.",
     h1: "Supporting your child",

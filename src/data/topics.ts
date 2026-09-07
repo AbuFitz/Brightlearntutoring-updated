@@ -37,7 +37,7 @@ export const topics: TopicInfo[] = [
   {
     slug: "ks2-maths-confidence-sats-preparation",
     navLabel: "KS2 Maths & SATs Prep",
-    metaTitle: "Online KS2 Maths Tutor & SATs Prep | BrightLearn",
+    metaTitle: "Online KS2 Maths Tutor & SATs Prep | BrightLearn Tutoring",
     eyebrow: "KS2 · Ages 9–11",
     h1: "KS2 maths confidence",
     h1Accent: "and SATs preparation.",
@@ -87,7 +87,7 @@ export const topics: TopicInfo[] = [
   {
     slug: "year-7-9-maths-support",
     navLabel: "Year 7–9 Maths Support",
-    metaTitle: "Online KS3 Maths Tutor | Years 7-9 | BrightLearn",
+    metaTitle: "Online KS3 Maths Tutor | Years 7-9 | BrightLearn Tutoring",
     eyebrow: "KS3 · Ages 11–14",
     h1: "Year 7–9 maths support",
     h1Accent: "that builds towards GCSE.",
@@ -137,7 +137,7 @@ export const topics: TopicInfo[] = [
   {
     slug: "gcse-maths-foundation-tutor",
     navLabel: "GCSE Maths Foundation",
-    metaTitle: "GCSE Foundation Maths Tutor Online | BrightLearn",
+    metaTitle: "GCSE Foundation Maths Tutor Online | BrightLearn Tutoring",
     eyebrow: "GCSE · Foundation Tier",
     h1: "GCSE Maths Foundation",
     h1Accent: "tutoring that builds real grades.",
@@ -187,7 +187,7 @@ export const topics: TopicInfo[] = [
   {
     slug: "gcse-maths-higher-tutor",
     navLabel: "GCSE Maths Higher",
-    metaTitle: "GCSE Higher Maths Tutor Online | BrightLearn",
+    metaTitle: "GCSE Higher Maths Tutor Online | BrightLearn Tutoring",
     eyebrow: "GCSE · Higher Tier",
     h1: "GCSE Maths Higher",
     h1Accent: "tuition for a genuine top grade.",
@@ -237,7 +237,7 @@ export const topics: TopicInfo[] = [
   {
     slug: "gcse-maths-resit-tuition",
     navLabel: "GCSE Maths Resit",
-    metaTitle: "GCSE Maths Resit Tutor Online | BrightLearn",
+    metaTitle: "GCSE Maths Resit Tutor Online | BrightLearn Tutoring",
     eyebrow: "GCSE Resit",
     h1: "GCSE Maths resit tuition",
     h1Accent: "without repeating the same lessons.",
@@ -287,7 +287,7 @@ export const topics: TopicInfo[] = [
   {
     slug: "online-one-to-one-maths-tutoring",
     navLabel: "Online 1 to 1 Tutoring",
-    metaTitle: "1 to 1 Online Maths Tutoring | BrightLearn",
+    metaTitle: "1 to 1 Online Maths Tutoring | BrightLearn Tutoring",
     eyebrow: "1 to 1 · KS2, KS3 & GCSE",
     h1: "Online one-to-one",
     h1Accent: "maths tutoring.",
@@ -336,7 +336,7 @@ export const topics: TopicInfo[] = [
   {
     slug: "small-group-gcse-maths-revision",
     navLabel: "Small-Group GCSE Revision",
-    metaTitle: "Small Group GCSE Maths Revision | BrightLearn",
+    metaTitle: "Small Group GCSE Maths Revision | BrightLearn Tutoring",
     eyebrow: "GCSE · Small Group",
     h1: "Small-group GCSE",
     h1Accent: "maths revision.",

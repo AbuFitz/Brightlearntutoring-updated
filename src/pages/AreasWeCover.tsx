@@ -16,7 +16,7 @@ const AreasWeCover = () => {
   const { openModal } = useGetStarted();
 
   useSEO({
-    title: "Online Maths Tutor North London | BrightLearn",
+    title: "Online Maths Tutor North London | BrightLearn Tutoring",
     description:
       "BrightLearn Tutoring is based in North London, covering Enfield, Edmonton, Tottenham and Haringey, and delivers live online maths tutoring for students following the English curriculum.",
     path: "/online-maths-tutor",

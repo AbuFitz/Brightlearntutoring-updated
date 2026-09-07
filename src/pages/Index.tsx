@@ -266,7 +266,7 @@ const Index = () => {
           path: "/enquire",
         }
       : {
-          title: "Online Maths Tutor | KS2, KS3 & GCSE | BrightLearn",
+          title: "Online Maths Tutor | KS2, KS3 & GCSE | BrightLearn Tutoring",
           description:
             "Online maths tutoring for KS2, KS3 and GCSE students following the English curriculum, including Foundation, Higher and resit support. DBS-checked tutor. Enquire today.",
           path: "/",
